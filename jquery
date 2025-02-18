@@ -30,9 +30,9 @@ if nargs <1:
 yfile=open(args[1], 'r')
 data=yaml.safe_load(yfile)
 
-# create a subdirectory 'yaml_break'
-os.makedirs('./yaml_break',exist_ok=True)
-os.chdir('./yaml_break')
+# create a subdirectory 'break_yaml'
+os.makedirs('./break_yaml',exist_ok=True)
+os.chdir('./break_yaml')
 
 # dump the output and variational sections to variational.yaml
 tmp={
@@ -64,50 +64,78 @@ else:
   comp={'covariance': BEC, 'weight':{'value':1.0}}
   components.append(comp)
 for index,mybec in enumerate(components):
-  indexstr=f'{index}_'
   cov=mybec['covariance']
   wgt=mybec['weight']['value']
-  fname='costf_bec'+indexstr+cov['covariance model']+'_wgt'+wgt+'.yaml'
+  fname=f"costf_bec{index}_{cov['covariance model']}_wgt{wgt}.yaml"
   with open(fname,'w') as outfile:
     yaml.dump(cov, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
-# summarize the assimilated observation types and dump observations to yaml_break/obs
+# summarize the assimilated observation types and dump observations to break_yaml/obs
 os.makedirs('./obs',exist_ok=True)
 obslist=costf['observations']['observers']
 nobs=len(obslist)
-obstext=''
+obs_text=''
+filter_text=''
 for i in range(nobs):
   lname=obslist[i]['obs space']['name']
   sname=lname.split('=')[0]
-  obstext=obstext+sname+','
+  obs_text=obs_text+sname+','
+  os.makedirs(f'./obs/{i:02}_{sname}',exist_ok=True)
   #
   # get the observations headers (excluding the filters) and dump
   observer={
     'obs space': obslist[i]['obs space'],
     'obs operator': obslist[i]['obs operator'],
-    'obs error': obslist[i]['obs error'],
     'obs localizations': obslist[i]['obs localizations']
       }
-  with open(f'obs/obs{i:02}_{sname}_header.yaml','w') as outfile:
+  if 'obs error' in obslist[i]: # radiance data does not have the 'obs error' section
+    observer['obs error']=obslist[i]['obs error']
+
+  if 'obs bias' in obslist[i]:
+    with open(f'obs/{i:02}_{sname}/bias.yaml','w') as outfile:
+      yaml.dump(obslist[i]['obs bias'], outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+
+  with open(f'obs/{i:02}_{sname}/header.yaml','w') as outfile:
     yaml.dump(observer, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
   # dealing with filters
-  ftext=f'[{lname}]:' # filter text
-  for j,value in enumerate(obslist[i]['obs filters']):
-    myfilter=value['filter']
-    if myfilter == 'Perform Action':
-      myfilter=value['action']['name']
-    ftext=ftext+f' {myfilter},'
-    myfilter=myfilter.replace(' ', '_')
-    with open(f'obs/obs{i:02}_{sname}_filter{j:02}_{myfilter}.yaml','w') as outfile:
-      yaml.dump(value, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+  filter_text=filter_text+f'\n[{lname}]:\n'
+  if 'obs pre filters' in obslist[i]:
+    for j,value in enumerate(obslist[i]['obs pre filters']):
+      myfilter=value['filter']
+      if myfilter == 'Perform Action':
+        myfilter=value['action']['name']
+      filter_text=filter_text+f' {myfilter},'
+      myfilter=myfilter.replace(' ', '_')
+      with open(f'obs/{i:02}_{sname}/prefilter{j:02}_{myfilter}.yaml','w') as outfile:
+        yaml.dump(value, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
   #
-  ftext=ftext.rstrip(',')+'\n'
+  if 'obs filters' in obslist[i]:
+    for j,value in enumerate(obslist[i]['obs filters']):
+      myfilter=value['filter']
+      if myfilter == 'Perform Action':
+        myfilter=value['action']['name']
+      filter_text=filter_text+f' {myfilter},'
+      myfilter=myfilter.replace(' ', '_')
+      with open(f'obs/{i:02}_{sname}/filter{j:02}_{myfilter}.yaml','w') as outfile:
+        yaml.dump(value, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+  #
+  if 'obs post filters' in obslist[i]:
+    for j,value in enumerate(obslist[i]['obs post filters']):
+      myfilter=value['filter']
+      if myfilter == 'Perform Action':
+        myfilter=value['action']['name']
+      filter_text=filter_text+f' {myfilter},'
+      myfilter=myfilter.replace(' ', '_')
+      with open(f'obs/{i:02}_{sname}/postfilter{j:02}_{myfilter}.yaml','w') as outfile:
+        yaml.dump(value, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+  #
+  filter_text=filter_text.rstrip(',')+'\n'
 #
-obstext=f'{nobs} type(s) of observations:\n{obstext.rstrip(",")}\n\n{ftext}\n'
-print(obstext)
-with open('obs_summary.txt','w') as outfile:
-  outfile.write(obstext)
+obs_text=f'{nobs} observers:\n{obs_text.rstrip(",")}'
+print(obs_text)
+with open('summary_obs.txt','w') as outfile:
+  outfile.write(f'{obs_text}\n\n{filter_text}\n)')
 #
 
 # print out information
-print("breakout yaml files generated under ./yaml_break/")
+print("\nbreakout yaml files generated under ./break_yaml/")
