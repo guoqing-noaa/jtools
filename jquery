@@ -134,7 +134,7 @@ for i in range(nobs):
 obs_text=f'{nobs} observers:\n{obs_text.rstrip(",")}'
 print(obs_text)
 with open('summary_obs.txt','w') as outfile:
-  outfile.write(f'{obs_text}\n\n{filter_text}\n)')
+  outfile.write(f'{obs_text}\n\n{filter_text}\n')
 #
 
 # print out information
