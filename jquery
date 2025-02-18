@@ -98,7 +98,7 @@ for i in range(nobs):
   with open(f'obs/{i:02}_{sname}/header.yaml','w') as outfile:
     yaml.dump(observer, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
   # dealing with filters
-  filter_text=filter_text+f'\n[{lname}]:\n'
+  filter_text=filter_text+f'\n#[{lname}]:\n'
   if 'obs pre filters' in obslist[i]:
     for j,value in enumerate(obslist[i]['obs pre filters']):
       myfilter=value['filter']
@@ -133,7 +133,7 @@ for i in range(nobs):
 #
 obs_text=f'{nobs} observers:\n{obs_text.rstrip(",")}'
 print(obs_text)
-with open('summary_obs.txt','w') as outfile:
+with open('summary_obs.log','w') as outfile:
   outfile.write(f'{obs_text}\n\n{filter_text}\n')
 #
 
