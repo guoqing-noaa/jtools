@@ -1,0 +1,109 @@
+#!/usr/bin/env python
+# POC: Guoqing.Ge@noaa.gov
+#
+import yaml, sys, os
+from datetime import datetime
+
+# Custom Dumper class to modify list formatting
+class MyDumper(yaml.Dumper):
+  def represent_datetime(self,data):
+    return self.represent_scalar('tag:yaml.org,2002:timestamp', data.strftime('%Y-%m-%dT%H:%M:%SZ'))
+  def represent_list(self, data):
+    # Check if the list contains only simple literals (strings, numbers, booleans)
+    if all(isinstance(item, (str, int, float, bool)) for item in data):
+      # Use compact flow style ([])
+      return self.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=True)
+    else:
+      # Use block style (-)
+      return self.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=False)
+
+# ====== main =========
+MyDumper.add_representer(list, MyDumper.represent_list)
+MyDumper.add_representer(datetime, MyDumper.represent_datetime)
+
+args=sys.argv
+nargs=len(args)-1
+if nargs <1:
+  print(f"jquery <yamlfile_name>")
+  exit()
+
+yfile=open(args[1], 'r')
+data=yaml.safe_load(yfile)
+
+# create a subdirectory 'yaml_break'
+os.makedirs('./yaml_break',exist_ok=True)
+os.chdir('./yaml_break')
+
+# dump the output and variational sections to variational.yaml
+tmp={
+  'output': data['output'],
+  'variational': data['variational']
+  }
+with open('variational.yaml','w') as outfile:
+  yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+
+# get the "cost function" sub dictionary and dump header contents except "background erro" and "observations" keys
+costf=data['cost function']
+tmp={
+  'cost type': costf['cost type'],
+  'time window': costf['time window'],
+  'jb evaluation': costf['jb evaluation'],
+  'geometry': costf['geometry'],
+  'analysis variables': costf['analysis variables'],
+  'background': costf['background']
+    }
+with open('costf_header.yaml','w') as outfile:
+  yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+
+# dump 'background error'
+components=[]
+BEC=costf['background error']
+if BEC['covariance model'].upper() == "HYBRID":
+  components=BEC['components']
+else:
+  comp={'covariance': BEC, 'weight':{'value':1.0}}
+  components.append(comp)
+for index,mybec in enumerate(components):
+  indexstr=f'{index}_'
+  cov=mybec['covariance']
+  wgt=mybec['weight']['value']
+  fname='costf_bec'+indexstr+cov['covariance model']+'_wgt'+wgt+'.yaml'
+  with open(fname,'w') as outfile:
+    yaml.dump(cov, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+
+# summarize the assimilated observation types
+obslist=costf['observations']['observers']
+nobs=len(obslist)
+obstext=''
+for i in range(nobs):
+  lname=obslist[i]['obs space']['name']
+  sname=lname.split('=')[0]
+  obstext=obstext+sname+','
+  ftext=f'[{lname}]:'
+  for value in obslist[i]['obs filters']:
+    myfilter=value['filter']
+    if myfilter == 'Perform Action':
+      myfilter=value['action']['name']
+    ftext=ftext+f' {myfilter},'
+  #
+  ftext=ftext.rstrip(',')+'\n'
+  # get the observations headers (excluding the filters)
+  observer={
+    'obs space': obslist[i]['obs space'],
+    'obs operator': obslist[i]['obs operator'],
+    'obs error': obslist[i]['obs error'],
+    'obs localizations': obslist[i]['obs localizations']
+      }
+#
+obstext=f'{nobs} type(s) of observations:\n{obstext.rstrip(",")}\n\n{ftext}\n'
+print(obstext)
+with open('obs_summary.txt','w') as outfile:
+  outfile.write(obstext)
+#
+# dump observations to the subdirectory yaml_break/obs/
+os.makedirs('./obs',exist_ok=True)
+#for i in range(nobs):
+
+
+# print out information
+print("breakout yaml files generated under ./yaml_break/")
