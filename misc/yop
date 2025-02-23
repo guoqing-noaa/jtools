@@ -1,0 +1,179 @@
+#!/usr/bin/env python
+# POC: Guoqing.Ge@noaa.gov
+#
+import yaml, sys
+from datetime import datetime
+
+# Custom Dumper class to modify list formatting
+class MyDumper(yaml.Dumper):
+  def represent_datetime(self,data):
+    return self.represent_scalar('tag:yaml.org,2002:timestamp', data.strftime('%Y-%m-%dT%H:%M:%SZ'))
+  def represent_list(self, data):
+    # Check if the list contains only simple literals (strings, numbers, booleans)
+    if all(isinstance(item, (str, int, float, bool)) for item in data):
+      # Use compact flow style ([])
+      return self.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=True)
+    else:
+      # Use block style (-)
+      return self.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=False)
+
+def shallow(data): # print out the information with "max_depth=1"
+  if isinstance(data, dict):
+    for key in data.keys():
+      print(f"{key}")
+  elif isinstance(data,list):
+     print(f'[a list of {len(data)} item(s)]')
+  else:
+    print(data)
+
+def traverse(subdata,n): # traverse the yaml dict tree until reaching leaves
+  if isinstance(subdata,dict):
+    n=n+1
+    for key,value in subdata.items():
+      print(f"{' '*(n-1)*2}{key}")
+      traverse(value,n)
+  elif isinstance(subdata,list):
+    print(f"{' '*n*2}[a list of {len(subdata)} item(s)]")
+    for item in subdata:
+      traverse(item,n)
+
+def getFinalValue(subdata,keytree): # get the value at the hirearchy query string level
+  if keytree: # not empty
+    if isinstance(subdata,dict):
+      subdata=subdata[keytree.pop(0)]
+    elif isinstance(subdata,list):
+      index=int(keytree.pop(0))
+      if index <0:
+        index=0
+      elif index >= len(subdata):
+        index=len(subdata)-1
+      subdata=subdata[index]
+    return getFinalValue(subdata,keytree)
+  else:
+    return subdata
+
+def loadYaml(fname):
+  if fname == "pipe":
+    yfile=sys.stdin
+  else:
+    yfile=open(fname, 'r')
+  return yaml.safe_load(yfile)
+
+def editValue(subdata,keytree,edit,prevKey=""): # edit the value for a hirearchy query string
+  if keytree: # not empty, desend to the target
+    if isinstance(subdata,dict):
+      key=keytree.pop(0)
+      subdata[key]=editValue(subdata[key],keytree,edit,prevKey=key)
+    elif isinstance(subdata,list):
+      index=int(keytree.pop(0))
+      if index <0:
+        index=0
+      elif index >= len(subdata):
+        index=len(subdata)-1
+      subdata[index]=editValue(subdata[index],keytree,edit)
+    return subdata
+  else: # empty, modify the target accordingly
+    if isinstance(subdata,dict):
+      data2=loadYaml(edit)
+      if prevKey in data2:
+        return data2[prevKey]
+      else:
+        #print(f'** No "{prevKey}" key in {edit} and no edits made **', sys.stderr)
+        return subdata
+    elif isinstance(subdata,list):
+      return loadYaml(edit)
+    elif isinstance(subdata,bool): # bool is a subclass of int, so we should check bool first
+      if edit.lower() == 'true':
+        return True
+      elif edit.lower() == 'false':
+        return False
+    elif isinstance(subdata,int):
+      return int(edit)
+    else:
+      return edit
+
+def appendItem(subdata,keytree,edit): # append a dict/list item at the hirearchy query string level
+  if keytree: # not empty, desend to the target
+    if isinstance(subdata,dict):
+      key=keytree.pop(0)
+      if not keytree: # append new items to the dict
+        data2=loadYaml(edit)
+        subdata.update(data2)
+      else:
+        appendItem(subdata[key],keytree,edit)
+    elif isinstance(subdata,list):
+      index=int(keytree.pop(0))
+      if index <0:
+        index=0
+      elif index >= len(subdata):
+        index=len(subdata)-1
+      if not keytree: # append new items to the lsit
+        data2=loadYaml(edit)
+        subdata.extend(data2)
+      else:
+        appendItem(subdata[index],keytree,edit)
+
+def deleteItem(subdata,keytree): # delete a dict/list item
+  if keytree: # not empty, desend to the target
+    if isinstance(subdata,dict):
+      key=keytree.pop(0)
+      if not keytree: # delete the key
+        subdata.pop(key, None)
+      else:
+        deleteItem(subdata[key],keytree)
+    elif isinstance(subdata,list):
+      index=int(keytree.pop(0))
+      if not keytree: # delete the item
+        subdata.pop(index)
+      else:
+        deleteItem(subdata[index],keytree,edit)
+
+# ====== main =========
+MyDumper.add_representer(list, MyDumper.represent_list)
+MyDumper.add_representer(datetime, MyDumper.represent_datetime)
+
+args=sys.argv
+nargs=len(args)-1
+myquerystr=""
+action="shallow"
+action_list=["shallow", "traverse", "dump", "edit", "append", "delete"]
+if nargs <1:
+  print(f"yquery <pipe|file> [querystr] [traverse|dump|edit=|append=|delete]")
+  exit()
+
+fname=args[1]
+if nargs >1:
+  curArg=args[2].split("=",1)[0]
+  if curArg in action_list:
+    action=args[2] # keep the original action string
+  else:
+    myquerystr=args[2]
+    if nargs>2:
+      action=args[3]
+
+data=loadYaml(fname)
+
+if myquerystr:
+  keytree=myquerystr.split("/")
+else:
+  keytree=[]
+#
+if action.startswith("edit="):
+  edit=action.split('=',1)[1]
+  editValue(data,keytree,edit)
+  yaml.dump(data, sys.stdout, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+elif action.startswith("append="):
+  edit=action.split('=',1)[1]
+  appendItem(data,keytree,edit)
+  yaml.dump(data, sys.stdout, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+elif action=="delete":
+  deleteItem(data,keytree)
+  yaml.dump(data, sys.stdout, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+else:
+  subdata=(getFinalValue(data,keytree))
+  if action=="traverse":
+    traverse(subdata,0)
+  elif action=="dump":
+    yaml.dump(subdata, sys.stdout, Dumper=MyDumper, default_flow_style=False, sort_keys=False) # explicit_end=False to disable the explicit "..." output which indicates the end or reaching the leaves
+  else: # all other actions default to "shallow"
+    shallow(subdata)

@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+import yaml, sys
+from datetime import datetime
+
+# Custom Dumper class to modify list formatting
+class MyDumper(yaml.Dumper):
+  def represent_datetime(self,data):
+    return self.represent_scalar('tag:yaml.org,2002:timestamp', data.strftime('%Y-%m-%dT%H:%M:%SZ'))
+  def represent_list(self, data):
+    # Check if the list contains only simple literals (strings, numbers, booleans)
+    if all(isinstance(item, (str, int, float, bool)) for item in data):
+      # Use compact flow style ([])
+      return self.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=True)
+    else:
+      # Use block style (-)
+      return self.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=False)
+
+# ====== main =========
+MyDumper.add_representer(list, MyDumper.represent_list)
+MyDumper.add_representer(datetime, MyDumper.represent_datetime)
+args=sys.argv
+nargs=len(args)-1
+if nargs <1:
+  print(f"Usage: ycheck <file> [dump]")
+  exit()
+myfile=args[1]
+action="print"
+if nargs>1:
+  action=args[2]
+
+with open(myfile) as stream:
+  data=yaml.safe_load(stream)
+  if action == "print":
+    #print(yaml.load(stream,Loader=yaml.UnsafeLoader))
+    print(data)
+  else: #     
+    yaml.dump(data, sys.stdout, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+
