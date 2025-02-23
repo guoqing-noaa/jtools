@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # POC: Guoqing.Ge@noaa.gov
 #
-import yaml, sys, os
+import yaml, sys, os, shutil
 from datetime import datetime
 
 # Custom Dumper class to modify list formatting
@@ -30,8 +30,18 @@ if nargs <1:
 yfile=open(args[1], 'r')
 data=yaml.safe_load(yfile)
 
-# create a subdirectory 'break_yaml'
-os.makedirs('./break_yaml',exist_ok=True)
+# create a subdirectory 'expdir=break_yaml'
+# if expdir exists, find an available dir name to backup old files first
+expdir="break_yaml"
+if os.path.exists(expdir):
+  knt=1
+  savedir=f'{expdir}_old{knt:04}'
+  while os.path.exists(savedir):
+    knt += 1
+    savedir=f'{expdir}_old{knt:04}'
+  shutil.move(expdir, savedir)
+#
+os.makedirs(expdir)
 os.chdir('./break_yaml')
 
 # dump the output and variational sections to variational.yaml
@@ -139,4 +149,4 @@ with open('summary_obs.log','w') as outfile:
 #
 
 # print out information
-print("\nbreakout yaml files generated under ./break_yaml/")
+print("\nall breakout yaml parts are under ./break_yaml/")
