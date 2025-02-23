@@ -86,8 +86,9 @@ for i in range(nobs):
   observer={
     'obs space': obslist[i]['obs space'],
     'obs operator': obslist[i]['obs operator'],
-    'obs localizations': obslist[i]['obs localizations']
       }
+  if 'obs localizations' in obslist[i]:
+    observer['obs localizations']=obslist[i]['obs localizations']
   if 'obs error' in obslist[i]: # radiance data does not have the 'obs error' section
     observer['obs error']=obslist[i]['obs error']
 
