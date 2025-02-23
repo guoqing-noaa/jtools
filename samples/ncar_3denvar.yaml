@@ -3,7 +3,7 @@
 # applicable to Variational, HofX3D
 
 # reduce obs space for regional applications
-_regional reduce obs space: &regionalReduceObsSpace
+_reduce obs space: &reduceObsSpace
   filter: Domain Check
   where:
     - variable:
@@ -17,11 +17,6 @@ _regional reduce obs space: &regionalReduceObsSpace
   action:
     name: reduce obs space
 
-_global reduce obs space: &globalReduceObsSpace
-  _blank: null
-
-_reduce obs space: &reduceObsSpace
-  *regionalReduceObsSpace
 
 # reusable latitude bands for all observation types
 _named latitude bands:
@@ -367,7 +362,7 @@ cost function:
       template:
         <<: *memberConfig
         filename: /glade/campaign/mmm/parc/taosun/regional_mpasjedi/ensfc/R3km-SG/2024091300/mem%iMember%/EnsForCov.2024-09-13_06.00.00.nc
-      pattern: %iMember%
+      pattern: "%iMember%"
       start: 1
       zero padding: 3
       nmembers: 32
