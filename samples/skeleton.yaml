@@ -1,0 +1,38 @@
+output: filename, stream name
+
+# ====  "variational" part ====
+minimizer: algorithm: DRPCG
+iterations:
+  - geometry: nml_file, streams_file, deallocate non-da fields, interpolation type
+    gradient norm reduction: 1e-3
+    ninner: 50
+
+# ==== "cost function" part ====
+cost type: 3D-Var
+time window: begin, length
+jb evaluation: false
+geometry: nml_file, streams_file, deallocate non-da fields, interpolation type
+analysis variables: [spechum,surface_pressure,temperature,uReconstructMeridional,uReconstructZonal]
+background: state variables, filename, date
+background error: covariance model: hybrid, components
+  - covariance:
+      covariance model: SABER
+      saber central block: saber block name, active variables, read/io, read/drivers
+      saber outer blocks: - saber block name # StdDev, BUMP_VerticalBalance
+      linear variable change: linear variable change name, input variables, output variables
+    weight: values
+  - covariance:
+      covariance model: ensemble
+      localization: localization method, saber central block 
+      members from template:
+	template: date, state variables, stream name, filename
+	pattern:, start:, zero padding:, members:
+	nmembers: 30
+    weight: values
+
+observations/observers:
+   - obs space: name, distribution, obsdatain, obsdataout, io pool, observed variables, simulated variables
+     obs operator: name, vertical coordinate, observation vertical coordinate, observation vertical coordinate group, interpolation method, variables
+     obs error: covariance model
+     obs localizations: -(localization method, lengthscale )
+     obs filters:
