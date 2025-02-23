@@ -372,17 +372,17 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: Aircraft
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn1
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbIn/aircraft_obs_2024091306.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut1
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbOut/obsout_da_aircraft.h5
         obsdatain:
-          <<: *ObsDataIn
-        obsdataout: *ObsDataOut
+          <<: *ObsDataIn1
+        obsdataout: *ObsDataOut1
         simulated variables: [airTemperature, windEastward, windNorthward, specificHumidity]
       obs error: *ObsErrorDiagonal
       <<: *heightAndHorizObsLoc
@@ -411,16 +411,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: GnssroRefNCEP
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn2
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbIn/gnssrorefncep_obs_2024091306.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut2
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbOut/obsout_da_gnssrorefncep.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn2
+        obsdataout: *ObsDataOut2
         simulated variables: [atmosphericRefractivity]
       obs error: *ObsErrorDiagonal
       <<: *heightAndHorizObsLoc
@@ -464,17 +464,17 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: Satwind
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn3
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbIn/satwind_obs_2024091306.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut3
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbOut/obsout_da_satwind.h5
         obsdatain:
-          <<: *ObsDataIn
-        obsdataout: *ObsDataOut
+          <<: *ObsDataIn3
+        obsdataout: *ObsDataOut3
         simulated variables: [windEastward, windNorthward]
       obs error: *ObsErrorDiagonal
       <<: *heightAndHorizObsLoc
@@ -529,16 +529,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: SfcPCorrected
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn4
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbIn/sfc_obs_2024091306.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut4
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbOut/obsout_da_sfc.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn4
+        obsdataout: *ObsDataOut4
         simulated variables: [stationPressure]
       obs error: *ObsErrorDiagonal
       <<: *horizObsLoc #TODO: use station height for vertical localization
@@ -572,16 +572,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: Radiosonde
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn5
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbIn/sondes_obs_2024091306.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut5
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbOut/obsout_da_sondes.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn5
+        obsdataout: *ObsDataOut5
         simulated variables: [airTemperature, virtualTemperature, windEastward, windNorthward, specificHumidity]
       obs error: *ObsErrorDiagonal
       <<: *heightAndHorizObsLoc
@@ -620,16 +620,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: mhs_n19
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn6
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbIn/mhs_n19_obs_2024091306.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut6
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbOut/obsout_da_mhs_n19.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn6
+        obsdataout: *ObsDataOut6
         simulated variables: [brightnessTemperature]
         channels: &mhs_n19_channels 1-5
       obs error: *ObsErrorDiagonal
@@ -836,16 +836,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: mhs_metop-b
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn7
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbIn/mhs_metop-b_obs_2024091306.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut7
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbOut/obsout_da_mhs_metop-b.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn7
+        obsdataout: *ObsDataOut7
         simulated variables: [brightnessTemperature]
         channels: &mhs_metop-b_channels 1-5
       obs error: *ObsErrorDiagonal
@@ -1051,16 +1051,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: mhs_metop-c
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn8
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbIn/mhs_metop-c_obs_2024091306.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut8
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/taosun/regional_mpasjedi/taosun_3denvar_regional_3kmSG_conv_gnssro_mhs_emissivity/CyclingDA/2024091306/dbOut/obsout_da_mhs_metop-c.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn8
+        obsdataout: *ObsDataOut8
         simulated variables: [brightnessTemperature]
         channels: &mhs_metop-c_channels 1-5
       obs error: *ObsErrorDiagonal
