@@ -17,6 +17,21 @@ class MyDumper(yaml.Dumper):
       # Use block style (-)
       return self.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=False)
 
+def filter_dump(sname,key,obs,MyDumper):
+  filter_text=''
+  filter_type=key.split(' ',1)[1].replace(' ', '').rstrip('s')
+  if key in obs:
+    for j,value in enumerate(obs[key]):
+      myfilter=value['filter']
+      if myfilter == 'Perform Action':
+        myfilter=value['action']['name']
+      filter_text=filter_text+f' {myfilter},'
+      myfilter=myfilter.replace(' ', '_')
+      with open(f'obs/{sname}/{filter_type}_{j:02}_{myfilter}.yaml','w') as outfile:
+        yaml.dump(value, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+  # ~~~~~
+  return filter_text
+
 # ====== main =========
 MyDumper.add_representer(list, MyDumper.represent_list)
 MyDumper.add_representer(datetime, MyDumper.represent_datetime)
@@ -128,37 +143,11 @@ for i in range(nobs):
     with open(f'obs/{sname}/bias.yaml','w') as outfile:
       yaml.dump(obslist[i]['obs bias'], outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
+  filter_text+=f'\n#[{lname}]:\n'
   # loop through filters
-  filter_text=filter_text+f'\n#[{lname}]:\n'
-  if 'obs pre filters' in obslist[i]:
-    for j,value in enumerate(obslist[i]['obs pre filters']):
-      myfilter=value['filter']
-      if myfilter == 'Perform Action':
-        myfilter=value['action']['name']
-      filter_text=filter_text+f' {myfilter},'
-      myfilter=myfilter.replace(' ', '_')
-      with open(f'obs/{sname}/prefilter_{j:02}_{myfilter}.yaml','w') as outfile:
-        yaml.dump(value, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
-  #
-  if 'obs filters' in obslist[i]:
-    for j,value in enumerate(obslist[i]['obs filters']):
-      myfilter=value['filter']
-      if myfilter == 'Perform Action':
-        myfilter=value['action']['name']
-      filter_text=filter_text+f' {myfilter},'
-      myfilter=myfilter.replace(' ', '_')
-      with open(f'obs/{sname}/filter_{j:02}_{myfilter}.yaml','w') as outfile:
-        yaml.dump(value, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
-  #
-  if 'obs post filters' in obslist[i]:
-    for j,value in enumerate(obslist[i]['obs post filters']):
-      myfilter=value['filter']
-      if myfilter == 'Perform Action':
-        myfilter=value['action']['name']
-      filter_text=filter_text+f' {myfilter},'
-      myfilter=myfilter.replace(' ', '_')
-      with open(f'obs/{sname}/postfilter_{j:02}_{myfilter}.yaml','w') as outfile:
-        yaml.dump(value, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+  filter_text+=filter_dump(sname,'obs pre filters',obslist[i], MyDumper)
+  filter_text+=filter_dump(sname,'obs filters',obslist[i], MyDumper)
+  filter_text+=filter_dump(sname,'obs post filters',obslist[i], MyDumper)
   #
   filter_text=filter_text.rstrip(',')+'\n'
 
