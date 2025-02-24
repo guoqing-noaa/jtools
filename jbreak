@@ -30,6 +30,7 @@ if nargs <1:
 yfile=open(args[1], 'r')
 data=yaml.safe_load(yfile)
 
+# ------------------------------------------------------------------------
 # create a subdirectory 'expdir=break_yaml'
 # if expdir exists, find an available dir name to backup old files first
 expdir="break_yaml"
@@ -44,6 +45,13 @@ if os.path.exists(expdir):
 os.makedirs(expdir)
 os.chdir('./break_yaml')
 
+# ------------------------------------------------------------------------
+# dump a clean version: break_yaml/save/org.yaml
+os.makedirs('save',exist_ok=True)
+with open('save/org.yaml','w') as outfile:
+  yaml.dump(data, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+
+# ------------------------------------------------------------------------
 # dump the output and variational sections to variational.yaml
 tmp={
   'output': data['output'],
@@ -52,6 +60,7 @@ tmp={
 with open('variational.yaml','w') as outfile:
   yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
+# ------------------------------------------------------------------------
 # get the "cost function" sub dictionary and dump header contents except "background erro" and "observations" keys
 costf=data['cost function']
 tmp={
@@ -65,6 +74,7 @@ tmp={
 with open('costf_header.yaml','w') as outfile:
   yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
+# ------------------------------------------------------------------------
 # dump 'background error'
 components=[]
 BEC=costf['background error']
@@ -80,35 +90,45 @@ for index,mybec in enumerate(components):
   with open(fname,'w') as outfile:
     yaml.dump(cov, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
+# ------------------------------------------------------------------------
 # summarize the assimilated observation types and dump observations to break_yaml/obs
 os.makedirs('./obs',exist_ok=True)
 obslist=costf['observations']['observers']
 nobs=len(obslist)
-obs_text=''
+obs_names=''
 filter_text=''
+obs_order=''
+filter_order=''
+
+# ********************
+# loop through observers
 for i in range(nobs):
   lname=obslist[i]['obs space']['name']
-  sname=lname.split('=')[0]
-  obs_text=obs_text+sname+','
-  os.makedirs(f'./obs/{i:02}_{sname}',exist_ok=True)
-  #
+  sname=lname.split('=')[0] # get the short name of the "obs space.name"
+  obs_names+=sname+','
+  obs_order+=f'{sname}:{i:02}\n' # record the original order of observers
+  os.makedirs(f'./obs/{sname}',exist_ok=True)  # each observer will be under a separate subdirectory
+  
+  # ----------------------------------------------------------------
   # get the observations headers (excluding the filters) and dump
   observer={
     'obs space': obslist[i]['obs space'],
     'obs operator': obslist[i]['obs operator'],
       }
-  if 'obs localizations' in obslist[i]:
+  if 'obs localizations' in obslist[i]: # only ensemble DA needs this
     observer['obs localizations']=obslist[i]['obs localizations']
-  if 'obs error' in obslist[i]: # radiance data does not have the 'obs error' section
+  if 'obs error' in obslist[i]: # radiance data does not have the 'obs error' section ?
     observer['obs error']=obslist[i]['obs error']
+  with open(f'obs/{sname}/header.yaml','w') as outfile:
+    yaml.dump(observer, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
-  if 'obs bias' in obslist[i]:
-    with open(f'obs/{i:02}_{sname}/bias.yaml','w') as outfile:
+  # ----------------------------------------------------------------
+  # dump 'obs bias" if exists
+  if 'obs bias' in obslist[i]: # radiance DA
+    with open(f'obs/{sname}/bias.yaml','w') as outfile:
       yaml.dump(obslist[i]['obs bias'], outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
-  with open(f'obs/{i:02}_{sname}/header.yaml','w') as outfile:
-    yaml.dump(observer, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
-  # dealing with filters
+  # loop through filters
   filter_text=filter_text+f'\n#[{lname}]:\n'
   if 'obs pre filters' in obslist[i]:
     for j,value in enumerate(obslist[i]['obs pre filters']):
@@ -117,7 +137,7 @@ for i in range(nobs):
         myfilter=value['action']['name']
       filter_text=filter_text+f' {myfilter},'
       myfilter=myfilter.replace(' ', '_')
-      with open(f'obs/{i:02}_{sname}/prefilter{j:02}_{myfilter}.yaml','w') as outfile:
+      with open(f'obs/{sname}/prefilter_{j:02}_{myfilter}.yaml','w') as outfile:
         yaml.dump(value, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
   #
   if 'obs filters' in obslist[i]:
@@ -127,7 +147,7 @@ for i in range(nobs):
         myfilter=value['action']['name']
       filter_text=filter_text+f' {myfilter},'
       myfilter=myfilter.replace(' ', '_')
-      with open(f'obs/{i:02}_{sname}/filter{j:02}_{myfilter}.yaml','w') as outfile:
+      with open(f'obs/{sname}/filter_{j:02}_{myfilter}.yaml','w') as outfile:
         yaml.dump(value, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
   #
   if 'obs post filters' in obslist[i]:
@@ -137,16 +157,21 @@ for i in range(nobs):
         myfilter=value['action']['name']
       filter_text=filter_text+f' {myfilter},'
       myfilter=myfilter.replace(' ', '_')
-      with open(f'obs/{i:02}_{sname}/postfilter{j:02}_{myfilter}.yaml','w') as outfile:
+      with open(f'obs/{sname}/postfilter_{j:02}_{myfilter}.yaml','w') as outfile:
         yaml.dump(value, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
   #
   filter_text=filter_text.rstrip(',')+'\n'
-#
-obs_text=f'{nobs} observers:\n{obs_text.rstrip(",")}'
-print(obs_text)
-with open('summary_obs.log','w') as outfile:
-  outfile.write(f'{obs_text}\n\n{filter_text}\n')
-#
 
+# ------------------------------------------------------------------------
+# print out the number of observers
+obs_names=f'{nobs} observers:\n{obs_names.rstrip(",")}'
+print(obs_names)
+with open('summary_obs.log','w') as outfile:
+  outfile.write(f'{obs_names}\n\n{filter_text}\n')
+obs_order=obs_order.rstrip('\n')
+with open('obs/order.txt','w') as outfile:
+  outfile.write(obs_order)
+
+# ------------------------------------------------------------------------
 # print out information
 print("\nall breakout yaml parts are under ./break_yaml/")
