@@ -106,7 +106,7 @@ for i in range(nobs):
   lname=obslist[i]['obs space']['name']
   sname=lname.split('=')[0] # get the short name of the "obs space.name"
   obs_names+=sname+','
-  obs_order+=f'{sname}:{i:02}\n' # record the original order of observers
+  obs_order+=f'{sname}\n' # record the original order of observers
   os.makedirs(f'./obs/{sname}',exist_ok=True)  # each observer will be under a separate subdirectory
   
   # ----------------------------------------------------------------
@@ -169,7 +169,7 @@ print(obs_names)
 with open('summary_obs.log','w') as outfile:
   outfile.write(f'{obs_names}\n\n{filter_text}\n')
 obs_order=obs_order.rstrip('\n')
-with open('obs/order.txt','w') as outfile:
+with open('obs/list.txt','w') as outfile:
   outfile.write(obs_order)
 
 # ------------------------------------------------------------------------
