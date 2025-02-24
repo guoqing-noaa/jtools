@@ -62,9 +62,14 @@ os.chdir('./break_yaml')
 
 # ------------------------------------------------------------------------
 # dump a clean version: break_yaml/save/org.yaml
+tmp={
+  'output': data['output'],
+  'variational': data['variational'],
+  'cost function': data['cost function']
+  }
 os.makedirs('save',exist_ok=True)
 with open('save/org.yaml','w') as outfile:
-  yaml.dump(data, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+  yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
 # ------------------------------------------------------------------------
 # dump the output and variational sections to variational.yaml
