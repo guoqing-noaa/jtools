@@ -163,7 +163,7 @@ print(obs_names)
 with open('summary_obs.log','w') as outfile:
   outfile.write(f'{obs_names}\n\n{filter_text}\n')
 obs_order=obs_order.rstrip('\n')
-with open('obs/list.txt','w') as outfile:
+with open('obs/order.txt','w') as outfile:
   outfile.write(obs_order)
 
 # ------------------------------------------------------------------------
