@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # POC: Guoqing.Ge@noaa.gov
 #
-import yaml, sys, os, shutil
+import yaml, sys, os, shutil, glob
 from datetime import datetime
 
 # Custom Dumper class to modify list formatting
@@ -17,6 +17,27 @@ class MyDumper(yaml.Dumper):
       # Use block style (-)
       return self.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=False)
 
+def filter_dump(sname,key,obs,MyDumper):
+  filter_order=''
+  filter_text=''
+  filter_type=key.split(' ',1)[1].replace(' ', '').rstrip('s')
+  if key in obs:
+    for j,value in enumerate(obs[key]):
+      myfilter=value['filter']
+      if myfilter == 'Perform Action':
+        myfilter=value['action']['name']
+      filter_text=filter_text+f' {myfilter},'
+      myfilter=myfilter.replace(' ', '_')
+      filter_order+=f'{filter_type}_{j:02}_{myfilter}.yaml\n'
+      with open(f'obs/{sname}/{filter_type}_{j:02}_{myfilter}.yaml','w') as infile:
+        yaml.dump(value, infile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+    # ~~~~
+    # write out order.prefilter or order.filter or order.postfilter
+    with open(f'obs/{sname}/order.{filter_type}','w') as infile:
+      infile.write(filter_order)
+  # ~~~~
+  return filter_text
+
 # ====== main =========
 MyDumper.add_representer(list, MyDumper.represent_list)
 MyDumper.add_representer(datetime, MyDumper.represent_datetime)
@@ -24,8 +45,111 @@ MyDumper.add_representer(datetime, MyDumper.represent_datetime)
 args=sys.argv
 nargs=len(args)-1
 if nargs <1:
-  print(f"jquery <yamlfile_name>")
+  print(f"jquery <break_yaml_directory>")
   exit()
+os.chdir(args[1])
 
-yfile=open(args[1], 'r')
-data=yaml.safe_load(yfile)
+data={}
+# ------------------------------------------------------------------------
+# read the output and variational sections from variational.yaml
+tmp=yaml.safe_load(open('variational.yaml','r'))
+data={
+  'output': tmp['output'],
+  'variational': tmp['variational']
+  }
+
+# ------------------------------------------------------------------------
+# read the "cost function" header contents except "background erro" and "observations" keys
+tmp=yaml.safe_load(open('costf_header.yaml','r'))
+costf={
+  'cost type': tmp['cost type'],
+  'time window': tmp['time window'],
+  'jb evaluation': tmp['jb evaluation'],
+  'geometry': tmp['geometry'],
+  'analysis variables': tmp['analysis variables'],
+  'background': tmp['background']
+    }
+
+# ------------------------------------------------------------------------
+# read 'background error'
+becfiles=glob.glob("costf_bec*.yaml")
+components=[]
+for fbec in becfiles:
+  tmp=yaml.safe_load(open(fbec,'r'))
+  keys=fbec.split('_')
+  wgt=keys[3][3:].rstrip('.yaml')
+  mybec={'covariance': tmp,
+      'weight': {'value':wgt}
+      }
+  components.append(mybec)
+# ~~
+BEC={'covariance model': 'hybrid',
+    'components': components
+    }
+costf['background error']=BEC
+
+data['cost function']=costf
+yaml.dump(data, sys.stdout, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+
+
+exit()
+# ------------------------------------------------------------------------
+# summarize the assimilated observation types and dump observations to break_yaml/obs
+os.makedirs('./obs',exist_ok=True)
+os.makedirs('./obs/dugout',exist_ok=True) # dugout directory for bench obs
+obslist=costf['observations']['observers']
+nobs=len(obslist)
+obs_names=''
+filter_text=''
+obs_order=''
+
+# ********************
+# loop through observers
+for i in range(nobs):
+  lname=obslist[i]['obs space']['name']
+  sname=lname.split('=')[0] # get the short name of the "obs space.name"
+  obs_names+=sname+','
+  obs_order+=f'{sname}\n' # record the original order of observers
+  os.makedirs(f'./obs/{sname}',exist_ok=True)  # each observer will be under a separate subdirectory
+  os.makedirs(f'./obs/{sname}/dugout',exist_ok=True) # dugout directory for bench filters
+  
+  # ----------------------------------------------------------------
+  # get the observations headers (excluding the filters) and dump
+  observer={
+    'obs space': obslist[i]['obs space'],
+    'obs operator': obslist[i]['obs operator'],
+      }
+  if 'obs localizations' in obslist[i]: # only ensemble DA needs this
+    observer['obs localizations']=obslist[i]['obs localizations']
+  if 'obs error' in obslist[i]: # radiance data does not have the 'obs error' section ?
+    observer['obs error']=obslist[i]['obs error']
+  with open(f'obs/{sname}/header.yaml','w') as infile:
+    yaml.dump(observer, infile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+
+  # ----------------------------------------------------------------
+  # dump 'obs bias" if exists
+  if 'obs bias' in obslist[i]: # radiance DA
+    with open(f'obs/{sname}/bias.yaml','w') as infile:
+      yaml.dump(obslist[i]['obs bias'], infile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+
+  filter_text+=f'\n#[{lname}]:\n'
+  # loop through filters
+  filter_text+=filter_dump(sname,'obs pre filters',obslist[i], MyDumper)
+  filter_text+=filter_dump(sname,'obs filters',obslist[i], MyDumper)
+  filter_text+=filter_dump(sname,'obs post filters',obslist[i], MyDumper)
+  #
+  filter_text=filter_text.rstrip(',')+'\n'
+
+# ------------------------------------------------------------------------
+# print out the number of observers
+obs_names=f'{nobs} observers:\n{obs_names.rstrip(",")}'
+print(obs_names)
+# write out summary_obs.txt, obs/order.txt
+with open('summary_obs.log','w') as infile:
+  infile.write(f'{obs_names}\n\n{filter_text}\n')
+with open('obs/order.txt','w') as infile:
+  infile.write(obs_order)
+
+# ------------------------------------------------------------------------
+# print out information
+print("\nall breakout yaml parts are under ./break_yaml/")
