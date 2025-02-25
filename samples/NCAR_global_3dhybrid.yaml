@@ -390,7 +390,7 @@ cost function:
           template:
             <<: *memberConfig
             filename: /glade/campaign/mmm/parc/liuz/pandac_common/60km/60km_EnsFC_80EDA/2018041418/mem%iMember%/mpasout.2018-04-15_00.00.00.nc
-          pattern: %iMember%
+          pattern: "%iMember%"
           start: 1
           zero padding: 3
           nmembers: 80
@@ -400,17 +400,17 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: Aircraft
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn1
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/aircraft_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut1
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_aircraft.h5
         obsdatain:
-          <<: *ObsDataIn
-        obsdataout: *ObsDataOut
+          <<: *ObsDataIn1
+        obsdataout: *ObsDataOut1
         simulated variables: [airTemperature, windEastward, windNorthward, specificHumidity]
       obs error: *ObsErrorDiagonal
       <<: *heightAndHorizObsLoc
@@ -427,21 +427,21 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: GnssroBndROPP1D
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn2
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/gnssrobndropp1d_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut2
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_gnssrobndropp1d.h5
         obsdatain:
-          <<: *ObsDataIn
+          <<: *ObsDataIn2
           obsgrouping:
             group variables: [ sequenceNumber ]
             sort variable: impactHeightRO
             sort order: ascending
-        obsdataout: *ObsDataOut
+        obsdataout: *ObsDataOut2
         simulated variables: [bendingAngle]
       obs error: *ObsErrorDiagonal
       <<: *heightAndHorizObsLoc
@@ -722,17 +722,17 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: Satwind
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn3
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/satwind_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut3
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_satwind.h5
         obsdatain:
-          <<: *ObsDataIn
-        obsdataout: *ObsDataOut
+          <<: *ObsDataIn3
+        obsdataout: *ObsDataOut3
         simulated variables: [windEastward, windNorthward]
       obs error: *ObsErrorDiagonal
       <<: *heightAndHorizObsLoc
@@ -775,17 +775,17 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: Satwnd
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn4
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/satwnd_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut4
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_satwnd.h5
         obsdatain:
-          <<: *ObsDataIn
-        obsdataout: *ObsDataOut
+          <<: *ObsDataIn4
+        obsdataout: *ObsDataOut4
         simulated variables: [windEastward, windNorthward]
       obs error: *ObsErrorDiagonal
       <<: *heightAndHorizObsLoc
@@ -829,16 +829,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: SfcPCorrected
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn5
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/sfc_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut5
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_sfc.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn5
+        obsdataout: *ObsDataOut5
         simulated variables: [stationPressure]
       obs error: *ObsErrorDiagonal
       <<: *horizObsLoc #TODO: use station height for vertical localization
@@ -863,16 +863,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: Radiosonde
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn6
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/sondes_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut6
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_sondes.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn6
+        obsdataout: *ObsDataOut6
         simulated variables: [airTemperature, virtualTemperature, windEastward, windNorthward, specificHumidity]
       obs error: *ObsErrorDiagonal
       <<: *heightAndHorizObsLoc
@@ -898,16 +898,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: amsua_aqua
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn7
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/amsua_aqua_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut7
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_amsua_aqua.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn7
+        obsdataout: *ObsDataOut7
         simulated variables: [brightnessTemperature]
         channels: &amsua_aqua_channels 1-15
       obs error: *ObsErrorDiagonal
@@ -1164,16 +1164,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: amsua_metop-a
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn8
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/amsua_metop-a_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut8
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_amsua_metop-a.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn8
+        obsdataout: *ObsDataOut8
         simulated variables: [brightnessTemperature]
         channels: &amsua_metop-a_channels 1-15
       obs error: *ObsErrorDiagonal
@@ -1189,7 +1189,7 @@ cost function:
         input file: /glade/campaign/mmm/parc/jban/pandac_common/obs/satbias/2018/satbias_amsua_metop-a.h5
         output file: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/satbias_amsua_metop-a.h5
         variational bc:
-          predictors: &predictors4
+          predictors: &predictors41
           - name: constant
           - name: lapseRate
             order: 2
@@ -1430,16 +1430,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: amsua_metop-b
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn9
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/amsua_metop-b_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut9
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_amsua_metop-b.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn9
+        obsdataout: *ObsDataOut9
         simulated variables: [brightnessTemperature]
         channels: &amsua_metop-b_channels 1-15
       obs error: *ObsErrorDiagonal
@@ -1455,7 +1455,7 @@ cost function:
         input file: /glade/campaign/mmm/parc/jban/pandac_common/obs/satbias/2018/satbias_amsua_metop-b.h5
         output file: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/satbias_amsua_metop-b.h5
         variational bc:
-          predictors: &predictors4
+          predictors: &predictors42
           - name: constant
           - name: lapseRate
             order: 2
@@ -1696,16 +1696,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: amsua_n15
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn10
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/amsua_n15_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut10
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_amsua_n15.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn10
+        obsdataout: *ObsDataOut10
         simulated variables: [brightnessTemperature]
         channels: &amsua_n15_channels 1-15
       obs error: *ObsErrorDiagonal
@@ -1962,16 +1962,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: amsua_n18
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn11
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/amsua_n18_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut11
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_amsua_n18.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn11
+        obsdataout: *ObsDataOut11
         simulated variables: [brightnessTemperature]
         channels: &amsua_n18_channels 1-15
       obs error: *ObsErrorDiagonal
@@ -2228,16 +2228,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: amsua_n19
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn12
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/amsua_n19_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut12
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_amsua_n19.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn12
+        obsdataout: *ObsDataOut12
         simulated variables: [brightnessTemperature]
         channels: &amsua_n19_channels 1-15
       obs error: *ObsErrorDiagonal
@@ -2253,7 +2253,7 @@ cost function:
         input file: /glade/campaign/mmm/parc/jban/pandac_common/obs/satbias/2018/satbias_amsua_n19.h5
         output file: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/satbias_amsua_n19.h5
         variational bc:
-          predictors: &predictors1
+          predictors: &predictors11
           - name: constant
           - name: lapseRate
             order: 2
@@ -2494,16 +2494,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: mhs_metop-a
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn13
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/mhs_metop-a_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut13
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_mhs_metop-a.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn13
+        obsdataout: *ObsDataOut13
         simulated variables: [brightnessTemperature]
         channels: &mhs_metop-a_channels 3-5
       obs error: *ObsErrorDiagonal
@@ -2519,7 +2519,7 @@ cost function:
         input file: /glade/campaign/mmm/parc/jban/pandac_common/obs/satbias/2018/satbias_mhs_metop-a.h5
         output file: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/satbias_mhs_metop-a.h5
         variational bc:
-          predictors: &predictors1
+          predictors: &predictors12
           - name: constant
           - name: lapseRate
             order: 2
@@ -2556,16 +2556,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: mhs_metop-b
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn14
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/mhs_metop-b_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut14
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_mhs_metop-b.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn14
+        obsdataout: *ObsDataOut14
         simulated variables: [brightnessTemperature]
         channels: &mhs_metop-b_channels 3-5
       obs error: *ObsErrorDiagonal
@@ -2581,7 +2581,7 @@ cost function:
         input file: /glade/campaign/mmm/parc/jban/pandac_common/obs/satbias/2018/satbias_mhs_metop-b.h5
         output file: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/satbias_mhs_metop-b.h5
         variational bc:
-          predictors: &predictors1
+          predictors: &predictors13
           - name: constant
           - name: lapseRate
             order: 2
@@ -2618,16 +2618,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: mhs_n18
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn15
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/mhs_n18_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut15
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_mhs_n18.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn15
+        obsdataout: *ObsDataOut15
         simulated variables: [brightnessTemperature]
         channels: &mhs_n18_channels 3-5
       obs error: *ObsErrorDiagonal
@@ -2643,7 +2643,7 @@ cost function:
         input file: /glade/campaign/mmm/parc/jban/pandac_common/obs/satbias/2018/satbias_mhs_n18.h5
         output file: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/satbias_mhs_n18.h5
         variational bc:
-          predictors: &predictors1
+          predictors: &predictors14
           - name: constant
           - name: lapseRate
             order: 2
@@ -2680,16 +2680,16 @@ cost function:
     - obs space:
         <<: *ObsSpace
         name: mhs_n19
-        _obsdatain: &ObsDataIn
+        _obsdatain: &ObsDataIn16
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbIn/mhs_n19_obs_2018041500.h5
-        _obsdataout: &ObsDataOut
+        _obsdataout: &ObsDataOut16
           engine:
             type: H5File
             obsfile: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/obsout_da_mhs_n19.h5
-        obsdatain: *ObsDataIn
-        obsdataout: *ObsDataOut
+        obsdatain: *ObsDataIn16
+        obsdataout: *ObsDataOut16
         simulated variables: [brightnessTemperature]
         channels: &mhs_n19_channels 3-5
       obs error: *ObsErrorDiagonal
@@ -2705,7 +2705,7 @@ cost function:
         input file: /glade/campaign/mmm/parc/jban/pandac_common/obs/satbias/2018/satbias_mhs_n19.h5
         output file: /glade/derecho/scratch/ivette/pandac/ivette_3dhybrid-60-60-iter_O30kmI60km_ensB-SE80+RTPP70_VarBC_v3.0.2_newBenchmark/CyclingDA/2018041500/dbOut/satbias_mhs_n19.h5
         variational bc:
-          predictors: &predictors1
+          predictors: &predictors15
           - name: constant
           - name: lapseRate
             order: 2
