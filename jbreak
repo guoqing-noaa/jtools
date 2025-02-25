@@ -67,17 +67,6 @@ os.makedirs(expdir)
 os.chdir('./break_yaml')
 
 # ------------------------------------------------------------------------
-# dump a clean version: break_yaml/save/org.yaml
-tmp={
-  'output': data['output'],
-  'variational': data['variational'],
-  'cost function': data['cost function']
-  }
-os.makedirs('save',exist_ok=True)
-with open('save/org.yaml','w') as outfile:
-  yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
-
-# ------------------------------------------------------------------------
 # dump the output and variational sections to variational.yaml
 tmp={
   'output': data['output'],
@@ -109,12 +98,28 @@ if BEC['covariance model'].upper() == "HYBRID":
 else:
   comp={'covariance': BEC, 'weight':{'value':1.0}}
   components.append(comp)
+  BEC2={'covariance model': 'hybrid',
+      'components': components
+      }
+  costf['background error']=BEC2 # enforce the hybrid grammar for single BEC component
 for index,mybec in enumerate(components):
   cov=mybec['covariance']
   wgt=mybec['weight']['value']
   fname=f"costf_bec{index}_{cov['covariance model']}_wgt{wgt}.yaml"
   with open(fname,'w') as outfile:
     yaml.dump(cov, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+
+# ------------------------------------------------------------------------
+# dump a clean version: break_yaml/save/org.yaml
+
+tmp={
+  'output': data['output'],
+  'variational': data['variational'],
+  'cost function': costf
+  }
+os.makedirs('save',exist_ok=True)
+with open('save/org.yaml','w') as outfile:
+  yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
 # ------------------------------------------------------------------------
 # summarize the assimilated observation types and dump observations to break_yaml/obs
