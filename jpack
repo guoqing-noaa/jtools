@@ -17,26 +17,31 @@ class MyDumper(yaml.Dumper):
       # Use block style (-)
       return self.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=False)
 
-def filter_dump(sname,key,obs,MyDumper):
-  filter_order=''
-  filter_text=''
-  filter_type=key.split(' ',1)[1].replace(' ', '').rstrip('s')
-  if key in obs:
-    for j,value in enumerate(obs[key]):
-      myfilter=value['filter']
-      if myfilter == 'Perform Action':
-        myfilter=value['action']['name']
-      filter_text=filter_text+f' {myfilter},'
-      myfilter=myfilter.replace(' ', '_')
-      filter_order+=f'{filter_type}_{j:02}_{myfilter}.yaml\n'
-      with open(f'obs/{sname}/{filter_type}_{j:02}_{myfilter}.yaml','w') as infile:
-        yaml.dump(value, infile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
-    # ~~~~
-    # write out order.prefilter or order.filter or order.postfilter
-    with open(f'obs/{sname}/order.{filter_type}','w') as infile:
-      infile.write(filter_order)
+def filter_pack(sname,key):
+  filter_type=key.split(' ',1)[1].replace(' ', '').rstrip('s') 
+  filter_files=glob.glob(f'obs/{sname}/{filter_type}_*')
+  filter_files=[path.replace(f"obs/{sname}", "", 1) for path in filter_files]
+  if filter_files:
+    with open(f"obs/{sname}/order.{filter_type}", "r") as file:
+      orders=[line.strip() for line in file.readlines()] 
+  # ~~~~  
+  listFinal=[]
+  for myfile in filter_files:
+    # check whether it is in order.txt
+    # if an order is specified, insert to that location; otherwise, append
+    indices = [i for i, x in enumerate(orders) if x == myfile]
+    if indices:
+      listFinal.insert(indices[0],myfile)
+    else:
+      listFinal.append(myfile)
+  # ~~~~~
+  # loop through all obs directories under obs/
+  filter_list=[]
+  for myfilter in listFinal:
+    dcFilter=yaml.safe_load(open(f'obs/{sname}/{myfilter}','r'))
+    filter_list.append(dcFilter)
   # ~~~~
-  return filter_text
+  return filter_list
 
 # ====== main =========
 MyDumper.add_representer(list, MyDumper.represent_list)
@@ -75,10 +80,10 @@ costf={
 becfiles=glob.glob("costf_bec*.yaml")
 components=[]
 for fbec in becfiles:
-  tmp=yaml.safe_load(open(fbec,'r'))
+  cov=yaml.safe_load(open(fbec,'r'))
   keys=fbec.split('_')
   wgt=keys[3][3:].rstrip('.yaml')
-  mybec={'covariance': tmp,
+  mybec={'covariance': cov,
       'weight': {'value':wgt}
       }
   components.append(mybec)
@@ -88,68 +93,44 @@ BEC={'covariance model': 'hybrid',
     }
 costf['background error']=BEC
 
+# ------------------------------------------------------------------------
+# read available observations/observers (excluding _dugout_), apply orders
+with open("obs/order.txt", "r") as file:
+  orders=[line.strip() for line in file.readlines()] 
+obsdirs=glob.glob("obs/*")
+obsdirs=[path.replace("obs/", "", 1) for path in obsdirs] # remove leading 'obs/'
+listFinal=[]
+for obsdir in obsdirs:
+  # check whether it is in order.txt
+  # if an order is specified, insert to that location; otherwise, append
+  indices = [i for i, x in enumerate(orders) if x == obsdir]
+  if indices:
+    listFinal.insert(indices[0],obsdir)
+  else:
+    if obsdir != "_dugout_" and obsdir != "order.txt":
+      listFinal.append(obsdir)
+# ~~~~~
+# loop through all obs directories under obs/
+obslist=[]
+for myobs in listFinal:
+  # ----------------------------------------------------------------
+  # get the observations headers (excluding the filters)
+  observer=yaml.safe_load(open(f'obs/{myobs}/header.yaml','r'))
+  if os.path.exists(f'obs/{myobs}/bias.yaml'):
+    bias=yaml.safe_load(open(f'obs/{myobs}/bias.yaml','r'))
+    observer['obs bias']=bias
+
+  # loop through filters
+  observer['obs pre filters']=filter_pack(myobs,'obs pre filters')
+  observer['obs filters']=filter_pack(myobs,'obs filters')
+  observer['obs post filters']=filter_pack(myobs,'obs post filters')
+  #
+  obslist.append(observer)
+# ~~~~
+costf['observations']={'observers': obslist}
+
 data['cost function']=costf
 yaml.dump(data, sys.stdout, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
-
-
-exit()
-# ------------------------------------------------------------------------
-# summarize the assimilated observation types and dump observations to break_yaml/obs
-os.makedirs('./obs',exist_ok=True)
-os.makedirs('./obs/dugout',exist_ok=True) # dugout directory for bench obs
-obslist=costf['observations']['observers']
-nobs=len(obslist)
-obs_names=''
-filter_text=''
-obs_order=''
-
-# ********************
-# loop through observers
-for i in range(nobs):
-  lname=obslist[i]['obs space']['name']
-  sname=lname.split('=')[0] # get the short name of the "obs space.name"
-  obs_names+=sname+','
-  obs_order+=f'{sname}\n' # record the original order of observers
-  os.makedirs(f'./obs/{sname}',exist_ok=True)  # each observer will be under a separate subdirectory
-  os.makedirs(f'./obs/{sname}/dugout',exist_ok=True) # dugout directory for bench filters
-  
-  # ----------------------------------------------------------------
-  # get the observations headers (excluding the filters) and dump
-  observer={
-    'obs space': obslist[i]['obs space'],
-    'obs operator': obslist[i]['obs operator'],
-      }
-  if 'obs localizations' in obslist[i]: # only ensemble DA needs this
-    observer['obs localizations']=obslist[i]['obs localizations']
-  if 'obs error' in obslist[i]: # radiance data does not have the 'obs error' section ?
-    observer['obs error']=obslist[i]['obs error']
-  with open(f'obs/{sname}/header.yaml','w') as infile:
-    yaml.dump(observer, infile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
-
-  # ----------------------------------------------------------------
-  # dump 'obs bias" if exists
-  if 'obs bias' in obslist[i]: # radiance DA
-    with open(f'obs/{sname}/bias.yaml','w') as infile:
-      yaml.dump(obslist[i]['obs bias'], infile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
-
-  filter_text+=f'\n#[{lname}]:\n'
-  # loop through filters
-  filter_text+=filter_dump(sname,'obs pre filters',obslist[i], MyDumper)
-  filter_text+=filter_dump(sname,'obs filters',obslist[i], MyDumper)
-  filter_text+=filter_dump(sname,'obs post filters',obslist[i], MyDumper)
-  #
-  filter_text=filter_text.rstrip(',')+'\n'
-
-# ------------------------------------------------------------------------
-# print out the number of observers
-obs_names=f'{nobs} observers:\n{obs_names.rstrip(",")}'
-print(obs_names)
-# write out summary_obs.txt, obs/order.txt
-with open('summary_obs.log','w') as infile:
-  infile.write(f'{obs_names}\n\n{filter_text}\n')
-with open('obs/order.txt','w') as infile:
-  infile.write(obs_order)
-
 # ------------------------------------------------------------------------
 # print out information
-print("\nall breakout yaml parts are under ./break_yaml/")
+#
