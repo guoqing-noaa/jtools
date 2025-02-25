@@ -20,7 +20,7 @@ class MyDumper(yaml.Dumper):
 def filter_pack(sname,key):
   filter_type=key.split(' ',1)[1].replace(' ', '').rstrip('s') 
   filter_files=glob.glob(f'obs/{sname}/{filter_type}_*')
-  filter_files=[path.replace(f"obs/{sname}", "", 1) for path in filter_files]
+  filter_files=[path.replace(f"obs/{sname}/", "", 1) for path in filter_files]
   if filter_files:
     with open(f"obs/{sname}/order.{filter_type}", "r") as file:
       orders=[line.strip() for line in file.readlines()] 
@@ -121,9 +121,17 @@ for myobs in listFinal:
     observer['obs bias']=bias
 
   # loop through filters
-  observer['obs pre filters']=filter_pack(myobs,'obs pre filters')
-  observer['obs filters']=filter_pack(myobs,'obs filters')
-  observer['obs post filters']=filter_pack(myobs,'obs post filters')
+  tmp=filter_pack(myobs,'obs pre filters')
+  if tmp:
+    observer['obs pre filters']=tmp
+  #
+  tmp=filter_pack(myobs,'obs filters')
+  if tmp:
+    observer['obs filters']=tmp
+  #
+  tmp=filter_pack(myobs,'obs post filters')
+  if tmp:
+    observer['obs post filters']=tmp
   #
   obslist.append(observer)
 # ~~~~
