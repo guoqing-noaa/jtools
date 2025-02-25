@@ -117,14 +117,14 @@ tmp={
   'variational': data['variational'],
   'cost function': costf
   }
-os.makedirs('save',exist_ok=True)
-with open('save/org.yaml','w') as outfile:
+os.makedirs('_save_',exist_ok=True)
+with open('_save_/org.yaml','w') as outfile:
   yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
 # ------------------------------------------------------------------------
 # summarize the assimilated observation types and dump observations to break_yaml/obs
 os.makedirs('./obs',exist_ok=True)
-os.makedirs('./obs/dugout',exist_ok=True) # dugout directory for bench obs
+os.makedirs('./obs/_dugout_',exist_ok=True) # dugout directory for bench obs
 obslist=costf['observations']['observers']
 nobs=len(obslist)
 obs_names=''
@@ -139,7 +139,7 @@ for i in range(nobs):
   obs_names+=sname+','
   obs_order+=f'{sname}\n' # record the original order of observers
   os.makedirs(f'./obs/{sname}',exist_ok=True)  # each observer will be under a separate subdirectory
-  os.makedirs(f'./obs/{sname}/dugout',exist_ok=True) # dugout directory for bench filters
+  os.makedirs(f'./obs/{sname}/_dugout_',exist_ok=True) # dugout directory for bench filters
   
   # ----------------------------------------------------------------
   # get the observations headers (excluding the filters) and dump
