@@ -59,24 +59,9 @@ os.chdir(args[1])
 
 data={}
 # ------------------------------------------------------------------------
-# read the output and variational sections from variational.yaml
-tmp=yaml.safe_load(open('variational.yaml','r'))
-data={
-  'output': tmp['output'],
-  'variational': tmp['variational']
-  }
-
-# ------------------------------------------------------------------------
-# read the "cost function" header contents except "background erro" and "observations" keys
-tmp=yaml.safe_load(open('costf_header.yaml','r'))
-costf={
-  'cost type': tmp['cost type'],
-  'time window': tmp['time window'],
-  'jb evaluation': tmp['jb evaluation'],
-  'geometry': tmp['geometry'],
-  'analysis variables': tmp['analysis variables'],
-  'background': tmp['background']
-    }
+# read variational.yaml and costf_header.yaml
+data=yaml.safe_load(open('variational.yaml','r'))
+costf=yaml.safe_load(open('costf_header.yaml','r'))
 
 # ------------------------------------------------------------------------
 # read 'background error'
@@ -103,13 +88,14 @@ with open("obs/order.txt", "r") as file:
 obsdirs=glob.glob("obs/*")
 obsdirs=[path.replace("obs/", "", 1) for path in obsdirs] # remove leading 'obs/'
 listFinal=[]
+for myfile in orders:
+  if os.path.exists(f'obs/{myfile}'):
+    listFinal.append(myfile)
+#
 for obsdir in obsdirs:
   # check whether it is in order.txt
-  # if an order is specified, insert to that location; otherwise, append
   indices = [i for i, x in enumerate(orders) if x == obsdir]
-  if indices:
-    listFinal.insert(indices[0],obsdir)
-  else:
+  if not indices:
     if obsdir != "_dugout_" and obsdir != "order.txt":
       listFinal.append(obsdir)
 # ~~~~~
