@@ -21,18 +21,21 @@ def filter_pack(sname,key):
   filter_type=key.split(' ',1)[1].replace(' ', '').rstrip('s') 
   filter_files=glob.glob(f'obs/{sname}/{filter_type}_*')
   filter_files=[path.replace(f"obs/{sname}/", "", 1) for path in filter_files]
+  listFinal=[]
   if filter_files:
     with open(f"obs/{sname}/order.{filter_type}", "r") as file:
       orders=[line.strip() for line in file.readlines()] 
-  # ~~~~  
-  listFinal=[]
+    # ~~~~
+    # append all entries in the order file first
+    for myfile in orders:
+      if os.path.exists(f'obs/{sname}/{myfile}'):
+        listFinal.append(myfile)
+  # ~~~~
+  # append other filter files under obs/{sname} but not in the order file
   for myfile in filter_files:
     # check whether it is in order.txt
-    # if an order is specified, insert to that location; otherwise, append
     indices = [i for i, x in enumerate(orders) if x == myfile]
-    if indices:
-      listFinal.insert(indices[0],myfile)
-    else:
+    if not indices:
       listFinal.append(myfile)
   # ~~~~~
   # loop through all obs directories under obs/
@@ -84,7 +87,7 @@ for fbec in becfiles:
   keys=fbec.split('_')
   wgt=keys[3][3:].rstrip('.yaml')
   mybec={'covariance': cov,
-      'weight': {'value':int(wgt)}
+      'weight': {'value':float(wgt)}
       }
   components.append(mybec)
 # ~~
