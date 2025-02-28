@@ -24,11 +24,11 @@ MyDumper.add_representer(datetime, MyDumper.represent_datetime)
 args=sys.argv
 nargs=len(args)-1
 if nargs <3:
-  print(f"jcopyobs <yaml_file1> <obs_list> <yaml_file2>")
+  print(f"jcopyobs <obs_list> <yaml_file1> <yaml_file2>")
   exit()
 # ~~
-yfile=open(args[1],'r')
-copyobs=args[2].split(',')
+copyobs=args[1].split(',')
+yfile=open(args[2],'r')
 yfile2=open(args[3],'r')
 
 data=yaml.safe_load(yfile)
