@@ -84,7 +84,7 @@ for fbec in becfiles:
   keys=fbec.split('_')
   wgt=keys[3][3:].rstrip('.yaml')
   mybec={'covariance': cov,
-      'weight': {'value':wgt}
+      'weight': {'value':int(wgt)}
       }
   components.append(mybec)
 # ~~
