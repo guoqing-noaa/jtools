@@ -45,7 +45,7 @@ MyDumper.add_representer(datetime, MyDumper.represent_datetime)
 args=sys.argv
 nargs=len(args)-1
 if nargs <1:
-  print(f"jquery <yamlfile_name>")
+  print(f"jbreak <yamlfile_name>")
   exit()
 
 yfile=open(args[1], 'r')
