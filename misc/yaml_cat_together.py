@@ -20,6 +20,9 @@ dcObserverUser=dcObserver
 obdir="obtype_config/"
 for fheader in listHeader:
   output_name=fheader.replace("basic_config/mpasjedi_","")
+  if not "getkf" in fheader:
+    output_name="jedivar.yaml"
+  #
   skip_zone=False
   change_output_filename=False
   with open(fheader, 'r') as infile1, open(output_name, 'w') as outfile:
