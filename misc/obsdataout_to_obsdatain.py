@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# this python code is to put the obsfile from obsdatain to that in obsdataout
+# extra processing for getkf_solver
+#  copy the obsfile line from the obsdatain section to the obsdataout section
 import sys
 
 def process_file(input_file, output_file):
