@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import os
+#
 dcObserver={
 "t133": "aircar_airTemperature_133",
 
@@ -68,6 +70,48 @@ for fheader in listHeader:
             line=line.replace(value,key)
           # ~~~~~~
           outfile.write(line)
-# ~~~~~~~~~~~~
-# extra processing for solver: put the jdiag file names to obsdatin
 #
+# ~~~~~~~~~~~~
+# extra processing for solver
+#  copy the obsfile line from the obsdatain section to the obsdataout section
+#
+buffer_zone = []
+in_buffer_zone = False
+obsfile_line = None
+obsdataout = False
+with open("getkf_solver.yaml", 'r') as infile, open(".tmp.solver.yaml", 'w') as outfile:
+  for line in infile:
+    if "RoundRobin" in line:
+      line = line.replace("RoundRobin", "Halo")
+    elif "obsdatain" in line:
+      in_buffer_zone = True
+      buffer_zone.append(line)
+    elif in_buffer_zone:
+      buffer_zone.append(line)
+      if "obsdataout" in line:
+        obsdataout=True
+      elif "obsfile" in line:
+        if obsdataout:
+          line = line.replace("jdiag", "data/jdiag/jdiag")
+          obsfile_line = line  # Store the obsdataout "obsfile" line
+
+    if obsfile_line and in_buffer_zone:
+      # Replace the previous obsfile line with the new one
+      for i, buf_line in enumerate(buffer_zone):
+          if "obsfile" in buf_line:
+              buffer_zone[i] = obsfile_line
+              break
+      # Write out the buffer zone
+      for buf_line in buffer_zone:
+          outfile.write(buf_line)
+      # Reset buffer and state tracking
+      buffer_zone = []
+      in_buffer_zone = False
+      obsfile_line = None
+      obsdataout = False
+      continue
+
+    if not in_buffer_zone:
+        outfile.write(line)
+# ~~~~~~~~
+os.replace(".tmp.solver.yaml","getkf_solver.yaml")
