@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# POC: Guoqing.Ge@noaa.gov
+#
 import os, sys
 # list of available observers
 dcObserver={
