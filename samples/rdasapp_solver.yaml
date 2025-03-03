@@ -14,7 +14,7 @@ output: # for outputting mean posterior
   stream name: analysis
 
 time window:
-  begin: @beginDate@
+  begin: "@beginDate@"
   length: PT4H
 
 geometry:
