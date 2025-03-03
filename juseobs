@@ -31,8 +31,12 @@ yfile=open(args[1],'r')
 useobs=args[2].split(',')
 
 data=yaml.safe_load(yfile)
-costf=data['cost function']
-obslist=costf['observations']['observers']
+if "cost function" in data:
+  costf=data['cost function']
+  obslist=costf['observations']['observers']
+else:
+  obslist=data['observations']['observers']
+
 nobs=len(obslist)
 # ********************
 # loop through observers
@@ -53,7 +57,11 @@ for i,lname in enumerate(namelist):
 observers=[]
 for np in index:
  observers.append(obslist[np])
-data['cost function']['observations']['observers']=observers
+#
+if "cost function" in data:
+  data['cost function']['observations']['observers']=observers
+else:
+  data['observations']['observers']=observers
 # ~~
 # dump out the new yaml file
 yaml.dump(data, sys.stdout, Dumper=MyDumper, default_flow_style=False, sort_keys=False)

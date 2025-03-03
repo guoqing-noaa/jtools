@@ -31,7 +31,10 @@ yfile=open(args[1], 'r')
 data=yaml.safe_load(yfile)
 
 # summarize the assimilated observation types
-obslist=data['cost function']['observations']['observers']
+if "cost function" in data:
+  obslist=data['cost function']['observations']['observers']
+else:
+  obslist=data['observations']['observers']
 nobs=len(obslist)
 obs_text=''
 filter_text=''
