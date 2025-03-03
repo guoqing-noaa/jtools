@@ -58,28 +58,33 @@ if nargs <1:
 os.chdir(args[1])
 
 data={}
-# ------------------------------------------------------------------------
-# read variational.yaml and costf_header.yaml
-data=yaml.safe_load(open('variational.yaml','r'))
-costf=yaml.safe_load(open('costf_header.yaml','r'))
+if os.path.exists('enkf_header.yaml'):
+  is_enkf=True
+  data=yaml.safe_load(open('enkf_header.yaml','r'))
+else:
+  is_enkf=False
+  # ------------------------------------------------------------------------
+  # read variational.yaml and costf_header.yaml
+  data=yaml.safe_load(open('variational.yaml','r'))
+  costf=yaml.safe_load(open('costf_header.yaml','r'))
 
-# ------------------------------------------------------------------------
-# read 'background error'
-becfiles=glob.glob("costf_bec*.yaml")
-components=[]
-for fbec in becfiles:
-  cov=yaml.safe_load(open(fbec,'r'))
-  keys=fbec.split('_')
-  wgt=keys[3][3:].rstrip('.yaml')
-  mybec={'covariance': cov,
-      'weight': {'value':float(wgt)}
+  # ------------------------------------------------------------------------
+  # read 'background error'
+  becfiles=glob.glob("costf_bec*.yaml")
+  components=[]
+  for fbec in becfiles:
+    cov=yaml.safe_load(open(fbec,'r'))
+    keys=fbec.split('_')
+    wgt=keys[3][3:].rstrip('.yaml')
+    mybec={'covariance': cov,
+        'weight': {'value':float(wgt)}
+        }
+    components.append(mybec)
+  # ~~
+  BEC={'covariance model': 'hybrid',
+      'components': components
       }
-  components.append(mybec)
-# ~~
-BEC={'covariance model': 'hybrid',
-    'components': components
-    }
-costf['background error']=BEC
+  costf['background error']=BEC
 
 # ------------------------------------------------------------------------
 # read available observations/observers (excluding _dugout_), apply orders
@@ -124,9 +129,12 @@ for myobs in listFinal:
   #
   obslist.append(observer)
 # ~~~~
-costf['observations']={'observers': obslist}
+if is_enkf:
+  data['observations']={'observers': obslist}
+else:
+  costf['observations']={'observers': obslist}
+  data['cost function']=costf
 
-data['cost function']=costf
 yaml.dump(data, sys.stdout, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 # ------------------------------------------------------------------------
 # print out information
