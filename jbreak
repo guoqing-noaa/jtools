@@ -66,62 +66,87 @@ if os.path.exists(expdir):
 os.makedirs(expdir)
 os.chdir('./break_yaml')
 
-# ------------------------------------------------------------------------
-# dump the output and variational sections to variational.yaml
-tmp={
-  'output': data['output'],
-  'variational': data['variational']
-  }
-with open('variational.yaml','w') as outfile:
-  yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+if "cost function" in data:
+  # ------------------------------------------------------------------------
+  # dump the output and variational sections to variational.yaml
+  tmp={
+    'output': data['output'],
+    'variational': data['variational']
+    }
+  with open('variational.yaml','w') as outfile:
+    yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
-# ------------------------------------------------------------------------
-# get the "cost function" sub dictionary and dump header contents except "background erro" and "observations" keys
-costf=data['cost function']
-costf2=copy.deepcopy(costf)
-del costf2['background error']
-del costf2['observations']
-with open('costf_header.yaml','w') as outfile:
-  yaml.dump(costf2, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+  # ------------------------------------------------------------------------
+  # get the "cost function" sub dictionary and dump header contents except "background erro" and "observations" keys
+  costf=data['cost function']
+  costf2=copy.deepcopy(costf)
+  del costf2['background error']
+  del costf2['observations']
+  with open('costf_header.yaml','w') as outfile:
+    yaml.dump(costf2, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
-# ------------------------------------------------------------------------
-# dump 'background error'
-components=[]
-BEC=costf['background error']
-if BEC['covariance model'].upper() == "HYBRID":
-  components=BEC['components']
-else:
-  comp={'covariance': BEC, 'weight':{'value':1.0}}
-  components.append(comp)
-  BEC2={'covariance model': 'hybrid',
-      'components': components
-      }
-  costf['background error']=BEC2 # enforce the hybrid grammar for single BEC component
-#
-for index,mybec in enumerate(components):
-  cov=mybec['covariance']
-  wgt=mybec['weight']['value']
-  fname=f"costf_bec{index}_{cov['covariance model']}_wgt{wgt}.yaml"
-  with open(fname,'w') as outfile:
-    yaml.dump(cov, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+  # ------------------------------------------------------------------------
+  # dump 'background error'
+  components=[]
+  BEC=costf['background error']
+  if BEC['covariance model'].upper() == "HYBRID":
+    components=BEC['components']
+  else:
+    comp={'covariance': BEC, 'weight':{'value':1.0}}
+    components.append(comp)
+    BEC2={'covariance model': 'hybrid',
+        'components': components
+        }
+    costf['background error']=BEC2 # enforce the hybrid grammar for single BEC component
+  #
+  for index,mybec in enumerate(components):
+    cov=mybec['covariance']
+    wgt=mybec['weight']['value']
+    fname=f"costf_bec{index}_{cov['covariance model']}_wgt{wgt}.yaml"
+    with open(fname,'w') as outfile:
+      yaml.dump(cov, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
-# ------------------------------------------------------------------------
-# dump a clean version: break_yaml/save/org.yaml
+  # ------------------------------------------------------------------------
+  # dump a clean version: break_yaml/save/org.yaml
+  tmp={
+    'output': data['output'],
+    'variational': data['variational'],
+    'cost function': costf
+    }
+  os.makedirs('_save_',exist_ok=True)
+  with open('_save_/org.yaml','w') as outfile:
+    yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
-tmp={
-  'output': data['output'],
-  'variational': data['variational'],
-  'cost function': costf
-  }
-os.makedirs('_save_',exist_ok=True)
-with open('_save_/org.yaml','w') as outfile:
-  yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+else: # enkf yaml files
+  tmp={}
+  tmp['increment variables'] = data['increment variables']
+  if 'output mean prior' in data:
+    tmp['output mean prior'] = data['output mean prior']
+  tmp['output'] = data['output']
+  tmp['time window'] = data['time window']
+  tmp['geometry'] = data['geometry']
+  tmp['background'] = data['background']
+  tmp['driver'] = data['driver']
+  tmp['local ensemble DA'] = data['local ensemble DA']
+  with open('enkf_header.yaml','w') as outfile:
+    yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
+
+  # ------------------------------------------------------------------------
+  # dump a clean version: break_yaml/save/org.yaml
+  tmp['observations'] = data['observations']
+  os.makedirs('_save_',exist_ok=True)
+  with open('_save_/org.yaml','w') as outfile:
+    yaml.dump(tmp, outfile, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
 
 # ------------------------------------------------------------------------
 # summarize the assimilated observation types and dump observations to break_yaml/obs
 os.makedirs('./obs',exist_ok=True)
 os.makedirs('./obs/_dugout_',exist_ok=True) # dugout directory for bench obs
-obslist=costf['observations']['observers']
+if "cost function" in data:
+  obslist=costf['observations']['observers']
+else:
+  obslist=data['observations']['observers']
+#
 nobs=len(obslist)
 obs_names=''
 filter_text=''
