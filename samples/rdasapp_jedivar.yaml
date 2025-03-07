@@ -1,69 +1,127 @@
 _member: &memberConfig
   date: &analysisDate '@analysisDate@'
-  state variables: [spechum,surface_pressure,temperature,uReconstructMeridional,uReconstructZonal,theta,rho,u,qv,pressure,landmask,xice,snowc,skintemp,ivgtyp,isltyp,snowh,vegfra,u10,v10,lai,smois,tslb,pressure_p,qc,qi,qg,qr,qs,cldfrac]
+  state variables: &incvars [spechum,surface_pressure,temperature,uReconstructMeridional,uReconstructZonal]
   stream name: ensemble
 
-increment variables: [temperature, spechum, uReconstructZonal, uReconstructMeridional, surface_pressure]
-
-output mean prior:
-  filename: ./prior_mean.nc
-  stream name: background
-
-output: # for outputting mean posterior
-  filename: ./data/ens/mem%{member}%.nc
+output:
+  filename: mpasin.nc
   stream name: analysis
-
-time window:
-  begin: '@beginDate@'
-  length: PT4H
-
-geometry:
-  nml_file: ./namelist.atmosphere
-  streams_file: ./streams.atmosphere
-  deallocate non-da fields: true
-  interpolation type: unstructured
-  iterator dimension: 2
-
-background: 
-  members from template:
-    template:
-      <<: *memberConfig
-      filename: ./data/ens/mem%iMember%.nc
-    pattern: "%iMember%"
-    start: 1
-    zero padding: 3
-    nmembers: 30
-
-driver:
-  read HX from disk: true
-  save posterior ensemble: true
-  save prior mean: true
-  save posterior mean: true
-  do posterior observer: false
-
-local ensemble DA:
-  solver: GETKF
-  use linear observer: true
-  vertical localization: # current settings use 12 modulated members
-    fraction of retained variance: 0.850
-    lengthscale: 0.50
-    lengthscale units: logp
-  inflation:
-    rtps: 0.95
-    rtpp: 0.6
-    mult: 1.1
-
-observations:
+variational:
+  minimizer:
+    algorithm: DRPCG
+  iterations:
+  - geometry:
+      nml_file: ./namelist.atmosphere
+      streams_file: ./streams.atmosphere
+      deallocate non-da fields: true
+      interpolation type: unstructured
+    gradient norm reduction: 1e-3
+    ninner: 50
+  - geometry:
+      nml_file: ./namelist.atmosphere
+      streams_file: ./streams.atmosphere
+      deallocate non-da fields: true
+      interpolation type: unstructured
+    gradient norm reduction: 1e-3
+    ninner: 50
+cost function:
+  cost type: 3D-Var
+  time window:
+     begin: '@beginDate@'
+     length: PT4H
+  jb evaluation: false
+  geometry:
+    nml_file: ./namelist.atmosphere
+    streams_file: ./streams.atmosphere
+    deallocate non-da fields: true
+    interpolation type: unstructured
+  analysis variables: *incvars
+  background:
+    state variables: [spechum,surface_pressure,temperature,uReconstructMeridional,uReconstructZonal,theta,rho,u,qv,pressure,landmask,xice,snowc,skintemp,ivgtyp,isltyp,snowh,vegfra,u10,v10,lai,smois,tslb,pressure_p,qc,qi,qg,qr,qs,cldfrac]
+    filename: mpasin.nc
+    date: *analysisDate
+  background error:
+    covariance model: hybrid
+    components:
+    - covariance:
+        covariance model: SABER
+        saber central block:
+          saber block name: BUMP_NICAS
+          active variables: &ctlvars [stream_function,velocity_potential,temperature,spechum,surface_pressure]
+          read:
+            io:
+              data directory: data/static_bec/nicas
+              files prefix: mpas
+            drivers:
+              multivariate strategy: univariate
+              read local nicas: true
+        saber outer blocks:
+        - saber block name: StdDev
+          read:
+            model file:
+              filename: data/static_bec/stddev.nc
+              date: *analysisDate
+              stream name: control
+        - saber block name: BUMP_VerticalBalance
+          read:
+            io:
+              data directory: data/static_bec/vbal
+              files prefix: mpas_vbal
+            drivers:
+              read local sampling: true
+              read vertical balance: true
+            vertical balance:
+              vbal:
+              - balanced variable: velocity_potential
+                unbalanced variable: stream_function
+                diagonal regression: true
+              - balanced variable: temperature
+                unbalanced variable: stream_function
+              - balanced variable: surface_pressure
+                unbalanced variable: stream_function
+        linear variable change:
+          linear variable change name: Control2Analysis
+          input variables: *ctlvars
+          output variables: *incvars
+      weight:
+        value: "@HYB_WGT_STATIC@"
+    - covariance:
+        covariance model: ensemble
+        localization:
+          localization method: SABER
+          saber central block:
+            saber block name: BUMP_NICAS
+            active variables: *incvars
+            read:
+              io:
+                data directory: data/bumploc
+                files prefix: bumploc
+              drivers:
+                multivariate strategy: duplicated
+                read local nicas: true
+              model:
+                level for 2d variables: last
+        members from template:
+          template:
+            <<: *memberConfig
+            filename: ./data/ens/mem%iMember%.nc
+          pattern: "%iMember%"
+          start: 1
+          zero padding: 3
+          nmembers: 30
+      weight:
+        value: "@HYB_WGT_ENS@"
+  observations:
      observers:
      - obs space:
          name: aircar_t133
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_aircar_t133.nc4
+             obsfile: data/obs/ioda_aircar.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -332,12 +390,12 @@ observations:
      - obs space:
          name: aircar_q133
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_aircar_q133.nc4
+             obsfile: data/obs/ioda_aircar.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -607,12 +665,12 @@ observations:
      - obs space:
          name: aircar_uv233
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_aircar_uv233.nc4
+             obsfile: data/obs/ioda_aircar.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -919,12 +977,12 @@ observations:
      - obs space:
          name: aircft_t130
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_aircft_t130.nc4
+             obsfile: data/obs/ioda_aircft.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -1193,12 +1251,12 @@ observations:
      - obs space:
          name: aircft_t131
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_aircft_t131.nc4
+             obsfile: data/obs/ioda_aircft.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -1467,12 +1525,12 @@ observations:
      - obs space:
          name: aircft_t134
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_aircft_t134.nc4
+             obsfile: data/obs/ioda_aircft.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -1741,12 +1799,12 @@ observations:
      - obs space:
          name: aircft_t135
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_aircft_t135.nc4
+             obsfile: data/obs/ioda_aircft.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -2015,12 +2073,12 @@ observations:
      - obs space:
          name: aircft_q134
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_aircft_q134.nc4
+             obsfile: data/obs/ioda_aircft.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -2290,12 +2348,12 @@ observations:
      - obs space:
          name: aircft_uv230
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_aircft_uv230.nc4
+             obsfile: data/obs/ioda_aircft.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -2602,12 +2660,12 @@ observations:
      - obs space:
          name: aircft_uv231
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_aircft_uv231.nc4
+             obsfile: data/obs/ioda_aircft.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -2914,12 +2972,12 @@ observations:
      - obs space:
          name: aircft_uv234
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_aircft_uv234.nc4
+             obsfile: data/obs/ioda_aircft.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -3226,12 +3284,12 @@ observations:
      - obs space:
          name: aircft_uv235
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_aircft_uv235.nc4
+             obsfile: data/obs/ioda_aircft.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -3538,12 +3596,12 @@ observations:
      - obs space:
          name: adpupa_t120
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_adpupa_t120.nc4
+             obsfile: data/obs/ioda_adpupa.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -3812,12 +3870,12 @@ observations:
      - obs space:
          name: adpupa_q120
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_adpupa_q120.nc4
+             obsfile: data/obs/ioda_adpupa.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -4087,12 +4145,12 @@ observations:
      - obs space:
          name: adpupa_ps120
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_adpupa_ps120.nc4
+             obsfile: data/obs/ioda_adpupa.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -4354,12 +4412,12 @@ observations:
      - obs space:
          name: adpupa_uv220
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_adpupa_uv220.nc4
+             obsfile: data/obs/ioda_adpupa.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -4666,12 +4724,12 @@ observations:
      - obs space:
          name: adpsfc_t181
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_adpsfc_t181.nc4
+             obsfile: data/obs/ioda_adpsfc.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -4941,12 +4999,12 @@ observations:
      - obs space:
          name: adpsfc_t187
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_adpsfc_t187.nc4
+             obsfile: data/obs/ioda_adpsfc.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -5216,12 +5274,12 @@ observations:
      - obs space:
          name: adpsfc_q181
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_adpsfc_q181.nc4
+             obsfile: data/obs/ioda_adpsfc.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -5491,12 +5549,12 @@ observations:
      - obs space:
          name: adpsfc_q187
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_adpsfc_q187.nc4
+             obsfile: data/obs/ioda_adpsfc.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -5767,12 +5825,12 @@ observations:
      - obs space:
          name: adpsfc_ps181
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_adpsfc_ps181.nc4
+             obsfile: data/obs/ioda_adpsfc.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -6035,12 +6093,12 @@ observations:
      - obs space:
          name: adpsfc_ps187
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_adpsfc_ps187.nc4
+             obsfile: data/obs/ioda_adpsfc.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -6303,12 +6361,12 @@ observations:
      - obs space:
          name: adpsfc_uv281
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_adpsfc_uv281.nc4
+             obsfile: data/obs/ioda_adpsfc.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -6623,12 +6681,12 @@ observations:
      - obs space:
          name: adpsfc_uv287
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_adpsfc_uv287.nc4
+             obsfile: data/obs/ioda_adpsfc.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -6940,12 +6998,12 @@ observations:
      - obs space:
          name: msonet_t188
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_msonet_t188.nc4
+             obsfile: data/obs/ioda_msonet.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -7214,12 +7272,12 @@ observations:
      - obs space:
          name: msonet_q188
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_msonet_q188.nc4
+             obsfile: data/obs/ioda_msonet.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -7489,12 +7547,12 @@ observations:
      - obs space:
          name: msonet_ps188
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_msonet_ps188.nc4
+             obsfile: data/obs/ioda_msonet.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -7756,12 +7814,12 @@ observations:
      - obs space:
          name: msonet_uv288
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_msonet_uv288.nc4
+             obsfile: data/obs/ioda_msonet.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -8383,12 +8441,12 @@ observations:
      - obs space:
          name: proflr_uv227
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 100e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_proflr_uv227.nc4
+             obsfile: data/obs/ioda_proflr.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -8738,12 +8796,12 @@ observations:
      - obs space:
          name: rassda_t126
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 100e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_rassda_t126.nc4
+             obsfile: data/obs/ioda_rassda.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -9010,12 +9068,12 @@ observations:
      - obs space:
          name: sfcshp_t180
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_sfcshp_t180.nc4
+             obsfile: "data/obs/ioda_sfcshp.nc"
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -9284,12 +9342,12 @@ observations:
      - obs space:
          name: sfcshp_q180
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_sfcshp_q180.nc4
+             obsfile: "data/obs/ioda_sfcshp.nc"
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -9559,12 +9617,12 @@ observations:
      - obs space:
          name: sfcshp_ps180
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_sfcshp_ps180.nc4
+             obsfile: "data/obs/ioda_sfcshp.nc"
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -9835,12 +9893,12 @@ observations:
      - obs space:
          name: sfcshp_uv280
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_sfcshp_uv280.nc4
+             obsfile: "data/obs/ioda_sfcshp.nc"
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -10208,12 +10266,12 @@ observations:
      - obs space:
          name: vadwnd_uv224
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
            halo size: 100e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_vadwnd_uv224.nc4
+             obsfile: data/obs/ioda_vadwnd.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -10570,11 +10628,11 @@ observations:
      - obs space:
          name: amsua_n19
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_amsua_n19.2024052700.nc4 
+             obsfile: data/obs/ioda_amsua_n19.nc
          obsdataout:
            engine:
              type: H5File
@@ -10945,11 +11003,11 @@ observations:
      - obs space:
          name: atms_n20
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_atms_n20.nc4
+             obsfile: data/obs/ioda_atms_n20.nc
          obsdataout:
            engine:
              type: H5File
@@ -11527,11 +11585,11 @@ observations:
      - obs space:
          name: atms_npp
          distribution:
-           name: "Halo"
+           name: "RoundRobin"
          obsdatain:
            engine:
              type: H5File
-             obsfile: data/jdiag/jdiag_atms_npp.nc4
+             obsfile: data/obs/ioda_atms_npp.nc
          obsdataout:
            engine:
              type: H5File

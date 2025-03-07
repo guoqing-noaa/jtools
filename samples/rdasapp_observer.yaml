@@ -14,7 +14,7 @@ output: # for outputting mean posterior
   stream name: analysis
 
 time window:
-  begin: @beginDate@
+  begin: '@beginDate@'
   length: PT4H
 
 geometry:
@@ -53,7 +53,7 @@ local ensemble DA:
 observations:
      observers:
      - obs space:
-         name: t133=aircar_airTemperature_133
+         name: aircar_t133
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -68,7 +68,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_t133.nc4
+             obsfile: jdiag_aircar_t133.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -327,7 +327,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/aircar_geovals_rrfs.nc4
      - obs space:
-         name: q133=aircar_specificHumidity_133
+         name: aircar_q133
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -342,7 +342,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_q133.nc4
+             obsfile: jdiag_aircar_q133.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -602,7 +602,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/aircar_geovals_rrfs.nc4
      - obs space:
-         name: uv233=aircar_winds_233
+         name: aircar_uv233
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -617,7 +617,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_uv233.nc4
+             obsfile: jdiag_aircar_uv233.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -914,7 +914,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/aircar_geovals_rrfs.nc4
      - obs space:
-         name: t130=aircft_airTemperature_130
+         name: aircft_t130
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -929,7 +929,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_t130.nc4
+             obsfile: jdiag_aircft_t130.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -1188,7 +1188,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/aircft_geovals_rrfs.nc4
      - obs space:
-         name: t131=aircft_airTemperature_131
+         name: aircft_t131
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -1203,7 +1203,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_t131.nc4
+             obsfile: jdiag_aircft_t131.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -1462,7 +1462,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/aircft_geovals_rrfs.nc4
      - obs space:
-         name: t134=aircft_airTemperature_134
+         name: aircft_t134
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -1477,7 +1477,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_t134.nc4
+             obsfile: jdiag_aircft_t134.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -1736,7 +1736,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/aircft_geovals_rrfs.nc4
      - obs space:
-         name: t135=aircft_airTemperature_135
+         name: aircft_t135
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -1751,7 +1751,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_t135.nc4
+             obsfile: jdiag_aircft_t135.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -2010,7 +2010,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/aircft_geovals_rrfs.nc4
      - obs space:
-         name: q134=aircft_specificHumidity_134
+         name: aircft_q134
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -2025,7 +2025,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_q134.nc4
+             obsfile: jdiag_aircft_q134.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -2285,7 +2285,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/aircft_geovals_rrfs.nc4
      - obs space:
-         name: uv230=aircft_winds_230
+         name: aircft_uv230
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -2300,7 +2300,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_uv230.nc4
+             obsfile: jdiag_aircft_uv230.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -2597,7 +2597,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/aircft_geovals_rrfs.nc4
      - obs space:
-         name: uv231=aircft_winds_231
+         name: aircft_uv231
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -2612,7 +2612,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_uv231.nc4
+             obsfile: jdiag_aircft_uv231.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -2909,7 +2909,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/aircft_geovals_rrfs.nc4
      - obs space:
-         name: uv234=aircft_winds_234
+         name: aircft_uv234
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -2924,7 +2924,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_uv234.nc4
+             obsfile: jdiag_aircft_uv234.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -3221,7 +3221,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/aircft_geovals_rrfs.nc4
      - obs space:
-         name: uv235=aircft_winds_235
+         name: aircft_uv235
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -3236,7 +3236,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_uv235.nc4
+             obsfile: jdiag_aircft_uv235.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -3533,7 +3533,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/aircft_geovals_rrfs.nc4
      - obs space:
-         name: t120=adpupa_airTemperature_120
+         name: adpupa_t120
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -3548,7 +3548,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_t120.nc4
+             obsfile: jdiag_adpupa_t120.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -3807,7 +3807,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/adpupa_geovals_rrfs.nc4
      - obs space:
-         name: q120=adpupa_specificHumidity_120
+         name: adpupa_q120
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -3822,7 +3822,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_q120.nc4
+             obsfile: jdiag_adpupa_q120.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -4082,15 +4082,14 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/adpupa_geovals_rrfs.nc4
      - obs space:
-         name: ps120=adpupa_stationPressure_120
+         name: adpupa_ps120
          distribution:
            name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: "@OBSFILE@"
-             #obsfile: "obsout/sondes_ps_obs_2024052700_dc.nc4"
+             obsfile: data/obs/ioda_adpupa.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -4098,7 +4097,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_ps120.nc4
+             obsfile: jdiag_adpupa_ps120.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -4350,7 +4349,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/adpupa_geovals_rrfs.nc4
      - obs space:
-         name: uv220=adpupa_winds_220
+         name: adpupa_uv220
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -4365,7 +4364,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_uv220.nc4
+             obsfile: jdiag_adpupa_uv220.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -4662,15 +4661,14 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/adpupa_geovals_rrfs.nc4
      - obs space:
-         name: t181=adpsfc_airTemperature_181
+         name: adpsfc_t181
          distribution:
            name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: "@OBSFILE@"
-             #obsfile: "obsout/sfc_tsen_obs_2024052700_dc.nc4"
+             obsfile: data/obs/ioda_adpsfc.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -4678,7 +4676,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_t181.nc4
+             obsfile: jdiag_adpsfc_t181.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -4938,7 +4936,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/adpsfc_geovals_rrfs.nc4
      - obs space:
-         name: t187=adpsfc_airTemperature_187
+         name: adpsfc_t187
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -4953,7 +4951,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_t187.nc4
+             obsfile: jdiag_adpsfc_t187.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -5213,15 +5211,14 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/adpsfc_geovals_rrfs.nc4
      - obs space:
-         name: q181=adpsfc_specificHumidity_181
+         name: adpsfc_q181
          distribution:
            name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: "@OBSFILE@"
-             #obsfile: "obsout/sfc_q_obs_2024052700_dc.nc4"
+             obsfile: data/obs/ioda_adpsfc.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -5229,7 +5226,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_q181.nc4
+             obsfile: jdiag_adpsfc_q181.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -5489,7 +5486,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/adpsfc_geovals_rrfs.nc4
      - obs space:
-         name: q187=adpsfc_specificHumidity_187
+         name: adpsfc_q187
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -5504,7 +5501,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_q187.nc4
+             obsfile: jdiag_adpsfc_q187.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -5765,15 +5762,14 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/adpsfc_geovals_rrfs.nc4
      - obs space:
-         name: ps181=adpsfc_stationPressure_181
+         name: adpsfc_ps181
          distribution:
            name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: "@OBSFILE@"
-             #obsfile: "obsout/sfc_ps_obs_2024052700_dc.nc4"
+             obsfile: data/obs/ioda_adpsfc.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -5781,7 +5777,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_ps181.nc4
+             obsfile: jdiag_adpsfc_ps181.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -6034,7 +6030,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/adpsfc_geovals_rrfs.nc4
      - obs space:
-         name: ps187=adpsfc_stationPressure_187
+         name: adpsfc_ps187
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -6049,7 +6045,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_ps187.nc4
+             obsfile: jdiag_adpsfc_ps187.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -6302,15 +6298,14 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/adpsfc_geovals_rrfs.nc4
      - obs space:
-         name: uv281=adpsfc_winds_281
+         name: adpsfc_uv281
          distribution:
            name: "RoundRobin"
            halo size: 300e3
          obsdatain:
            engine:
              type: H5File
-             obsfile: "@OBSFILE@"
-             #obsfile: "obsout/sfc_uv_obs_2024052700_dc.nc4"
+             obsfile: data/obs/ioda_adpsfc.nc
            obsgrouping:
              group variables: ["stationIdentification"]
              sort variable: "pressure"
@@ -6318,7 +6313,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_uv281.nc4
+             obsfile: jdiag_adpsfc_uv281.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -6623,7 +6618,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/adpsfc_geovals_rrfs.nc4
      - obs space:
-         name: uv287=adpsfc_winds_287
+         name: adpsfc_uv287
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -6638,7 +6633,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_uv287.nc4
+             obsfile: jdiag_adpsfc_uv287.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -6940,1551 +6935,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/adpsfc_geovals_rrfs.nc4
      - obs space:
-         name: amsua_n19=amsua_n19
-         distribution:
-           name: "RoundRobin"
-         obsdatain:
-           engine:
-             type: H5File
-             obsfile: data/obs/ioda_amsua_n19.nc
-         obsdataout:
-           engine:
-             type: H5File
-             obsfile: jdiag_amsua_n19.2024052700.nc4 
-         simulated variables: [brightnessTemperature]
-         observed variables: [brightnessTemperature]
-         channels: &amsua_n19_channels 1-15
-       obs operator:
-         name: CRTM
-         Absorbers: [H2O,O3]
-         SurfaceWindGeoVars: uv
-         Clouds: [Water, Ice]
-         Cloud_Fraction: 1.0
-         obs options:
-           Sensor_ID: amsua_n19
-           EndianType: little_endian
-           CoefficientPath: data/crtm/
-           IRVISlandCoeff: IGBP
-         linear obs operator:
-           Absorbers: [H2O, O3]
-       obs localizations:
-         - localization method: Horizontal Gaspari-Cohn
-           lengthscale: 300e3 # orig
-       obs bias:
-         input file: data/obs/amsua_n19.satbias.nc4
-         output file: out_amsua_n19.satbias.nc4
-         variational bc:
-           predictors:
-           - name: constant
-           - name: lapseRate
-             order: 2
-             tlapse: &amsua_n19_tlapse data/obs/amsua_n19.tlapse.txt
-           - name: lapseRate
-             tlapse: *amsua_n19_tlapse
-           - name: emissivityJacobian
-           - name: sensorScanAngle
-             order: 4
-           - name: sensorScanAngle
-             order: 3
-           - name: sensorScanAngle
-             order: 2
-           - name: sensorScanAngle
-         covariance:
-           minimal required obs number: 20
-           variance range: [1.0e-6, 10.0]
-           step size: 1.0e-4
-           largest analysis variance: 10000.0
-           prior:
-             input file: data/obs/amsua_n19.satbias_cov.nc4
-             inflation:
-               ratio: 1.1
-               ratio for small dataset: 2.0
-           output file: out_amsua_n19.satbias_cov.nc4
-       obs filters:
-       - filter: BlackList
-         filter variables:
-         - name: brightnessTemperature
-           channels: *amsua_n19_channels
-         action:
-           name: assign error
-           error function:
-             name: ObsFunction/ObsErrorModelRamp
-             channels: *amsua_n19_channels
-             options:
-               channels: *amsua_n19_channels
-               xvar:
-                 name: ObsFunction/CLWRetSymmetricMW
-                 options:
-                   clwret_ch238: 1
-                   clwret_ch314: 2
-                   clwret_types: [ObsValue, HofX]
-               x0:    [ 0.050,  0.030,  0.030,  0.020,  0.000,
-                        0.100,  0.000,  0.000,  0.000,  0.000,
-                        0.000,  0.000,  0.000,  0.000,  0.030]
-               x1:    [ 0.600,  0.450,  0.400,  0.450,  1.000,
-                        1.500,  0.000,  0.000,  0.000,  0.000,
-                        0.000,  0.000,  0.000,  0.000,  0.200]
-               err0:  [ 2.500,  2.200,  2.000,  0.550,  0.300,
-                        0.230,  0.230,  0.250,  0.250,  0.350,
-                        0.400,  0.550,  0.800,  3.000,  3.500]
-               err1:  [20.000, 18.000, 12.000,  3.000,  0.500,
-                        0.300,  0.230,  0.250,  0.250,  0.350,
-                        0.400,  0.550,  0.800,  3.000, 18.000]
-       #  CLW Retrieval Check
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: 1-6, 15
-         test variables:
-         - name: ObsFunction/CLWRetMW
-           options:
-             clwret_ch238: 1
-             clwret_ch314: 2
-             clwret_types: [ObsValue]
-         maxvalue: 999.0
-         action:
-           name: reject
-       #  CLW Retrieval Check
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: 1-6, 15
-         test variables:
-         - name: ObsFunction/CLWRetMW
-           options:
-             clwret_ch238: 1
-             clwret_ch314: 2
-             clwret_types: [HofX]
-         maxvalue: 999.0
-         action:
-           name: reject
-       #  Hydrometeor Check (cloud/precipitation affected chanels)
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: *amsua_n19_channels
-         test variables:
-         - name: ObsFunction/HydrometeorCheckAMSUA
-           channels: *amsua_n19_channels
-           options:
-             channels: *amsua_n19_channels
-             obserr_clearsky: [ 2.500, 2.200, 2.000, 0.550, 0.300,
-                                0.230, 0.230, 0.250, 0.250, 0.350,
-                                0.400, 0.550, 0.800, 3.000, 3.500]
-             clwret_function:
-               name: ObsFunction/CLWRetMW
-               options:
-                 clwret_ch238: 1
-                 clwret_ch314: 2
-                 clwret_types: [ObsValue]
-             obserr_function:
-               name: ObsFunction/ObsErrorModelRamp
-               channels: *amsua_n19_channels
-               options:
-                 channels: *amsua_n19_channels
-                 xvar:
-                   name: ObsFunction/CLWRetSymmetricMW
-                   options:
-                     clwret_ch238: 1
-                     clwret_ch314: 2
-                     clwret_types: [ObsValue, HofX]
-                 x0:    [ 0.050,  0.030,  0.030,  0.020,  0.000,
-                          0.100,  0.000,  0.000,  0.000,  0.000,
-                          0.000,  0.000,  0.000,  0.000,  0.030]
-                 x1:    [ 0.600,  0.450,  0.400,  0.450,  1.000,
-                          1.500,  0.000,  0.000,  0.000,  0.000,
-                          0.000,  0.000,  0.000,  0.000,  0.200]
-                 err0:  [ 2.500,  2.200,  2.000,  0.550,  0.300,
-                          0.230,  0.230,  0.250,  0.250,  0.350,
-                          0.400,  0.550,  0.800,  3.000,  3.500]
-                 err1:  [20.000, 18.000, 12.000,  3.000,  0.500,
-                         0.300,  0.230,  0.250,  0.250,  0.350,
-                         0.400,  0.550,  0.800,  3.000, 18.000]
-         maxvalue: 0.0
-         action:
-           name: reject
-       #  Topography check
-       - filter: BlackList
-         filter variables:
-         - name: brightnessTemperature
-           channels: *amsua_n19_channels
-         action:
-           name: inflate error
-           inflation variable:
-             name: ObsFunction/ObsErrorFactorTopoRad
-             channels: *amsua_n19_channels
-             options:
-               sensor: amsua_n19
-               channels: *amsua_n19_channels
-       #  Transmittnace Top Check
-       - filter: BlackList
-         filter variables:
-         - name: brightnessTemperature
-           channels: *amsua_n19_channels
-         action:
-           name: inflate error
-           inflation variable:
-             name: ObsFunction/ObsErrorFactorTransmitTopRad
-             channels: *amsua_n19_channels
-             options:
-               sensor: amsua_n19
-               channels: *amsua_n19_channels
-       #  Surface Jacobian check
-       - filter: BlackList
-         filter variables:
-         - name: brightnessTemperature
-           channels: *amsua_n19_channels
-         action:
-           name: inflate error
-           inflation variable:
-             name: ObsFunction/ObsErrorFactorSurfJacobianRad
-             channels: *amsua_n19_channels
-             options:
-               sensor: amsua_n19
-               channels: *amsua_n19_channels
-               obserr_demisf: [0.010, 0.020, 0.015, 0.020, 0.200]
-               obserr_dtempf: [0.500, 2.000, 1.000, 2.000, 4.500]
-       #  Situation dependent Check
-       - filter: BlackList
-         filter variables:
-         - name: brightnessTemperature
-           channels: *amsua_n19_channels
-         action:
-           name: inflate error
-           inflation variable:
-             name: ObsFunction/ObsErrorFactorSituDependMW
-             channels: *amsua_n19_channels
-             options:
-               sensor: amsua_n19
-               channels: *amsua_n19_channels
-               clwobs_function:
-                 name: ObsFunction/CLWRetMW
-                 options:
-                   clwret_ch238: 1
-                   clwret_ch314: 2
-                   clwret_types: [ObsValue]
-               clwbkg_function:
-                 name: ObsFunction/CLWRetMW
-                 options:
-                   clwret_ch238: 1
-                   clwret_ch314: 2
-                   clwret_types: [HofX]
-                   bias_application: HofX
-               scatobs_function:
-                 name: ObsFunction/SCATRetMW
-                 options:
-                   scatret_ch238: 1
-                   scatret_ch314: 2
-                   scatret_ch890: 15
-                   scatret_types: [ObsValue]
-                   bias_application: HofX
-               clwmatchidx_function:
-                 name: ObsFunction/CLWMatchIndexMW
-                 channels: *amsua_n19_channels
-                 options:
-                   channels: *amsua_n19_channels
-                   clwobs_function:
-                     name: ObsFunction/CLWRetMW
-                     options:
-                       clwret_ch238: 1
-                       clwret_ch314: 2
-                       clwret_types: [ObsValue]
-                   clwbkg_function:
-                     name: ObsFunction/CLWRetMW
-                     options:
-                       clwret_ch238: 1
-                       clwret_ch314: 2
-                       clwret_types: [HofX]
-                       bias_application: HofX
-                   clwret_clearsky: [0.050, 0.030, 0.030, 0.020, 0.000,
-                                     0.100, 0.000, 0.000, 0.000, 0.000,
-                                     0.000, 0.000, 0.000, 0.000, 0.030]
-               obserr_function:
-                 name: ObsFunction/ObsErrorModelRamp
-                 channels: *amsua_n19_channels
-                 options:
-                   channels: *amsua_n19_channels
-                   xvar:
-                     name: ObsFunction/CLWRetSymmetricMW
-                     options:
-                       clwret_ch238: 1
-                       clwret_ch314: 2
-                       clwret_types: [ObsValue, HofX]
-                   x0:    [ 0.050,  0.030,  0.030,  0.020,  0.000,
-                            0.100,  0.000,  0.000,  0.000,  0.000,
-                            0.000,  0.000,  0.000,  0.000,  0.030]
-                   x1:    [ 0.600,  0.450,  0.400,  0.450,  1.000,
-                            1.500,  0.000,  0.000,  0.000,  0.000,
-                            0.000,  0.000,  0.000,  0.000,  0.200]
-                   err0:  [ 2.500,  2.200,  2.000,  0.550,  0.300,
-                            0.230,  0.230,  0.250,  0.250,  0.350,
-                            0.400,  0.550,  0.800,  3.000,  3.500]
-                   err1:  [20.000, 18.000, 12.000,  3.000,  0.500,
-                            0.300,  0.230,  0.250,  0.250,  0.350,
-                            0.400,  0.550,  0.800,  3.000, 18.000]
-               obserr_clearsky: [2.500, 2.200, 2.000, 0.550, 0.300,
-                                  0.230, 0.230, 0.250, 0.250, 0.350,
-                                  0.400, 0.550, 0.800, 3.000, 3.500]
-       #  Gross check
-       - filter: Background Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: *amsua_n19_channels
-         function absolute threshold:
-         - name: ObsFunction/ObsErrorBoundMW
-           channels: *amsua_n19_channels
-           options:
-             sensor: amsua_n19
-             channels: *amsua_n19_channels
-             obserr_bound_latitude:
-               name: ObsFunction/ObsErrorFactorLatRad
-               options:
-                 latitude_parameters: [25.0, 0.25, 0.04, 3.0]
-             obserr_bound_transmittop:
-               name: ObsFunction/ObsErrorFactorTransmitTopRad
-               channels: *amsua_n19_channels
-               options:
-                 channels: *amsua_n19_channels
-             obserr_bound_topo:
-               name: ObsFunction/ObsErrorFactorTopoRad
-               channels: *amsua_n19_channels
-               options:
-                 channels: *amsua_n19_channels
-                 sensor: amsua_n19
-             obserr_function:
-               name: ObsFunction/ObsErrorModelRamp
-               channels: *amsua_n19_channels
-               options:
-                 channels: *amsua_n19_channels
-                 xvar:
-                   name: ObsFunction/CLWRetSymmetricMW
-                   options:
-                     clwret_ch238: 1
-                     clwret_ch314: 2
-                     clwret_types: [ObsValue, HofX]
-                     bias_application: HofX
-                 x0:    [ 0.050,  0.030,  0.030,  0.020,  0.000,
-                          0.100,  0.000,  0.000,  0.000,  0.000,
-                          0.000,  0.000,  0.000,  0.000,  0.030]
-                 x1:    [ 0.600,  0.450,  0.400,  0.450,  1.000,
-                          1.500,  0.000,  0.000,  0.000,  0.000,
-                          0.000,  0.000,  0.000,  0.000,  0.200]
-                 err0:  [ 2.500,  2.200,  2.000,  0.550,  0.300,
-                          0.230,  0.230,  0.250,  0.250,  0.350,
-                          0.400,  0.550,  0.800,  3.000,  3.500]
-                 err1:  [20.000, 18.000, 12.000,  3.000,  0.500,
-                          0.300,  0.230,  0.250,  0.250,  0.350,
-                          0.400,  0.550,  0.800,  3.000, 18.000]
-             obserr_bound_max: [4.5, 4.5, 4.5, 2.5, 2.0,
-                                2.0, 2.0, 2.0, 2.0, 2.0,
-                                2.5, 3.5, 4.5, 4.5, 4.5]
-         action:
-           name: reject
-       #  Inter-channel check
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: *amsua_n19_channels
-         test variables:
-         - name: ObsFunction/InterChannelConsistencyCheck
-           channels: *amsua_n19_channels
-           options:
-             channels: *amsua_n19_channels
-             sensor: amsua_n19
-             use_flag: [ 1,  1,  1,  1,  1,
-                         1, -1, -1,  1,  1,
-                         1,  1,  1, -1,  1 ]
-         maxvalue: 1.0e-12
-         action:
-           name: reject
-       #  Useflag check
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: *amsua_n19_channels
-         test variables:
-         - name: ObsFunction/ChannelUseflagCheckRad
-           channels: *amsua_n19_channels
-           options:
-             sensor: amsua_n19
-             channels: *amsua_n19_channels
-             use_flag: [ 1,  1,  1,  1,  1,
-                         1, -1, -1,  1,  1,
-                         1,  1,  1, -1,  1 ]
-         minvalue: 1.0e-12
-         action:
-           name: reject
-     - obs space:
-         name: amsua_n20=atms_n20
-         distribution:
-           name: "RoundRobin"
-         obsdatain:
-           engine:
-             type: H5File
-             obsfile: data/obs/ioda_amsua_n20.nc
-         obsdataout:
-           engine:
-             type: H5File
-             obsfile: jdiag_amsua_n20.nc4
-         simulated variables: [brightnessTemperature]
-         observed variables: [brightnessTemperature]
-         channels: &atms_n20_channels 1-22
-       obs operator:
-           name: CRTM
-           Absorbers: [H2O,O3,CO2]
-           Clouds: [Water, Ice]
-           Cloud_Fraction: 1.0
-           Cloud_Seeding: true
-           SurfaceWindGeoVars: uv
-           obs options:
-             Sensor_ID: atms_n20
-             EndianType: little_endian
-             CoefficientPath: data/crtm/
-             IRVISlandCoeff: IGBP
-           linear obs operator:
-             Absorbers: [H2O, O3]
-       obs localizations:
-         - localization method: Horizontal Gaspari-Cohn
-           lengthscale: 300e3 # orig
-       obs bias:
-         input file:  data/obs/atms_n20.satbias.nc4
-         output file: out_atms_n20.satbias.nc4
-         variational bc:
-           predictors:
-           - name: constant
-           - name: lapseRate
-             order: 2
-             tlapse: &atms_n20_tlapse  data/obs/atms_n20.tlapse.txt
-           - name: lapseRate
-             tlapse: *atms_n20_tlapse
-           - name: emissivityJacobian
-           - name: sensorScanAngle
-             order: 4
-           - name: sensorScanAngle
-             order: 3
-           - name: sensorScanAngle
-             order: 2
-           - name: sensorScanAngle
-         covariance:
-           minimal required obs number: 20
-           variance range: [1.0e-6, 10.0]
-           step size: 1.0e-4
-           largest analysis variance: 10000.0
-           prior:
-             input file: data/obs/atms_n20.satbias_cov.nc4
-             inflation:
-               ratio: 1.1
-               ratio for small dataset: 2.0
-           output file: out_atms_n20.satbias_cov.nc4
-
-       obs pre filters:
-       # Step 0-A: Create Diagnostic Flags
-       - filter: Create Diagnostic Flags
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_n20_channels
-         flags:
-         - name: ScanEdgeRemoval
-           initial value: false
-           force reinitialization: false
-         - name: Thinning
-           initial value: false
-           force reinitialization: false
-         - name: CLWRetrievalCheck
-           initial value: false
-           force reinitialization: false
-         - name: WindowChannelExtremeResidual
-           initial value: false
-           force reinitialization: false
-         - name: HydrometeorCheck
-           initial value: false
-           force reinitialization: false
-         - name: GrossCheck
-           initial value: false
-           force reinitialization: false
-         - name: InterChannelConsistency
-           initial value: false
-           force reinitialization: false
-         - name: UseflagCheck
-           initial value: false
-           force reinitialization: false
-
-       obs post filters:
-       # Step 0-B: Calculate derived variables
-       # Calculate CLW retrieved from observation
-       - filter: Variable Assignment
-         assignments:
-         - name: CLWRetFromObs@DerivedMetaData
-           type: float
-           function:
-             name: CLWRetMW@ObsFunction
-             options:
-               clwret_ch238: 1
-               clwret_ch314: 2
-               clwret_types: [ObsValue]
-
-       # Calculate CLW retrieved from observation
-       - filter: Variable Assignment
-         assignments:
-         - name: CLWRetFromBkg@DerivedMetaData
-           type: float
-           function:
-             name: CLWRetMW@ObsFunction
-             options:
-               clwret_ch238: 1
-               clwret_ch314: 2
-               clwret_types: [HofX]
-
-       # Calculate symmetric retrieved CLW
-       - filter: Variable Assignment
-         assignments:
-         - name: CLWRetSymmetric@DerivedMetaData
-           type: float
-           value: 1000.0
-
-       - filter: Variable Assignment
-         where:
-         - variable:
-             name: CLWRetFromObs@DerivedMetaData
-           minvalue:   0.
-           maxvalue: 999.
-         - variable:
-             name: CLWRetFromBkg@DerivedMetaData
-           minvalue:   0.
-           maxvalue: 999.
-         where operator: and
-         assignments:
-         - name: CLWRetSymmetric@DerivedMetaData
-           type: float
-           function:
-             name: Arithmetic@ObsFunction
-             options:
-               variables:
-               - name: CLWRetFromObs@DerivedMetaData
-               - name: CLWRetFromBkg@DerivedMetaData
-               total coefficient: 0.5
-
-       # Calculate scattering index from observation
-       - filter: Variable Assignment
-         assignments:
-         - name: SIRetFromObs@DerivedMetaData
-           type: float
-           function:
-             name: SCATRetMW@ObsFunction
-             options:
-               scatret_ch238: 1
-               scatret_ch314: 2
-               scatret_ch890: 16
-               scatret_types: [ObsValue]
-
-       # Calculate CLW obs/bkg match index
-       - filter: Variable Assignment
-         assignments:
-         - name: CLWMatchIndex@DerivedMetaData
-           channels: *atms_n20_channels
-           type: float
-           function:
-             name: CLWMatchIndexMW@ObsFunction
-             channels: *atms_n20_channels
-             options:
-               channels: *atms_n20_channels
-               clwobs_function:
-                 name: CLWRetFromObs@DerivedMetaData
-               clwbkg_function:
-                 name: CLWRetFromBkg@DerivedMetaData
-               clwret_clearsky: [ 0.030,  0.030,  0.030,  0.020,  0.030,
-                                  0.080,  0.150,  0.000,  0.000,  0.000,
-                                  0.000,  0.000,  0.000,  0.000,  0.000,
-                                  0.020,  0.030,  0.030,  0.030,  0.030,
-                                  0.050,  0.100]
-
-       # Calculate symmetric observation error
-       - filter: Variable Assignment
-         assignments:
-         - name: InitialObsError@DerivedMetaData
-           channels: *atms_n20_channels
-           type: float
-           function:
-             name: ObsErrorModelRamp@ObsFunction
-             channels: *atms_n20_channels
-             options:
-               channels: *atms_n20_channels
-               xvar:
-                 name: CLWRetSymmetric@DerivedMetaData
-               x0:    [ 0.030,  0.030,  0.030,  0.020,  0.030,
-                        0.080,  0.150,  0.000,  0.000,  0.000,
-                        0.000,  0.000,  0.000,  0.000,  0.000,
-                        0.020,  0.030,  0.030,  0.030,  0.030,
-                        0.050,  0.100]
-               x1:    [ 0.350,  0.380,  0.400,  0.450,  0.500,
-                        1.000,  1.000,  0.000,  0.000,  0.000,
-                        0.000,  0.000,  0.000,  0.000,  0.000,
-                        0.350,  0.500,  0.500,  0.500,  0.500,
-                        0.500,  0.500]
-               err0:  [ 4.500,  4.500,  4.500,  2.500,  0.550,
-                        0.300,  0.300,  0.400,  0.400,  0.400,
-                        0.450,  0.450,  0.550,  0.800,  4.000,
-                        4.000,  4.000,  3.500,  3.000,  3.000,
-                        3.000,  3.000]
-               err1:  [20.000, 25.000, 12.000,  7.000,  3.500,
-                        3.000,  0.800,  0.400,  0.400,  0.400,
-                        0.450,  0.450,  0.550,  0.800,  4.000,
-                       19.000, 30.000, 25.000, 16.500, 12.000,
-                        9.000,  6.500]
-
-       # Calculate Innovation@DerivedMetaData
-       - filter: Variable Assignment
-         assignments:
-         - name: Innovation@DerivedMetaData
-           channels: *atms_n20_channels
-           type: float
-           function:
-             name: ObsFunction/Arithmetic
-             channels: *atms_n20_channels
-             options:
-               variables:
-               - name: brightnessTemperature@ObsValue
-                 channels: *atms_n20_channels
-               - name: brightnessTemperature@HofX
-                 channels: *atms_n20_channels
-               coefs: [1, -1]
-
-       - filter: Bounds Check
-         filter variables:
-         #- name: brightnessTemperature
-         - name: HofX/brightnessTemperature
-           channels: *atms_n20_channels
-         minvalue: 50.00001
-         maxvalue: 449.99999
-         action:
-           name: reject
-
-       # Regional Domain Check
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_n20_channels
-         test variables:
-         - name: GeoVaLs/observable_domain_mask
-           flag all filter variables if any test variable is out of bounds: true
-           minvalue: 0.0
-           maxvalue: 0.5
-
-       # Step 0-C: Assign Initial All-Sky Observation Error
-       - filter: Perform Action
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_n20_channels
-         action:
-           name: assign error
-           error function:
-             name: InitialObsError@DerivedMetaData
-             channels: *atms_n20_channels
-
-       # Step 1: Remove Observations from the Edge of the Scan
-       - filter: Domain Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: 1-22
-         where:
-         - variable:
-             name: MetaData/sensorScanPosition
-           is_in: 7-90
-         actions:
-           - name: set
-             flag: ScanEdgeRemoval
-           - name: reject
-
-       # Step 2: data Thinning
-       - filter: Gaussian Thinning
-         #horizontal_mesh: 145
-         horizontal_mesh: 60
-         use_reduced_horizontal_grid: true
-         distance_norm: geodesic
-       #  round_horizontal_bin_count_to_nearest: true
-       #  partition_longitude_bins_using_mesh: true
-         actions:
-           - name: set
-             flag: Thinning
-           - name: reject
-
-       # Step 3A: CLW Retrieval Check (observation_based)
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: 1-7, 16-22
-         test variables:
-         - name: CLWRetFromObs@DerivedMetaData
-         maxvalue: 999.0
-         actions:
-           - name: set
-             flag: CLWRetrievalCheck
-           - name: reject
-
-       # Step 3B: CLW Retrieval Check (background_based)
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: 1-7, 16-22
-         test variables:
-         - name: CLWRetFromBkg@DerivedMetaData
-         maxvalue: 999.0
-         actions:
-           - name: set
-             flag: CLWRetrievalCheck
-           - name: reject
-
-       # Step 4: Window Channel Sanity Check
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: 1-7, 16, 17-22
-         test variables:
-         - name: Innovation@DerivedMetaData
-           channels: 1, 2, 5-7, 16
-         maxvalue: 200.0
-         minvalue: -200.0
-         flag all filter variables if any test variable is out of bounds: true
-         actions:
-           - name: set
-             flag: WindowChannelExtremeResidual
-           - name: reject
-
-       # Step 5: Hydrometeor Check (cloud/precipitation affected chanels)
-       - filter: Variable Assignment
-         assignments:
-         - name: DerivedMetaData/HydrometeorCheckATMS
-           channels: *atms_n20_channels
-           type: float
-           function:
-             name: HydrometeorCheckATMS@ObsFunction
-             channels: *atms_n20_channels
-             options:
-               channels: *atms_n20_channels
-               obserr_clearsky:  [ 4.500,  4.500,  4.500,  2.500,  0.550,
-                                   0.300,  0.300,  0.400,  0.400,  0.400,
-                                   0.450,  0.450,  0.550,  0.800,  4.000,
-                                   4.000,  4.000,  3.500,  3.000,  3.000,
-                                   3.000,  3.000]
-               clwret_function:
-                 name: CLWRetFromObs@DerivedMetaData
-               obserr_function:
-                 name: InitialObsError@DerivedMetaData
-                 channels: *atms_n20_channels
-
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_n20_channels
-         test variables:
-         - name: DerivedMetaData/HydrometeorCheckATMS
-           channels: *atms_n20_channels
-         maxvalue: 0.0
-         actions:
-           - name: set
-             flag: HydrometeorCheck
-             ignore: rejected observations
-           - name: reject
-
-       # Step 6: Observation Error Inflation based on Topography Check
-       - filter: Variable Assignment
-         assignments:
-         - name: ObsErrorFactorTopo@DerivedMetaData
-           channels: *atms_n20_channels
-           type: float
-           function:
-             name: ObsErrorFactorTopoRad@ObsFunction
-             channels: *atms_n20_channels
-             options:
-               sensor: atms_n20
-               channels: *atms_n20_channels
-
-       - filter: Perform Action
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_n20_channels
-         action:
-           name: inflate error
-           inflation variable:
-             name: ObsErrorFactorTopo@DerivedMetaData
-             channels: *atms_n20_channels
-
-       # Step 7: Obs Error Inflation based on TOA Transmittancec Check
-       - filter: Variable Assignment
-         assignments:
-         - name: ObsErrorFactorTransmitTop@DerivedMetaData
-           channels: *atms_n20_channels
-           type: float
-           function:
-             name: ObsErrorFactorTransmitTopRad@ObsFunction
-             channels: *atms_n20_channels
-             options:
-               channels: *atms_n20_channels
-
-       - filter: Perform Action
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_n20_channels
-         action:
-           name: inflate error
-           inflation variable:
-             name: ObsErrorFactorTransmitTop@DerivedMetaData
-             channels: *atms_n20_channels
-
-       # Step 8: Observation Error Inflation based on Surface Jacobian Check
-       - filter: Variable Assignment
-         assignments:
-         - name: ObsErrorFactorSurfJacobian@DerivedMetaData
-           channels: *atms_n20_channels
-           type: float
-           function:
-             name: ObsErrorFactorSurfJacobianRad@ObsFunction
-             channels: *atms_n20_channels
-             options:
-               sensor: atms_n20
-               channels: *atms_n20_channels
-               obserr_demisf: [0.010, 0.020, 0.015, 0.020, 0.200]
-               obserr_dtempf: [0.500, 2.000, 1.000, 2.000, 4.500]
-
-       - filter: Perform Action
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_n20_channels
-         action:
-           name: inflate error
-           inflation variable:
-             name: ObsErrorFactorSurfJacobian@DerivedMetaData
-             channels: *atms_n20_channels
-
-       # Step 9: Situation Dependent Check
-       - filter: Variable Assignment
-         assignments:
-         - name: ObsErrorFactorSituDepend@DerivedMetaData
-           channels: *atms_n20_channels
-           type: float
-           function:
-             name: ObsErrorFactorSituDependMW@ObsFunction
-             channels: *atms_n20_channels
-             options:
-               sensor: atms_n20
-               channels: *atms_n20_channels
-               clwbkg_function:
-                 name: CLWRetFromBkg@DerivedMetaData
-               clwobs_function:
-                 name: CLWRetFromObs@DerivedMetaData
-               scatobs_function:
-                 name: SIRetFromObs@DerivedMetaData
-               clwmatchidx_function:
-                 name: CLWMatchIndex@DerivedMetaData
-                 channels: *atms_n20_channels
-               obserr_function:
-                 name: InitialObsError@DerivedMetaData
-                 channels: *atms_n20_channels
-               obserr_clearsky:  [ 4.500,  4.500,  4.500,  2.500,  0.550,
-                                   0.300,  0.300,  0.400,  0.400,  0.400,
-                                   0.450,  0.450,  0.550,  0.800,  4.000,
-                                   4.000,  4.000,  3.500,  3.000,  3.000,
-                                   3.000,  3.000]
-
-       - filter: Perform Action
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_n20_channels
-         action:
-           name: inflate error
-           inflation variable:
-             name: ObsErrorFactorSituDepend@DerivedMetaData
-             channels: *atms_n20_channels
- 
-       # Step 10: Gross check
-       # Remove data if abs(Obs-HofX) > absolute threhold
-       - filter: Variable Assignment
-         assignments:
-         - name: ObsErrorFactorLat@DerivedMetaData
-           type: float
-           function:
-             name: ObsErrorFactorLatRad@ObsFunction
-             options:
-               latitude_parameters: [25.0, 0.25, 0.04, 3.0]
-
-       - filter: Variable Assignment
-         assignments:
-         - name: ObsErrorBound@DerivedMetaData
-           channels: *atms_n20_channels
-           type: float
-           function:
-             name: ObsErrorBoundMW@ObsFunction
-             channels: *atms_n20_channels
-             options:
-               sensor: atms_n20
-               channels: *atms_n20_channels
-               obserr_bound_latitude:
-                 name: ObsErrorFactorLat@DerivedMetaData
-               obserr_bound_transmittop:
-                 name: ObsErrorFactorTransmitTop@DerivedMetaData
-                 channels: *atms_n20_channels
-                 options:
-                   channels: *atms_n20_channels
-               obserr_bound_topo:
-                 name: ObsErrorFactorTopo@DerivedMetaData
-                 channels: *atms_n20_channels
-               obserr_function:
-                 name: InitialObsError@DerivedMetaData
-                 channels: *atms_n20_channels
-                 threhold: 3
-               obserr_bound_max: [4.5, 4.5, 3.0, 3.0, 1.0,
-                                  1.0, 1.0, 1.0, 1.0, 1.0,
-                                  1.0, 1.0, 1.0, 2.0, 4.5,
-                                  4.5, 2.0, 2.0, 2.0, 2.0,
-                                  2.0, 2.0]
-
-       - filter: Background Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_n20_channels
-         function absolute threshold:
-         - name: ObsErrorBound@DerivedMetaData
-           channels: *atms_n20_channels
-         actions:
-           - name: set
-             flag: GrossCheck
-             ignore: rejected observations
-           - name: reject
-
-       # Step 11: Inter-Channel Check
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_n20_channels
-         test variables:
-         - name: InterChannelConsistencyCheck@ObsFunction
-           channels: *atms_n20_channels
-           options:
-             channels: *atms_n20_channels
-             use passive_bc: true
-             sensor: atms_n20
-             use_flag: [ 1,  1,  1,  1,  1,
-                         1,  1,  1,  1,  1,
-                         1,  1,  1, -1, -1,
-                         1,  1,  1,  1,  1,
-                         1,  1]
-         maxvalue: 1.0e-12
-         actions:
-           - name: set
-             flag: InterChannelConsistency
-             ignore: rejected observations
-           - name: reject
-
-       # Step 12: Useflag Check
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_n20_channels
-         test variables:
-         - name: ObsFunction/ChannelUseflagCheckRad
-           channels: *atms_n20_channels
-           options:
-             channels: *atms_n20_channels
-             use_flag: [ 1,  1,  1,  1,  1,
-                         1,  1,  1,  1,  1,
-                         1,  1,  1, -1, -1,
-                         1,  1,  1,  1,  1,
-                         1,  1]
-         minvalue: 1.0e-12
-         actions:
-           - name: set
-             flag: UseflagCheck
-             ignore: rejected observations
-           - name: reject
-     - obs space:
-         name: atms_npp
-         distribution:
-           name: "RoundRobin"
-           halo size: 300e3
-         obsdatain:
-           engine:
-             type: H5File
-             obsfile: data/obs/ioda_atms_npp.nc
-         obsdataout:
-           engine:
-             type: H5File
-             obsfile: jdiag_atms_npp.nc4
-         simulated variables: [brightnessTemperature]
-         observed variables: [brightnessTemperature]
-         channels: &atms_npp_channels 1-22
-       obs operator:
-           name: CRTM
-           Absorbers: [H2O,O3]
-           SurfaceWindGeoVars: uv
-           obs options:
-             Sensor_ID: atms_npp
-             EndianType: little_endian
-             CoefficientPath: data/crtm/
-             IRVISlandCoeff: IGBP
-           linear obs operator:
-             Absorbers: [H2O, O3]
-       obs localizations:
-         - localization method: Horizontal Gaspari-Cohn
-           lengthscale: 300e3 # orig
-
-       obs bias:
-         input file:  data/obs/atms_npp.satbias.nc4
-         output file: ./out_atms_npp.satbias.nc
-         variational bc:
-           predictors:
-           - name: constant
-           - name: lapseRate
-             order: 2
-             tlapse: &atms_npp_tlapse  data/obs/atms_npp.tlapse.txt
-           - name: lapseRate
-             tlapse: *atms_npp_tlapse
-           - name: emissivityJacobian
-           - name: sensorScanAngle
-             order: 4
-           - name: sensorScanAngle
-             order: 3
-           - name: sensorScanAngle
-             order: 2
-           - name: sensorScanAngle
-         covariance:
-           minimal required obs number: 20
-           variance range: [1.0e-6, 10.0]
-           step size: 1.0e-4
-           largest analysis variance: 10000.0
-           prior:
-             input file: data/obs/atms_npp.satbias_cov.nc4
-             inflation:
-               ratio: 1.1
-               ratio for small dataset: 2.0
-           output file: ./out_atms_npp.satbias_cov.nc
-
-       obs pre filters:
-       # Step 0-A: Create Diagnostic Flags
-       - filter: Create Diagnostic Flags
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_npp_channels
-         flags:
-         - name: ScanEdgeRemoval
-           initial value: false
-           force reinitialization: false
-         - name: Thinning
-           initial value: false
-           force reinitialization: false
-         - name: CLWRetrievalCheck
-           initial value: false
-           force reinitialization: false
-         - name: WindowChannelExtremeResidual
-           initial value: false
-           force reinitialization: false
-         - name: HydrometeorCheck
-           initial value: false
-           force reinitialization: false
-         - name: GrossCheck
-           initial value: false
-           force reinitialization: false
-         - name: InterChannelConsistency
-           initial value: false
-           force reinitialization: false
-         - name: UseflagCheck
-           initial value: false
-           force reinitialization: false
-
-       obs post filters:
-       # Step 0-B: Calculate derived variables
-       # Calculate CLW retrieved from observation
-       - filter: Variable Assignment
-         assignments:
-         - name: CLWRetFromObs@DerivedMetaData
-           type: float
-           function:
-             name: CLWRetMW@ObsFunction
-             options:
-               clwret_ch238: 1
-               clwret_ch314: 2
-               clwret_types: [ObsValue]
-
-       # Calculate CLW retrieved from observation
-       - filter: Variable Assignment
-         assignments:
-         - name: CLWRetFromBkg@DerivedMetaData
-           type: float
-           function:
-             name: CLWRetMW@ObsFunction
-             options:
-               clwret_ch238: 1
-               clwret_ch314: 2
-               clwret_types: [HofX]
-
-       # Calculate symmetric retrieved CLW
-       - filter: Variable Assignment
-         assignments:
-         - name: CLWRetSymmetric@DerivedMetaData
-           type: float
-           value: 1000.0
-
-       - filter: Variable Assignment
-         where:
-         - variable:
-             name: CLWRetFromObs@DerivedMetaData
-           minvalue:   0.
-           maxvalue: 999.
-         - variable:
-             name: CLWRetFromBkg@DerivedMetaData
-           minvalue:   0.
-           maxvalue: 999.
-         where operator: and
-         assignments:
-         - name: CLWRetSymmetric@DerivedMetaData
-           type: float
-           function:
-             name: Arithmetic@ObsFunction
-             options:
-               variables:
-               - name: CLWRetFromObs@DerivedMetaData
-               - name: CLWRetFromBkg@DerivedMetaData
-               total coefficient: 0.5
-
-       # Calculate scattering index from observation
-       - filter: Variable Assignment
-         assignments:
-         - name: SIRetFromObs@DerivedMetaData
-           type: float
-           function:
-             name: SCATRetMW@ObsFunction
-             options:
-               scatret_ch238: 1
-               scatret_ch314: 2
-               scatret_ch890: 16
-               scatret_types: [ObsValue]
-
-       # Calculate CLW obs/bkg match index
-       - filter: Variable Assignment
-         assignments:
-         - name: CLWMatchIndex@DerivedMetaData
-           channels: *atms_npp_channels
-           type: float
-           function:
-             name: CLWMatchIndexMW@ObsFunction
-             channels: *atms_npp_channels
-             options:
-               channels: *atms_npp_channels
-               clwobs_function:
-                 name: CLWRetFromObs@DerivedMetaData
-               clwbkg_function:
-                 name: CLWRetFromBkg@DerivedMetaData
-               clwret_clearsky: [ 0.030,  0.030,  0.030,  0.020,  0.030,
-                                  0.080,  0.150,  0.000,  0.000,  0.000,
-                                  0.000,  0.000,  0.000,  0.000,  0.000,
-                                  0.020,  0.030,  0.030,  0.030,  0.030,
-                                  0.050,  0.100]
-       # Calculate symmetric observation error
-       - filter: Variable Assignment
-         assignments:
-         - name: InitialObsError@DerivedMetaData
-           channels: *atms_npp_channels
-           type: float
-           function:
-             name: ObsErrorModelRamp@ObsFunction
-             channels: *atms_npp_channels
-             options:
-               channels: *atms_npp_channels
-               xvar:
-                 name: CLWRetSymmetric@DerivedMetaData
-               x0:    [ 0.030,  0.030,  0.030,  0.020,  0.030,
-                        0.080,  0.150,  0.000,  0.000,  0.000,
-                        0.000,  0.000,  0.000,  0.000,  0.000,
-                        0.020,  0.030,  0.030,  0.030,  0.030,
-                        0.050,  0.100]
-               x1:    [ 0.350,  0.380,  0.400,  0.450,  0.500,
-                        1.000,  1.000,  0.000,  0.000,  0.000,
-                        0.000,  0.000,  0.000,  0.000,  0.000,
-                        0.350,  0.500,  0.500,  0.500,  0.500,
-                        0.500,  0.500]
-               err0:  [ 4.500,  4.500,  4.500,  2.500,  0.550,
-                        0.300,  0.300,  0.400,  0.400,  0.400,
-                        0.450,  0.450,  0.550,  0.800,  4.000,
-                        4.000,  4.000,  3.500,  3.000,  3.000,
-                        3.000,  3.000]
-               err1:  [20.000, 25.000, 12.000,  7.000,  3.500,
-                        3.000,  0.800,  0.400,  0.400,  0.400,
-                        0.450,  0.450,  0.550,  0.800,  4.000,
-                       19.000, 30.000, 25.000, 16.500, 12.000,
-                        9.000,  6.500]
-
-       # Calculate Innovation@DerivedMetaData
-       - filter: Variable Assignment
-         assignments:
-         - name: Innovation@DerivedMetaData
-           channels: *atms_npp_channels
-           type: float
-           function:
-             name: ObsFunction/Arithmetic
-             channels: *atms_npp_channels
-             options:
-               variables:
-               - name: brightnessTemperature@ObsValue
-                 channels: *atms_npp_channels
-               - name: brightnessTemperature@HofX
-                 channels: *atms_npp_channels
-               coefs: [1, -1]
-
-       - filter: Bounds Check
-         filter variables:
-         #- name: brightnessTemperature
-         - name: HofX/brightnessTemperature
-           channels: *atms_npp_channels
-         minvalue: 50.00001
-         maxvalue: 449.99999
-         action:
-           name: reject
-
-       # Regional Domain Check
-       - filter: Bounds Check
-         fileter variables:
-         - name: brightnessTemperature
-         test variables:
-         - name: LAMDomainCheck@ObsFunction
-           options: 
-             map_projection: circle
-             save: true
-             cenlat: 38.5 
-             cenlon: -97.5
-             #radius: 1700 #km
-             radius: 2500 #km
-         minvalue: 1.0
-
-       # Step 0-C: Assign Initial All-Sky Observation Error
-       - filter: Perform Action
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_npp_channels
-         action:
-           name: assign error
-           error function:
-             name: InitialObsError@DerivedMetaData
-             channels: *atms_npp_channels
-
-
-       # Step 1: Remove Observations from the Edge of the Scan
-       - filter: Domain Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: 1-22
-         where:
-         - variable:
-             name: MetaData/sensorScanPosition
-           is_in: 7-90
-         actions:
-           - name: set
-             flag: ScanEdgeRemoval
-           - name: reject
-
-       # Step 2: data Thinning
-       - filter: Gaussian Thinning
-         horizontal_mesh: 145
-         use_reduced_horizontal_grid: true
-         distance_norm: geodesic
-       #  round_horizontal_bin_count_to_nearest: true
-       #  partition_longitude_bins_using_mesh: true
-         actions:
-           - name: set
-             flag: Thinning
-           - name: reject
-
-       # Step 3A: CLW Retrieval Check (observation_based)
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: 1-7, 16-22
-         test variables:
-         - name: CLWRetFromObs@DerivedMetaData
-         maxvalue: 999.0
-         actions:
-           - name: set
-             flag: CLWRetrievalCheck
-           - name: reject
-
-       # Step 3B: CLW Retrieval Check (background_based)
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: 1-7, 16-22
-         test variables:
-         - name: CLWRetFromBkg@DerivedMetaData
-         maxvalue: 999.0
-         actions:
-           - name: set
-             flag: CLWRetrievalCheck
-           - name: reject
-
-       # Step 4: Window Channel Sanity Check
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: 1-7, 16, 17-22
-         test variables:
-         - name: Innovation@DerivedMetaData
-           channels: 1, 2, 5-7, 16
-         maxvalue: 200.0
-         minvalue: -200.0
-         flag all filter variables if any test variable is out of bounds: true
-         actions:
-           - name: set
-             flag: WindowChannelExtremeResidual
-           - name: reject
-
-       # Step 5: Hydrometeor Check (cloud/precipitation affected chanels)
-       - filter: Variable Assignment
-         assignments:
-         - name: DerivedMetaData/HydrometeorCheckATMS
-           channels: *atms_npp_channels
-           type: float
-           function:
-             name: HydrometeorCheckATMS@ObsFunction
-             channels: *atms_npp_channels
-             options:
-               channels: *atms_npp_channels
-               obserr_clearsky:  [ 4.500,  4.500,  4.500,  2.500,  0.550,
-                                   0.300,  0.300,  0.400,  0.400,  0.400,
-                                   0.450,  0.450,  0.550,  0.800,  4.000,
-                                   4.000,  4.000,  3.500,  3.000,  3.000,
-                                   3.000,  3.000]
-               clwret_function:
-                 name: CLWRetFromObs@DerivedMetaData
-               obserr_function:
-                 name: InitialObsError@DerivedMetaData
-                 channels: *atms_npp_channels
-
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_npp_channels
-         test variables:
-         - name: DerivedMetaData/HydrometeorCheckATMS
-           channels: *atms_npp_channels
-         maxvalue: 0.0
-         actions:
-           - name: set
-             flag: HydrometeorCheck
-             ignore: rejected observations
-           - name: reject
-
-       # Step 6: Observation Error Inflation based on Topography Check
-       - filter: Variable Assignment
-         assignments:
-         - name: ObsErrorFactorTopo@DerivedMetaData
-           channels: *atms_npp_channels
-           type: float
-           function:
-             name: ObsErrorFactorTopoRad@ObsFunction
-             channels: *atms_npp_channels
-             options:
-               sensor: atms_npp
-               channels: *atms_npp_channels
-
-       - filter: Perform Action
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_npp_channels
-         action:
-           name: inflate error
-           inflation variable:
-             name: ObsErrorFactorTopo@DerivedMetaData
-             channels: *atms_npp_channels
-
-       # Step 7: Obs Error Inflation based on TOA Transmittancec Check
-       - filter: Variable Assignment
-         assignments:
-         - name: ObsErrorFactorTransmitTop@DerivedMetaData
-           channels: *atms_npp_channels
-           type: float
-           function:
-             name: ObsErrorFactorTransmitTopRad@ObsFunction
-             channels: *atms_npp_channels
-             options:
-               channels: *atms_npp_channels
-
-       - filter: Perform Action
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_npp_channels
-         action:
-           name: inflate error
-           inflation variable:
-             name: ObsErrorFactorTransmitTop@DerivedMetaData
-             channels: *atms_npp_channels
-
-       # Step 8: Observation Error Inflation based on Surface Jacobian Check
-       - filter: Variable Assignment
-         assignments:
-         - name: ObsErrorFactorSurfJacobian@DerivedMetaData
-           channels: *atms_npp_channels
-           type: float
-           function:
-             name: ObsErrorFactorSurfJacobianRad@ObsFunction
-             channels: *atms_npp_channels
-             options:
-               sensor: atms_npp
-               channels: *atms_npp_channels
-               obserr_demisf: [0.010, 0.020, 0.015, 0.020, 0.200]
-               obserr_dtempf: [0.500, 2.000, 1.000, 2.000, 4.500]
-
-       - filter: Perform Action
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_npp_channels
-         action:
-           name: inflate error
-           inflation variable:
-             name: ObsErrorFactorSurfJacobian@DerivedMetaData
-             channels: *atms_npp_channels
-
-       # Step 9: Situation Dependent Check
-       - filter: Variable Assignment
-         assignments:
-         - name: ObsErrorFactorSituDepend@DerivedMetaData
-           channels: *atms_npp_channels
-           type: float
-           function:
-             name: ObsErrorFactorSituDependMW@ObsFunction
-             channels: *atms_npp_channels
-             options:
-               sensor: atms_npp
-               channels: *atms_npp_channels
-               clwbkg_function:
-                 name: CLWRetFromBkg@DerivedMetaData
-               clwobs_function:
-                 name: CLWRetFromObs@DerivedMetaData
-               scatobs_function:
-                 name: SIRetFromObs@DerivedMetaData
-               clwmatchidx_function:
-                 name: CLWMatchIndex@DerivedMetaData
-                 channels: *atms_npp_channels
-               obserr_function:
-                 name: InitialObsError@DerivedMetaData
-                 channels: *atms_npp_channels
-               obserr_clearsky:  [ 4.500,  4.500,  4.500,  2.500,  0.550,
-                                   0.300,  0.300,  0.400,  0.400,  0.400,
-                                   0.450,  0.450,  0.550,  0.800,  4.000,
-                                   4.000,  4.000,  3.500,  3.000,  3.000,
-                                   3.000,  3.000]
-
-       - filter: Perform Action
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_npp_channels
-         action:
-           name: inflate error
-           inflation variable:
-             name: ObsErrorFactorSituDepend@DerivedMetaData
-             channels: *atms_npp_channels
- 
-       # Step 10: Gross check
-       # Remove data if abs(Obs-HofX) > absolute threhold
-       - filter: Variable Assignment
-         assignments:
-         - name: ObsErrorFactorLat@DerivedMetaData
-           type: float
-           function:
-             name: ObsErrorFactorLatRad@ObsFunction
-             options:
-               latitude_parameters: [25.0, 0.25, 0.04, 3.0]
-
-       - filter: Variable Assignment
-         assignments:
-         - name: ObsErrorBound@DerivedMetaData
-           channels: *atms_npp_channels
-           type: float
-           function:
-             name: ObsErrorBoundMW@ObsFunction
-             channels: *atms_npp_channels
-             options:
-               sensor: atms_npp
-               channels: *atms_npp_channels
-               obserr_bound_latitude:
-                 name: ObsErrorFactorLat@DerivedMetaData
-               obserr_bound_transmittop:
-                 name: ObsErrorFactorTransmitTop@DerivedMetaData
-                 channels: *atms_npp_channels
-                 options:
-                   channels: *atms_npp_channels
-               obserr_bound_topo:
-                 name: ObsErrorFactorTopo@DerivedMetaData
-                 channels: *atms_npp_channels
-               obserr_function:
-                 name: InitialObsError@DerivedMetaData
-                 channels: *atms_npp_channels
-                 threhold: 3
-               obserr_bound_max: [4.5, 4.5, 3.0, 3.0, 1.0,
-                                  1.0, 1.0, 1.0, 1.0, 1.0,
-                                  1.0, 1.0, 1.0, 2.0, 4.5,
-                                  4.5, 2.0, 2.0, 2.0, 2.0,
-                                  2.0, 2.0]
-
-       - filter: Background Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_npp_channels
-         function absolute threshold:
-         - name: ObsErrorBound@DerivedMetaData
-           channels: *atms_npp_channels
-         actions:
-           - name: set
-             flag: GrossCheck
-             ignore: rejected observations
-           - name: reject
-
-       # Step 11: Inter-Channel Check
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_npp_channels
-         test variables:
-         - name: InterChannelConsistencyCheck@ObsFunction
-           channels: *atms_npp_channels
-           options:
-             channels: *atms_npp_channels
-             use passive_bc: true
-             sensor: atms_npp
-             use_flag: [ 1,  1,  1,  1,  1,
-                         1,  1,  1,  1,  1,
-                         1,  1,  1,  1,  4,
-                         1,  1,  1,  1,  1,
-                         1,  1]
-         maxvalue: 1.0e-12
-         actions:
-           - name: set
-             flag: InterChannelConsistency
-             ignore: rejected observations
-           - name: reject
-
-       # Step 12: Useflag Check
-       - filter: Bounds Check
-         filter variables:
-         - name: brightnessTemperature
-           channels: *atms_npp_channels
-         test variables:
-         - name: ObsFunction/ChannelUseflagCheckRad
-           channels: *atms_npp_channels
-           options:
-             channels: *atms_npp_channels
-             use_flag: [ 1,  1,  1,  1,  1,
-                         1,  1,  1,  1,  1,
-                         1,  1,  1,  1,  4,
-                         1,  1,  1,  1,  1,
-                         1,  1]
-         minvalue: 1.0e-12
-         actions:
-           - name: set
-             flag: UseflagCheck
-             ignore: rejected observations
-           - name: reject
-
-
-
-     - obs space:
-         name: t188=msonet_airTemperature_188
+         name: msonet_t188
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -8499,7 +6950,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_t188.nc4
+             obsfile: jdiag_msonet_t188.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -8758,7 +7209,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/msonet_geovals_rrfs.nc4
      - obs space:
-         name: q188=msonet_specificHumidity_188
+         name: msonet_q188
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -8773,7 +7224,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_q188.nc4
+             obsfile: jdiag_msonet_q188.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -9033,7 +7484,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/msonet_geovals_rrfs.nc4
      - obs space:
-         name: ps188=msonet_stationPressure_188
+         name: msonet_ps188
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -9048,7 +7499,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_ps188.nc4
+             obsfile: jdiag_msonet_ps188.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -9300,7 +7751,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/msonet_geovals_rrfs.nc4
      - obs space:
-         name: uv288=msonet_winds_288
+         name: msonet_uv288
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -9315,7 +7766,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_uv288.nc4
+             obsfile: jdiag_msonet_uv288.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -9927,7 +8378,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/msonet_geovals_rrfs.nc4
      - obs space:
-         name: uv227=proflr_winds_227
+         name: proflr_uv227
          distribution:
            name: "RoundRobin"
            halo size: 100e3
@@ -9942,7 +8393,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_uv227.nc4
+             obsfile: jdiag_proflr_uv227.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -10282,7 +8733,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/proflr_geovals_rrfs.nc4
      - obs space:
-         name: t126=rassda_airTemperature_126
+         name: rassda_t126
          distribution:
            name: "RoundRobin"
            halo size: 100e3
@@ -10297,7 +8748,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_t126.nc4
+             obsfile: jdiag_rassda_t126.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -10554,7 +9005,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/rassda_geovals_rrfs.nc4
      - obs space:
-         name: t180=sfcshp_airTemperature_180
+         name: sfcshp_t180
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -10569,7 +9020,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_t180.nc4
+             obsfile: jdiag_sfcshp_t180.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -10828,7 +9279,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/sfcshp_geovals_rrfs.nc4
      - obs space:
-         name: q180=sfcshp_specificHumidity_180
+         name: sfcshp_q180
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -10843,7 +9294,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_q180.nc4
+             obsfile: jdiag_sfcshp_q180.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -11103,7 +9554,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/sfcshp_geovals_rrfs.nc4
      - obs space:
-         name: ps180=sfcshp_stationPressure_180
+         name: sfcshp_ps180
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -11118,7 +9569,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_ps180.nc4
+             obsfile: jdiag_sfcshp_ps180.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -11379,7 +9830,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/sfcshp_geovals_rrfs.nc4
      - obs space:
-         name: uv280=sfcshp_winds_280
+         name: sfcshp_uv280
          distribution:
            name: "RoundRobin"
            halo size: 300e3
@@ -11394,7 +9845,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_uv280.nc4
+             obsfile: jdiag_sfcshp_uv280.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -11752,7 +10203,7 @@ observations:
          #- filter: GOMsaver
          #  filename: ./data/geovals/sfcshp_geovals_rrfs.nc4
      - obs space:
-         name: uv224=vadwnd_winds_224
+         name: vadwnd_uv224
          distribution:
            name: "RoundRobin"
            halo size: 100e3
@@ -11767,7 +10218,7 @@ observations:
          obsdataout:
            engine:
              type: H5File
-             obsfile: jdiag_uv224.nc4
+             obsfile: jdiag_vadwnd_uv224.nc4
              allow overwrite: true
          io pool:
            max pool size: 1
@@ -12113,3 +10564,1543 @@ observations:
 
          #- filter: GOMsaver
          #  filename: ./data/geovals/vadwnd_geovals_rrfs.nc4
+     - obs space:
+         name: amsua_n19
+         distribution:
+           name: "RoundRobin"
+         obsdatain:
+           engine:
+             type: H5File
+             obsfile: data/obs/ioda_amsua_n19.nc
+         obsdataout:
+           engine:
+             type: H5File
+             obsfile: jdiag_amsua_n19.2024052700.nc4 
+         simulated variables: [brightnessTemperature]
+         observed variables: [brightnessTemperature]
+         channels: &amsua_n19_channels 1-15
+       obs operator:
+         name: CRTM
+         Absorbers: [H2O,O3]
+         SurfaceWindGeoVars: uv
+         Clouds: [Water, Ice]
+         Cloud_Fraction: 1.0
+         obs options:
+           Sensor_ID: amsua_n19
+           EndianType: little_endian
+           CoefficientPath: data/crtm/
+           IRVISlandCoeff: IGBP
+         linear obs operator:
+           Absorbers: [H2O, O3]
+       obs localizations:
+         - localization method: Horizontal Gaspari-Cohn
+           lengthscale: 300e3 # orig
+       obs bias:
+         input file: data/obs/amsua_n19.satbias.nc4
+         output file: out_amsua_n19.satbias.nc4
+         variational bc:
+           predictors:
+           - name: constant
+           - name: lapseRate
+             order: 2
+             tlapse: &amsua_n19_tlapse data/obs/amsua_n19.tlapse.txt
+           - name: lapseRate
+             tlapse: *amsua_n19_tlapse
+           - name: emissivityJacobian
+           - name: sensorScanAngle
+             order: 4
+           - name: sensorScanAngle
+             order: 3
+           - name: sensorScanAngle
+             order: 2
+           - name: sensorScanAngle
+         covariance:
+           minimal required obs number: 20
+           variance range: [1.0e-6, 10.0]
+           step size: 1.0e-4
+           largest analysis variance: 10000.0
+           prior:
+             input file: data/obs/amsua_n19.satbias_cov.nc4
+             inflation:
+               ratio: 1.1
+               ratio for small dataset: 2.0
+           output file: out_amsua_n19.satbias_cov.nc4
+       obs filters:
+       - filter: BlackList
+         filter variables:
+         - name: brightnessTemperature
+           channels: *amsua_n19_channels
+         action:
+           name: assign error
+           error function:
+             name: ObsFunction/ObsErrorModelRamp
+             channels: *amsua_n19_channels
+             options:
+               channels: *amsua_n19_channels
+               xvar:
+                 name: ObsFunction/CLWRetSymmetricMW
+                 options:
+                   clwret_ch238: 1
+                   clwret_ch314: 2
+                   clwret_types: [ObsValue, HofX]
+               x0:    [ 0.050,  0.030,  0.030,  0.020,  0.000,
+                        0.100,  0.000,  0.000,  0.000,  0.000,
+                        0.000,  0.000,  0.000,  0.000,  0.030]
+               x1:    [ 0.600,  0.450,  0.400,  0.450,  1.000,
+                        1.500,  0.000,  0.000,  0.000,  0.000,
+                        0.000,  0.000,  0.000,  0.000,  0.200]
+               err0:  [ 2.500,  2.200,  2.000,  0.550,  0.300,
+                        0.230,  0.230,  0.250,  0.250,  0.350,
+                        0.400,  0.550,  0.800,  3.000,  3.500]
+               err1:  [20.000, 18.000, 12.000,  3.000,  0.500,
+                        0.300,  0.230,  0.250,  0.250,  0.350,
+                        0.400,  0.550,  0.800,  3.000, 18.000]
+       #  CLW Retrieval Check
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: 1-6, 15
+         test variables:
+         - name: ObsFunction/CLWRetMW
+           options:
+             clwret_ch238: 1
+             clwret_ch314: 2
+             clwret_types: [ObsValue]
+         maxvalue: 999.0
+         action:
+           name: reject
+       #  CLW Retrieval Check
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: 1-6, 15
+         test variables:
+         - name: ObsFunction/CLWRetMW
+           options:
+             clwret_ch238: 1
+             clwret_ch314: 2
+             clwret_types: [HofX]
+         maxvalue: 999.0
+         action:
+           name: reject
+       #  Hydrometeor Check (cloud/precipitation affected chanels)
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *amsua_n19_channels
+         test variables:
+         - name: ObsFunction/HydrometeorCheckAMSUA
+           channels: *amsua_n19_channels
+           options:
+             channels: *amsua_n19_channels
+             obserr_clearsky: [ 2.500, 2.200, 2.000, 0.550, 0.300,
+                                0.230, 0.230, 0.250, 0.250, 0.350,
+                                0.400, 0.550, 0.800, 3.000, 3.500]
+             clwret_function:
+               name: ObsFunction/CLWRetMW
+               options:
+                 clwret_ch238: 1
+                 clwret_ch314: 2
+                 clwret_types: [ObsValue]
+             obserr_function:
+               name: ObsFunction/ObsErrorModelRamp
+               channels: *amsua_n19_channels
+               options:
+                 channels: *amsua_n19_channels
+                 xvar:
+                   name: ObsFunction/CLWRetSymmetricMW
+                   options:
+                     clwret_ch238: 1
+                     clwret_ch314: 2
+                     clwret_types: [ObsValue, HofX]
+                 x0:    [ 0.050,  0.030,  0.030,  0.020,  0.000,
+                          0.100,  0.000,  0.000,  0.000,  0.000,
+                          0.000,  0.000,  0.000,  0.000,  0.030]
+                 x1:    [ 0.600,  0.450,  0.400,  0.450,  1.000,
+                          1.500,  0.000,  0.000,  0.000,  0.000,
+                          0.000,  0.000,  0.000,  0.000,  0.200]
+                 err0:  [ 2.500,  2.200,  2.000,  0.550,  0.300,
+                          0.230,  0.230,  0.250,  0.250,  0.350,
+                          0.400,  0.550,  0.800,  3.000,  3.500]
+                 err1:  [20.000, 18.000, 12.000,  3.000,  0.500,
+                         0.300,  0.230,  0.250,  0.250,  0.350,
+                         0.400,  0.550,  0.800,  3.000, 18.000]
+         maxvalue: 0.0
+         action:
+           name: reject
+       #  Topography check
+       - filter: BlackList
+         filter variables:
+         - name: brightnessTemperature
+           channels: *amsua_n19_channels
+         action:
+           name: inflate error
+           inflation variable:
+             name: ObsFunction/ObsErrorFactorTopoRad
+             channels: *amsua_n19_channels
+             options:
+               sensor: amsua_n19
+               channels: *amsua_n19_channels
+       #  Transmittnace Top Check
+       - filter: BlackList
+         filter variables:
+         - name: brightnessTemperature
+           channels: *amsua_n19_channels
+         action:
+           name: inflate error
+           inflation variable:
+             name: ObsFunction/ObsErrorFactorTransmitTopRad
+             channels: *amsua_n19_channels
+             options:
+               sensor: amsua_n19
+               channels: *amsua_n19_channels
+       #  Surface Jacobian check
+       - filter: BlackList
+         filter variables:
+         - name: brightnessTemperature
+           channels: *amsua_n19_channels
+         action:
+           name: inflate error
+           inflation variable:
+             name: ObsFunction/ObsErrorFactorSurfJacobianRad
+             channels: *amsua_n19_channels
+             options:
+               sensor: amsua_n19
+               channels: *amsua_n19_channels
+               obserr_demisf: [0.010, 0.020, 0.015, 0.020, 0.200]
+               obserr_dtempf: [0.500, 2.000, 1.000, 2.000, 4.500]
+       #  Situation dependent Check
+       - filter: BlackList
+         filter variables:
+         - name: brightnessTemperature
+           channels: *amsua_n19_channels
+         action:
+           name: inflate error
+           inflation variable:
+             name: ObsFunction/ObsErrorFactorSituDependMW
+             channels: *amsua_n19_channels
+             options:
+               sensor: amsua_n19
+               channels: *amsua_n19_channels
+               clwobs_function:
+                 name: ObsFunction/CLWRetMW
+                 options:
+                   clwret_ch238: 1
+                   clwret_ch314: 2
+                   clwret_types: [ObsValue]
+               clwbkg_function:
+                 name: ObsFunction/CLWRetMW
+                 options:
+                   clwret_ch238: 1
+                   clwret_ch314: 2
+                   clwret_types: [HofX]
+                   bias_application: HofX
+               scatobs_function:
+                 name: ObsFunction/SCATRetMW
+                 options:
+                   scatret_ch238: 1
+                   scatret_ch314: 2
+                   scatret_ch890: 15
+                   scatret_types: [ObsValue]
+                   bias_application: HofX
+               clwmatchidx_function:
+                 name: ObsFunction/CLWMatchIndexMW
+                 channels: *amsua_n19_channels
+                 options:
+                   channels: *amsua_n19_channels
+                   clwobs_function:
+                     name: ObsFunction/CLWRetMW
+                     options:
+                       clwret_ch238: 1
+                       clwret_ch314: 2
+                       clwret_types: [ObsValue]
+                   clwbkg_function:
+                     name: ObsFunction/CLWRetMW
+                     options:
+                       clwret_ch238: 1
+                       clwret_ch314: 2
+                       clwret_types: [HofX]
+                       bias_application: HofX
+                   clwret_clearsky: [0.050, 0.030, 0.030, 0.020, 0.000,
+                                     0.100, 0.000, 0.000, 0.000, 0.000,
+                                     0.000, 0.000, 0.000, 0.000, 0.030]
+               obserr_function:
+                 name: ObsFunction/ObsErrorModelRamp
+                 channels: *amsua_n19_channels
+                 options:
+                   channels: *amsua_n19_channels
+                   xvar:
+                     name: ObsFunction/CLWRetSymmetricMW
+                     options:
+                       clwret_ch238: 1
+                       clwret_ch314: 2
+                       clwret_types: [ObsValue, HofX]
+                   x0:    [ 0.050,  0.030,  0.030,  0.020,  0.000,
+                            0.100,  0.000,  0.000,  0.000,  0.000,
+                            0.000,  0.000,  0.000,  0.000,  0.030]
+                   x1:    [ 0.600,  0.450,  0.400,  0.450,  1.000,
+                            1.500,  0.000,  0.000,  0.000,  0.000,
+                            0.000,  0.000,  0.000,  0.000,  0.200]
+                   err0:  [ 2.500,  2.200,  2.000,  0.550,  0.300,
+                            0.230,  0.230,  0.250,  0.250,  0.350,
+                            0.400,  0.550,  0.800,  3.000,  3.500]
+                   err1:  [20.000, 18.000, 12.000,  3.000,  0.500,
+                            0.300,  0.230,  0.250,  0.250,  0.350,
+                            0.400,  0.550,  0.800,  3.000, 18.000]
+               obserr_clearsky: [2.500, 2.200, 2.000, 0.550, 0.300,
+                                  0.230, 0.230, 0.250, 0.250, 0.350,
+                                  0.400, 0.550, 0.800, 3.000, 3.500]
+       #  Gross check
+       - filter: Background Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *amsua_n19_channels
+         function absolute threshold:
+         - name: ObsFunction/ObsErrorBoundMW
+           channels: *amsua_n19_channels
+           options:
+             sensor: amsua_n19
+             channels: *amsua_n19_channels
+             obserr_bound_latitude:
+               name: ObsFunction/ObsErrorFactorLatRad
+               options:
+                 latitude_parameters: [25.0, 0.25, 0.04, 3.0]
+             obserr_bound_transmittop:
+               name: ObsFunction/ObsErrorFactorTransmitTopRad
+               channels: *amsua_n19_channels
+               options:
+                 channels: *amsua_n19_channels
+             obserr_bound_topo:
+               name: ObsFunction/ObsErrorFactorTopoRad
+               channels: *amsua_n19_channels
+               options:
+                 channels: *amsua_n19_channels
+                 sensor: amsua_n19
+             obserr_function:
+               name: ObsFunction/ObsErrorModelRamp
+               channels: *amsua_n19_channels
+               options:
+                 channels: *amsua_n19_channels
+                 xvar:
+                   name: ObsFunction/CLWRetSymmetricMW
+                   options:
+                     clwret_ch238: 1
+                     clwret_ch314: 2
+                     clwret_types: [ObsValue, HofX]
+                     bias_application: HofX
+                 x0:    [ 0.050,  0.030,  0.030,  0.020,  0.000,
+                          0.100,  0.000,  0.000,  0.000,  0.000,
+                          0.000,  0.000,  0.000,  0.000,  0.030]
+                 x1:    [ 0.600,  0.450,  0.400,  0.450,  1.000,
+                          1.500,  0.000,  0.000,  0.000,  0.000,
+                          0.000,  0.000,  0.000,  0.000,  0.200]
+                 err0:  [ 2.500,  2.200,  2.000,  0.550,  0.300,
+                          0.230,  0.230,  0.250,  0.250,  0.350,
+                          0.400,  0.550,  0.800,  3.000,  3.500]
+                 err1:  [20.000, 18.000, 12.000,  3.000,  0.500,
+                          0.300,  0.230,  0.250,  0.250,  0.350,
+                          0.400,  0.550,  0.800,  3.000, 18.000]
+             obserr_bound_max: [4.5, 4.5, 4.5, 2.5, 2.0,
+                                2.0, 2.0, 2.0, 2.0, 2.0,
+                                2.5, 3.5, 4.5, 4.5, 4.5]
+         action:
+           name: reject
+       #  Inter-channel check
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *amsua_n19_channels
+         test variables:
+         - name: ObsFunction/InterChannelConsistencyCheck
+           channels: *amsua_n19_channels
+           options:
+             channels: *amsua_n19_channels
+             sensor: amsua_n19
+             use_flag: [ 1,  1,  1,  1,  1,
+                         1, -1, -1,  1,  1,
+                         1,  1,  1, -1,  1 ]
+         maxvalue: 1.0e-12
+         action:
+           name: reject
+       #  Useflag check
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *amsua_n19_channels
+         test variables:
+         - name: ObsFunction/ChannelUseflagCheckRad
+           channels: *amsua_n19_channels
+           options:
+             sensor: amsua_n19
+             channels: *amsua_n19_channels
+             use_flag: [ 1,  1,  1,  1,  1,
+                         1, -1, -1,  1,  1,
+                         1,  1,  1, -1,  1 ]
+         minvalue: 1.0e-12
+         action:
+           name: reject
+     - obs space:
+         name: atms_n20
+         distribution:
+           name: "RoundRobin"
+         obsdatain:
+           engine:
+             type: H5File
+             obsfile: data/obs/ioda_atms_n20.nc
+         obsdataout:
+           engine:
+             type: H5File
+             obsfile: jdiag_atms_n20.nc4
+         simulated variables: [brightnessTemperature]
+         observed variables: [brightnessTemperature]
+         channels: &atms_n20_channels 1-22
+       obs operator:
+           name: CRTM
+           Absorbers: [H2O,O3,CO2]
+           Clouds: [Water, Ice]
+           Cloud_Fraction: 1.0
+           Cloud_Seeding: true
+           SurfaceWindGeoVars: uv
+           obs options:
+             Sensor_ID: atms_n20
+             EndianType: little_endian
+             CoefficientPath: data/crtm/
+             IRVISlandCoeff: IGBP
+           linear obs operator:
+             Absorbers: [H2O, O3]
+       obs localizations:
+         - localization method: Horizontal Gaspari-Cohn
+           lengthscale: 300e3 # orig
+       obs bias:
+         input file:  data/obs/atms_n20.satbias.nc4
+         output file: out_atms_n20.satbias.nc4
+         variational bc:
+           predictors:
+           - name: constant
+           - name: lapseRate
+             order: 2
+             tlapse: &atms_n20_tlapse  data/obs/atms_n20.tlapse.txt
+           - name: lapseRate
+             tlapse: *atms_n20_tlapse
+           - name: emissivityJacobian
+           - name: sensorScanAngle
+             order: 4
+           - name: sensorScanAngle
+             order: 3
+           - name: sensorScanAngle
+             order: 2
+           - name: sensorScanAngle
+         covariance:
+           minimal required obs number: 20
+           variance range: [1.0e-6, 10.0]
+           step size: 1.0e-4
+           largest analysis variance: 10000.0
+           prior:
+             input file: data/obs/atms_n20.satbias_cov.nc4
+             inflation:
+               ratio: 1.1
+               ratio for small dataset: 2.0
+           output file: out_atms_n20.satbias_cov.nc4
+
+       obs pre filters:
+       # Step 0-A: Create Diagnostic Flags
+       - filter: Create Diagnostic Flags
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_n20_channels
+         flags:
+         - name: ScanEdgeRemoval
+           initial value: false
+           force reinitialization: false
+         - name: Thinning
+           initial value: false
+           force reinitialization: false
+         - name: CLWRetrievalCheck
+           initial value: false
+           force reinitialization: false
+         - name: WindowChannelExtremeResidual
+           initial value: false
+           force reinitialization: false
+         - name: HydrometeorCheck
+           initial value: false
+           force reinitialization: false
+         - name: GrossCheck
+           initial value: false
+           force reinitialization: false
+         - name: InterChannelConsistency
+           initial value: false
+           force reinitialization: false
+         - name: UseflagCheck
+           initial value: false
+           force reinitialization: false
+
+       obs post filters:
+       # Step 0-B: Calculate derived variables
+       # Calculate CLW retrieved from observation
+       - filter: Variable Assignment
+         assignments:
+         - name: CLWRetFromObs@DerivedMetaData
+           type: float
+           function:
+             name: CLWRetMW@ObsFunction
+             options:
+               clwret_ch238: 1
+               clwret_ch314: 2
+               clwret_types: [ObsValue]
+
+       # Calculate CLW retrieved from observation
+       - filter: Variable Assignment
+         assignments:
+         - name: CLWRetFromBkg@DerivedMetaData
+           type: float
+           function:
+             name: CLWRetMW@ObsFunction
+             options:
+               clwret_ch238: 1
+               clwret_ch314: 2
+               clwret_types: [HofX]
+
+       # Calculate symmetric retrieved CLW
+       - filter: Variable Assignment
+         assignments:
+         - name: CLWRetSymmetric@DerivedMetaData
+           type: float
+           value: 1000.0
+
+       - filter: Variable Assignment
+         where:
+         - variable:
+             name: CLWRetFromObs@DerivedMetaData
+           minvalue:   0.
+           maxvalue: 999.
+         - variable:
+             name: CLWRetFromBkg@DerivedMetaData
+           minvalue:   0.
+           maxvalue: 999.
+         where operator: and
+         assignments:
+         - name: CLWRetSymmetric@DerivedMetaData
+           type: float
+           function:
+             name: Arithmetic@ObsFunction
+             options:
+               variables:
+               - name: CLWRetFromObs@DerivedMetaData
+               - name: CLWRetFromBkg@DerivedMetaData
+               total coefficient: 0.5
+
+       # Calculate scattering index from observation
+       - filter: Variable Assignment
+         assignments:
+         - name: SIRetFromObs@DerivedMetaData
+           type: float
+           function:
+             name: SCATRetMW@ObsFunction
+             options:
+               scatret_ch238: 1
+               scatret_ch314: 2
+               scatret_ch890: 16
+               scatret_types: [ObsValue]
+
+       # Calculate CLW obs/bkg match index
+       - filter: Variable Assignment
+         assignments:
+         - name: CLWMatchIndex@DerivedMetaData
+           channels: *atms_n20_channels
+           type: float
+           function:
+             name: CLWMatchIndexMW@ObsFunction
+             channels: *atms_n20_channels
+             options:
+               channels: *atms_n20_channels
+               clwobs_function:
+                 name: CLWRetFromObs@DerivedMetaData
+               clwbkg_function:
+                 name: CLWRetFromBkg@DerivedMetaData
+               clwret_clearsky: [ 0.030,  0.030,  0.030,  0.020,  0.030,
+                                  0.080,  0.150,  0.000,  0.000,  0.000,
+                                  0.000,  0.000,  0.000,  0.000,  0.000,
+                                  0.020,  0.030,  0.030,  0.030,  0.030,
+                                  0.050,  0.100]
+
+       # Calculate symmetric observation error
+       - filter: Variable Assignment
+         assignments:
+         - name: InitialObsError@DerivedMetaData
+           channels: *atms_n20_channels
+           type: float
+           function:
+             name: ObsErrorModelRamp@ObsFunction
+             channels: *atms_n20_channels
+             options:
+               channels: *atms_n20_channels
+               xvar:
+                 name: CLWRetSymmetric@DerivedMetaData
+               x0:    [ 0.030,  0.030,  0.030,  0.020,  0.030,
+                        0.080,  0.150,  0.000,  0.000,  0.000,
+                        0.000,  0.000,  0.000,  0.000,  0.000,
+                        0.020,  0.030,  0.030,  0.030,  0.030,
+                        0.050,  0.100]
+               x1:    [ 0.350,  0.380,  0.400,  0.450,  0.500,
+                        1.000,  1.000,  0.000,  0.000,  0.000,
+                        0.000,  0.000,  0.000,  0.000,  0.000,
+                        0.350,  0.500,  0.500,  0.500,  0.500,
+                        0.500,  0.500]
+               err0:  [ 4.500,  4.500,  4.500,  2.500,  0.550,
+                        0.300,  0.300,  0.400,  0.400,  0.400,
+                        0.450,  0.450,  0.550,  0.800,  4.000,
+                        4.000,  4.000,  3.500,  3.000,  3.000,
+                        3.000,  3.000]
+               err1:  [20.000, 25.000, 12.000,  7.000,  3.500,
+                        3.000,  0.800,  0.400,  0.400,  0.400,
+                        0.450,  0.450,  0.550,  0.800,  4.000,
+                       19.000, 30.000, 25.000, 16.500, 12.000,
+                        9.000,  6.500]
+
+       # Calculate Innovation@DerivedMetaData
+       - filter: Variable Assignment
+         assignments:
+         - name: Innovation@DerivedMetaData
+           channels: *atms_n20_channels
+           type: float
+           function:
+             name: ObsFunction/Arithmetic
+             channels: *atms_n20_channels
+             options:
+               variables:
+               - name: brightnessTemperature@ObsValue
+                 channels: *atms_n20_channels
+               - name: brightnessTemperature@HofX
+                 channels: *atms_n20_channels
+               coefs: [1, -1]
+
+       - filter: Bounds Check
+         filter variables:
+         #- name: brightnessTemperature
+         - name: HofX/brightnessTemperature
+           channels: *atms_n20_channels
+         minvalue: 50.00001
+         maxvalue: 449.99999
+         action:
+           name: reject
+
+       # Regional Domain Check
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_n20_channels
+         test variables:
+         - name: GeoVaLs/observable_domain_mask
+           flag all filter variables if any test variable is out of bounds: true
+           minvalue: 0.0
+           maxvalue: 0.5
+
+       # Step 0-C: Assign Initial All-Sky Observation Error
+       - filter: Perform Action
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_n20_channels
+         action:
+           name: assign error
+           error function:
+             name: InitialObsError@DerivedMetaData
+             channels: *atms_n20_channels
+
+       # Step 1: Remove Observations from the Edge of the Scan
+       - filter: Domain Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: 1-22
+         where:
+         - variable:
+             name: MetaData/sensorScanPosition
+           is_in: 7-90
+         actions:
+           - name: set
+             flag: ScanEdgeRemoval
+           - name: reject
+
+       # Step 2: data Thinning
+       - filter: Gaussian Thinning
+         #horizontal_mesh: 145
+         horizontal_mesh: 60
+         use_reduced_horizontal_grid: true
+         distance_norm: geodesic
+       #  round_horizontal_bin_count_to_nearest: true
+       #  partition_longitude_bins_using_mesh: true
+         actions:
+           - name: set
+             flag: Thinning
+           - name: reject
+
+       # Step 3A: CLW Retrieval Check (observation_based)
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: 1-7, 16-22
+         test variables:
+         - name: CLWRetFromObs@DerivedMetaData
+         maxvalue: 999.0
+         actions:
+           - name: set
+             flag: CLWRetrievalCheck
+           - name: reject
+
+       # Step 3B: CLW Retrieval Check (background_based)
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: 1-7, 16-22
+         test variables:
+         - name: CLWRetFromBkg@DerivedMetaData
+         maxvalue: 999.0
+         actions:
+           - name: set
+             flag: CLWRetrievalCheck
+           - name: reject
+
+       # Step 4: Window Channel Sanity Check
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: 1-7, 16, 17-22
+         test variables:
+         - name: Innovation@DerivedMetaData
+           channels: 1, 2, 5-7, 16
+         maxvalue: 200.0
+         minvalue: -200.0
+         flag all filter variables if any test variable is out of bounds: true
+         actions:
+           - name: set
+             flag: WindowChannelExtremeResidual
+           - name: reject
+
+       # Step 5: Hydrometeor Check (cloud/precipitation affected chanels)
+       - filter: Variable Assignment
+         assignments:
+         - name: DerivedMetaData/HydrometeorCheckATMS
+           channels: *atms_n20_channels
+           type: float
+           function:
+             name: HydrometeorCheckATMS@ObsFunction
+             channels: *atms_n20_channels
+             options:
+               channels: *atms_n20_channels
+               obserr_clearsky:  [ 4.500,  4.500,  4.500,  2.500,  0.550,
+                                   0.300,  0.300,  0.400,  0.400,  0.400,
+                                   0.450,  0.450,  0.550,  0.800,  4.000,
+                                   4.000,  4.000,  3.500,  3.000,  3.000,
+                                   3.000,  3.000]
+               clwret_function:
+                 name: CLWRetFromObs@DerivedMetaData
+               obserr_function:
+                 name: InitialObsError@DerivedMetaData
+                 channels: *atms_n20_channels
+
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_n20_channels
+         test variables:
+         - name: DerivedMetaData/HydrometeorCheckATMS
+           channels: *atms_n20_channels
+         maxvalue: 0.0
+         actions:
+           - name: set
+             flag: HydrometeorCheck
+             ignore: rejected observations
+           - name: reject
+
+       # Step 6: Observation Error Inflation based on Topography Check
+       - filter: Variable Assignment
+         assignments:
+         - name: ObsErrorFactorTopo@DerivedMetaData
+           channels: *atms_n20_channels
+           type: float
+           function:
+             name: ObsErrorFactorTopoRad@ObsFunction
+             channels: *atms_n20_channels
+             options:
+               sensor: atms_n20
+               channels: *atms_n20_channels
+
+       - filter: Perform Action
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_n20_channels
+         action:
+           name: inflate error
+           inflation variable:
+             name: ObsErrorFactorTopo@DerivedMetaData
+             channels: *atms_n20_channels
+
+       # Step 7: Obs Error Inflation based on TOA Transmittancec Check
+       - filter: Variable Assignment
+         assignments:
+         - name: ObsErrorFactorTransmitTop@DerivedMetaData
+           channels: *atms_n20_channels
+           type: float
+           function:
+             name: ObsErrorFactorTransmitTopRad@ObsFunction
+             channels: *atms_n20_channels
+             options:
+               channels: *atms_n20_channels
+
+       - filter: Perform Action
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_n20_channels
+         action:
+           name: inflate error
+           inflation variable:
+             name: ObsErrorFactorTransmitTop@DerivedMetaData
+             channels: *atms_n20_channels
+
+       # Step 8: Observation Error Inflation based on Surface Jacobian Check
+       - filter: Variable Assignment
+         assignments:
+         - name: ObsErrorFactorSurfJacobian@DerivedMetaData
+           channels: *atms_n20_channels
+           type: float
+           function:
+             name: ObsErrorFactorSurfJacobianRad@ObsFunction
+             channels: *atms_n20_channels
+             options:
+               sensor: atms_n20
+               channels: *atms_n20_channels
+               obserr_demisf: [0.010, 0.020, 0.015, 0.020, 0.200]
+               obserr_dtempf: [0.500, 2.000, 1.000, 2.000, 4.500]
+
+       - filter: Perform Action
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_n20_channels
+         action:
+           name: inflate error
+           inflation variable:
+             name: ObsErrorFactorSurfJacobian@DerivedMetaData
+             channels: *atms_n20_channels
+
+       # Step 9: Situation Dependent Check
+       - filter: Variable Assignment
+         assignments:
+         - name: ObsErrorFactorSituDepend@DerivedMetaData
+           channels: *atms_n20_channels
+           type: float
+           function:
+             name: ObsErrorFactorSituDependMW@ObsFunction
+             channels: *atms_n20_channels
+             options:
+               sensor: atms_n20
+               channels: *atms_n20_channels
+               clwbkg_function:
+                 name: CLWRetFromBkg@DerivedMetaData
+               clwobs_function:
+                 name: CLWRetFromObs@DerivedMetaData
+               scatobs_function:
+                 name: SIRetFromObs@DerivedMetaData
+               clwmatchidx_function:
+                 name: CLWMatchIndex@DerivedMetaData
+                 channels: *atms_n20_channels
+               obserr_function:
+                 name: InitialObsError@DerivedMetaData
+                 channels: *atms_n20_channels
+               obserr_clearsky:  [ 4.500,  4.500,  4.500,  2.500,  0.550,
+                                   0.300,  0.300,  0.400,  0.400,  0.400,
+                                   0.450,  0.450,  0.550,  0.800,  4.000,
+                                   4.000,  4.000,  3.500,  3.000,  3.000,
+                                   3.000,  3.000]
+
+       - filter: Perform Action
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_n20_channels
+         action:
+           name: inflate error
+           inflation variable:
+             name: ObsErrorFactorSituDepend@DerivedMetaData
+             channels: *atms_n20_channels
+ 
+       # Step 10: Gross check
+       # Remove data if abs(Obs-HofX) > absolute threhold
+       - filter: Variable Assignment
+         assignments:
+         - name: ObsErrorFactorLat@DerivedMetaData
+           type: float
+           function:
+             name: ObsErrorFactorLatRad@ObsFunction
+             options:
+               latitude_parameters: [25.0, 0.25, 0.04, 3.0]
+
+       - filter: Variable Assignment
+         assignments:
+         - name: ObsErrorBound@DerivedMetaData
+           channels: *atms_n20_channels
+           type: float
+           function:
+             name: ObsErrorBoundMW@ObsFunction
+             channels: *atms_n20_channels
+             options:
+               sensor: atms_n20
+               channels: *atms_n20_channels
+               obserr_bound_latitude:
+                 name: ObsErrorFactorLat@DerivedMetaData
+               obserr_bound_transmittop:
+                 name: ObsErrorFactorTransmitTop@DerivedMetaData
+                 channels: *atms_n20_channels
+                 options:
+                   channels: *atms_n20_channels
+               obserr_bound_topo:
+                 name: ObsErrorFactorTopo@DerivedMetaData
+                 channels: *atms_n20_channels
+               obserr_function:
+                 name: InitialObsError@DerivedMetaData
+                 channels: *atms_n20_channels
+                 threhold: 3
+               obserr_bound_max: [4.5, 4.5, 3.0, 3.0, 1.0,
+                                  1.0, 1.0, 1.0, 1.0, 1.0,
+                                  1.0, 1.0, 1.0, 2.0, 4.5,
+                                  4.5, 2.0, 2.0, 2.0, 2.0,
+                                  2.0, 2.0]
+
+       - filter: Background Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_n20_channels
+         function absolute threshold:
+         - name: ObsErrorBound@DerivedMetaData
+           channels: *atms_n20_channels
+         actions:
+           - name: set
+             flag: GrossCheck
+             ignore: rejected observations
+           - name: reject
+
+       # Step 11: Inter-Channel Check
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_n20_channels
+         test variables:
+         - name: InterChannelConsistencyCheck@ObsFunction
+           channels: *atms_n20_channels
+           options:
+             channels: *atms_n20_channels
+             use passive_bc: true
+             sensor: atms_n20
+             use_flag: [ 1,  1,  1,  1,  1,
+                         1,  1,  1,  1,  1,
+                         1,  1,  1, -1, -1,
+                         1,  1,  1,  1,  1,
+                         1,  1]
+         maxvalue: 1.0e-12
+         actions:
+           - name: set
+             flag: InterChannelConsistency
+             ignore: rejected observations
+           - name: reject
+
+       # Step 12: Useflag Check
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_n20_channels
+         test variables:
+         - name: ObsFunction/ChannelUseflagCheckRad
+           channels: *atms_n20_channels
+           options:
+             channels: *atms_n20_channels
+             use_flag: [ 1,  1,  1,  1,  1,
+                         1,  1,  1,  1,  1,
+                         1,  1,  1, -1, -1,
+                         1,  1,  1,  1,  1,
+                         1,  1]
+         minvalue: 1.0e-12
+         actions:
+           - name: set
+             flag: UseflagCheck
+             ignore: rejected observations
+           - name: reject
+     - obs space:
+         name: atms_npp
+         distribution:
+           name: "RoundRobin"
+         obsdatain:
+           engine:
+             type: H5File
+             obsfile: data/obs/ioda_atms_npp.nc
+         obsdataout:
+           engine:
+             type: H5File
+             obsfile: jdiag_atms_npp.nc4
+         simulated variables: [brightnessTemperature]
+         observed variables: [brightnessTemperature]
+         channels: &atms_npp_channels 1-22
+       obs operator:
+           name: CRTM
+           Absorbers: [H2O,O3,CO2]
+           Clouds: [Water, Ice]
+           Cloud_Fraction: 1.0
+           Cloud_Seeding: true
+           SurfaceWindGeoVars: uv
+           obs options:
+             Sensor_ID: atms_npp
+             EndianType: little_endian
+             CoefficientPath: data/crtm/
+             IRVISlandCoeff: IGBP
+           linear obs operator:
+             Absorbers: [H2O, O3]
+       obs localizations:
+         - localization method: Horizontal Gaspari-Cohn
+           lengthscale: 300e3 # orig
+
+       obs bias:
+         input file:  data/obs/atms_npp.satbias.nc4
+         output file: out_atms_npp.satbias.nc4
+         variational bc:
+           predictors:
+           - name: constant
+           - name: lapseRate
+             order: 2
+             tlapse: &atms_npp_tlapse  data/obs/atms_npp.tlapse.txt
+           - name: lapseRate
+             tlapse: *atms_npp_tlapse
+           - name: emissivityJacobian
+           - name: sensorScanAngle
+             order: 4
+           - name: sensorScanAngle
+             order: 3
+           - name: sensorScanAngle
+             order: 2
+           - name: sensorScanAngle
+         covariance:
+           minimal required obs number: 20
+           variance range: [1.0e-6, 10.0]
+           step size: 1.0e-4
+           largest analysis variance: 10000.0
+           prior:
+             input file: data/obs/atms_npp.satbias_cov.nc4
+             inflation:
+               ratio: 1.1
+               ratio for small dataset: 2.0
+           output file: out_atms_npp.satbias_cov.nc4
+
+       obs pre filters:
+       # Step 0-A: Create Diagnostic Flags
+       - filter: Create Diagnostic Flags
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_npp_channels
+         flags:
+         - name: ScanEdgeRemoval
+           initial value: false
+           force reinitialization: false
+         - name: Thinning
+           initial value: false
+           force reinitialization: false
+         - name: CLWRetrievalCheck
+           initial value: false
+           force reinitialization: false
+         - name: WindowChannelExtremeResidual
+           initial value: false
+           force reinitialization: false
+         - name: HydrometeorCheck
+           initial value: false
+           force reinitialization: false
+         - name: GrossCheck
+           initial value: false
+           force reinitialization: false
+         - name: InterChannelConsistency
+           initial value: false
+           force reinitialization: false
+         - name: UseflagCheck
+           initial value: false
+           force reinitialization: false
+
+       obs post filters:
+       # Step 0-B: Calculate derived variables
+       # Calculate CLW retrieved from observation
+       - filter: Variable Assignment
+         assignments:
+         - name: CLWRetFromObs@DerivedMetaData
+           type: float
+           function:
+             name: CLWRetMW@ObsFunction
+             options:
+               clwret_ch238: 1
+               clwret_ch314: 2
+               clwret_types: [ObsValue]
+
+       # Calculate CLW retrieved from observation
+       - filter: Variable Assignment
+         assignments:
+         - name: CLWRetFromBkg@DerivedMetaData
+           type: float
+           function:
+             name: CLWRetMW@ObsFunction
+             options:
+               clwret_ch238: 1
+               clwret_ch314: 2
+               clwret_types: [HofX]
+
+       # Calculate symmetric retrieved CLW
+       - filter: Variable Assignment
+         assignments:
+         - name: CLWRetSymmetric@DerivedMetaData
+           type: float
+           value: 1000.0
+
+       - filter: Variable Assignment
+         where:
+         - variable:
+             name: CLWRetFromObs@DerivedMetaData
+           minvalue:   0.
+           maxvalue: 999.
+         - variable:
+             name: CLWRetFromBkg@DerivedMetaData
+           minvalue:   0.
+           maxvalue: 999.
+         where operator: and
+         assignments:
+         - name: CLWRetSymmetric@DerivedMetaData
+           type: float
+           function:
+             name: Arithmetic@ObsFunction
+             options:
+               variables:
+               - name: CLWRetFromObs@DerivedMetaData
+               - name: CLWRetFromBkg@DerivedMetaData
+               total coefficient: 0.5
+
+       # Calculate scattering index from observation
+       - filter: Variable Assignment
+         assignments:
+         - name: SIRetFromObs@DerivedMetaData
+           type: float
+           function:
+             name: SCATRetMW@ObsFunction
+             options:
+               scatret_ch238: 1
+               scatret_ch314: 2
+               scatret_ch890: 16
+               scatret_types: [ObsValue]
+
+       # Calculate CLW obs/bkg match index
+       - filter: Variable Assignment
+         assignments:
+         - name: CLWMatchIndex@DerivedMetaData
+           channels: *atms_npp_channels
+           type: float
+           function:
+             name: CLWMatchIndexMW@ObsFunction
+             channels: *atms_npp_channels
+             options:
+               channels: *atms_npp_channels
+               clwobs_function:
+                 name: CLWRetFromObs@DerivedMetaData
+               clwbkg_function:
+                 name: CLWRetFromBkg@DerivedMetaData
+               clwret_clearsky: [ 0.030,  0.030,  0.030,  0.020,  0.030,
+                                  0.080,  0.150,  0.000,  0.000,  0.000,
+                                  0.000,  0.000,  0.000,  0.000,  0.000,
+                                  0.020,  0.030,  0.030,  0.030,  0.030,
+                                  0.050,  0.100]
+
+       # Calculate symmetric observation error
+       - filter: Variable Assignment
+         assignments:
+         - name: InitialObsError@DerivedMetaData
+           channels: *atms_npp_channels
+           type: float
+           function:
+             name: ObsErrorModelRamp@ObsFunction
+             channels: *atms_npp_channels
+             options:
+               channels: *atms_npp_channels
+               xvar:
+                 name: CLWRetSymmetric@DerivedMetaData
+               x0:    [ 0.030,  0.030,  0.030,  0.020,  0.030,
+                        0.080,  0.150,  0.000,  0.000,  0.000,
+                        0.000,  0.000,  0.000,  0.000,  0.000,
+                        0.020,  0.030,  0.030,  0.030,  0.030,
+                        0.050,  0.100]
+               x1:    [ 0.350,  0.380,  0.400,  0.450,  0.500,
+                        1.000,  1.000,  0.000,  0.000,  0.000,
+                        0.000,  0.000,  0.000,  0.000,  0.000,
+                        0.350,  0.500,  0.500,  0.500,  0.500,
+                        0.500,  0.500]
+               err0:  [ 4.500,  4.500,  4.500,  2.500,  0.550,
+                        0.300,  0.300,  0.400,  0.400,  0.400,
+                        0.450,  0.450,  0.550,  0.800,  4.000,
+                        4.000,  4.000,  3.500,  3.000,  3.000,
+                        3.000,  3.000]
+               err1:  [20.000, 25.000, 12.000,  7.000,  3.500,
+                        3.000,  0.800,  0.400,  0.400,  0.400,
+                        0.450,  0.450,  0.550,  0.800,  4.000,
+                       19.000, 30.000, 25.000, 16.500, 12.000,
+                        9.000,  6.500]
+
+       # Calculate Innovation@DerivedMetaData
+       - filter: Variable Assignment
+         assignments:
+         - name: Innovation@DerivedMetaData
+           channels: *atms_npp_channels
+           type: float
+           function:
+             name: ObsFunction/Arithmetic
+             channels: *atms_npp_channels
+             options:
+               variables:
+               - name: brightnessTemperature@ObsValue
+                 channels: *atms_npp_channels
+               - name: brightnessTemperature@HofX
+                 channels: *atms_npp_channels
+               coefs: [1, -1]
+
+       - filter: Bounds Check
+         filter variables:
+         #- name: brightnessTemperature
+         - name: HofX/brightnessTemperature
+           channels: *atms_npp_channels
+         minvalue: 50.00001
+         maxvalue: 449.99999
+         action:
+           name: reject
+
+       # Regional Domain Check
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_npp_channels
+         test variables:
+         - name: GeoVaLs/observable_domain_mask
+           flag all filter variables if any test variable is out of bounds: true
+           minvalue: 0.0
+           maxvalue: 0.5
+
+       # Step 0-C: Assign Initial All-Sky Observation Error
+       - filter: Perform Action
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_npp_channels
+         action:
+           name: assign error
+           error function:
+             name: InitialObsError@DerivedMetaData
+             channels: *atms_npp_channels
+
+       # Step 1: Remove Observations from the Edge of the Scan
+       - filter: Domain Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: 1-22
+         where:
+         - variable:
+             name: MetaData/sensorScanPosition
+           is_in: 7-90
+         actions:
+           - name: set
+             flag: ScanEdgeRemoval
+           - name: reject
+
+       # Step 2: data Thinning
+       - filter: Gaussian Thinning
+         #horizontal_mesh: 145
+         horizontal_mesh: 60
+         use_reduced_horizontal_grid: true
+         distance_norm: geodesic
+       #  round_horizontal_bin_count_to_nearest: true
+       #  partition_longitude_bins_using_mesh: true
+         actions:
+           - name: set
+             flag: Thinning
+           - name: reject
+
+       # Step 3A: CLW Retrieval Check (observation_based)
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: 1-7, 16-22
+         test variables:
+         - name: CLWRetFromObs@DerivedMetaData
+         maxvalue: 999.0
+         actions:
+           - name: set
+             flag: CLWRetrievalCheck
+           - name: reject
+
+       # Step 3B: CLW Retrieval Check (background_based)
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: 1-7, 16-22
+         test variables:
+         - name: CLWRetFromBkg@DerivedMetaData
+         maxvalue: 999.0
+         actions:
+           - name: set
+             flag: CLWRetrievalCheck
+           - name: reject
+
+       # Step 4: Window Channel Sanity Check
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: 1-7, 16, 17-22
+         test variables:
+         - name: Innovation@DerivedMetaData
+           channels: 1, 2, 5-7, 16
+         maxvalue: 200.0
+         minvalue: -200.0
+         flag all filter variables if any test variable is out of bounds: true
+         actions:
+           - name: set
+             flag: WindowChannelExtremeResidual
+           - name: reject
+
+       # Step 5: Hydrometeor Check (cloud/precipitation affected chanels)
+       - filter: Variable Assignment
+         assignments:
+         - name: DerivedMetaData/HydrometeorCheckATMS
+           channels: *atms_npp_channels
+           type: float
+           function:
+             name: HydrometeorCheckATMS@ObsFunction
+             channels: *atms_npp_channels
+             options:
+               channels: *atms_npp_channels
+               obserr_clearsky:  [ 4.500,  4.500,  4.500,  2.500,  0.550,
+                                   0.300,  0.300,  0.400,  0.400,  0.400,
+                                   0.450,  0.450,  0.550,  0.800,  4.000,
+                                   4.000,  4.000,  3.500,  3.000,  3.000,
+                                   3.000,  3.000]
+               clwret_function:
+                 name: CLWRetFromObs@DerivedMetaData
+               obserr_function:
+                 name: InitialObsError@DerivedMetaData
+                 channels: *atms_npp_channels
+
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_npp_channels
+         test variables:
+         - name: DerivedMetaData/HydrometeorCheckATMS
+           channels: *atms_npp_channels
+         maxvalue: 0.0
+         actions:
+           - name: set
+             flag: HydrometeorCheck
+             ignore: rejected observations
+           - name: reject
+
+       # Step 6: Observation Error Inflation based on Topography Check
+       - filter: Variable Assignment
+         assignments:
+         - name: ObsErrorFactorTopo@DerivedMetaData
+           channels: *atms_npp_channels
+           type: float
+           function:
+             name: ObsErrorFactorTopoRad@ObsFunction
+             channels: *atms_npp_channels
+             options:
+               sensor: atms_npp
+               channels: *atms_npp_channels
+
+       - filter: Perform Action
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_npp_channels
+         action:
+           name: inflate error
+           inflation variable:
+             name: ObsErrorFactorTopo@DerivedMetaData
+             channels: *atms_npp_channels
+
+       # Step 7: Obs Error Inflation based on TOA Transmittancec Check
+       - filter: Variable Assignment
+         assignments:
+         - name: ObsErrorFactorTransmitTop@DerivedMetaData
+           channels: *atms_npp_channels
+           type: float
+           function:
+             name: ObsErrorFactorTransmitTopRad@ObsFunction
+             channels: *atms_npp_channels
+             options:
+               channels: *atms_npp_channels
+
+       - filter: Perform Action
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_npp_channels
+         action:
+           name: inflate error
+           inflation variable:
+             name: ObsErrorFactorTransmitTop@DerivedMetaData
+             channels: *atms_npp_channels
+
+       # Step 8: Observation Error Inflation based on Surface Jacobian Check
+       - filter: Variable Assignment
+         assignments:
+         - name: ObsErrorFactorSurfJacobian@DerivedMetaData
+           channels: *atms_npp_channels
+           type: float
+           function:
+             name: ObsErrorFactorSurfJacobianRad@ObsFunction
+             channels: *atms_npp_channels
+             options:
+               sensor: atms_npp
+               channels: *atms_npp_channels
+               obserr_demisf: [0.010, 0.020, 0.015, 0.020, 0.200]
+               obserr_dtempf: [0.500, 2.000, 1.000, 2.000, 4.500]
+
+       - filter: Perform Action
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_npp_channels
+         action:
+           name: inflate error
+           inflation variable:
+             name: ObsErrorFactorSurfJacobian@DerivedMetaData
+             channels: *atms_npp_channels
+
+       # Step 9: Situation Dependent Check
+       - filter: Variable Assignment
+         assignments:
+         - name: ObsErrorFactorSituDepend@DerivedMetaData
+           channels: *atms_npp_channels
+           type: float
+           function:
+             name: ObsErrorFactorSituDependMW@ObsFunction
+             channels: *atms_npp_channels
+             options:
+               sensor: atms_npp
+               channels: *atms_npp_channels
+               clwbkg_function:
+                 name: CLWRetFromBkg@DerivedMetaData
+               clwobs_function:
+                 name: CLWRetFromObs@DerivedMetaData
+               scatobs_function:
+                 name: SIRetFromObs@DerivedMetaData
+               clwmatchidx_function:
+                 name: CLWMatchIndex@DerivedMetaData
+                 channels: *atms_npp_channels
+               obserr_function:
+                 name: InitialObsError@DerivedMetaData
+                 channels: *atms_npp_channels
+               obserr_clearsky:  [ 4.500,  4.500,  4.500,  2.500,  0.550,
+                                   0.300,  0.300,  0.400,  0.400,  0.400,
+                                   0.450,  0.450,  0.550,  0.800,  4.000,
+                                   4.000,  4.000,  3.500,  3.000,  3.000,
+                                   3.000,  3.000]
+
+       - filter: Perform Action
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_npp_channels
+         action:
+           name: inflate error
+           inflation variable:
+             name: ObsErrorFactorSituDepend@DerivedMetaData
+             channels: *atms_npp_channels
+ 
+       # Step 10: Gross check
+       # Remove data if abs(Obs-HofX) > absolute threhold
+       - filter: Variable Assignment
+         assignments:
+         - name: ObsErrorFactorLat@DerivedMetaData
+           type: float
+           function:
+             name: ObsErrorFactorLatRad@ObsFunction
+             options:
+               latitude_parameters: [25.0, 0.25, 0.04, 3.0]
+
+       - filter: Variable Assignment
+         assignments:
+         - name: ObsErrorBound@DerivedMetaData
+           channels: *atms_npp_channels
+           type: float
+           function:
+             name: ObsErrorBoundMW@ObsFunction
+             channels: *atms_npp_channels
+             options:
+               sensor: atms_npp
+               channels: *atms_npp_channels
+               obserr_bound_latitude:
+                 name: ObsErrorFactorLat@DerivedMetaData
+               obserr_bound_transmittop:
+                 name: ObsErrorFactorTransmitTop@DerivedMetaData
+                 channels: *atms_npp_channels
+                 options:
+                   channels: *atms_npp_channels
+               obserr_bound_topo:
+                 name: ObsErrorFactorTopo@DerivedMetaData
+                 channels: *atms_npp_channels
+               obserr_function:
+                 name: InitialObsError@DerivedMetaData
+                 channels: *atms_npp_channels
+                 threhold: 3
+               obserr_bound_max: [4.5, 4.5, 3.0, 3.0, 1.0,
+                                  1.0, 1.0, 1.0, 1.0, 1.0,
+                                  1.0, 1.0, 1.0, 2.0, 4.5,
+                                  4.5, 2.0, 2.0, 2.0, 2.0,
+                                  2.0, 2.0]
+
+       - filter: Background Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_npp_channels
+         function absolute threshold:
+         - name: ObsErrorBound@DerivedMetaData
+           channels: *atms_npp_channels
+         actions:
+           - name: set
+             flag: GrossCheck
+             ignore: rejected observations
+           - name: reject
+
+       # Step 11: Inter-Channel Check
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_npp_channels
+         test variables:
+         - name: InterChannelConsistencyCheck@ObsFunction
+           channels: *atms_npp_channels
+           options:
+             channels: *atms_npp_channels
+             use passive_bc: true
+             sensor: atms_npp
+             use_flag: [ 1,  1,  1,  1,  1,
+                         1,  1,  1,  1,  1,
+                         1,  1,  1, -1, -1,
+                         1,  1,  1,  1,  1,
+                         1,  1]
+         maxvalue: 1.0e-12
+         actions:
+           - name: set
+             flag: InterChannelConsistency
+             ignore: rejected observations
+           - name: reject
+
+       # Step 12: Useflag Check
+       - filter: Bounds Check
+         filter variables:
+         - name: brightnessTemperature
+           channels: *atms_npp_channels
+         test variables:
+         - name: ObsFunction/ChannelUseflagCheckRad
+           channels: *atms_npp_channels
+           options:
+             channels: *atms_npp_channels
+             use_flag: [ 1,  1,  1,  1,  1,
+                         1,  1,  1,  1,  1,
+                         1,  1,  1, -1, -1,
+                         1,  1,  1,  1,  1,
+                         1,  1]
+         minvalue: 1.0e-12
+         actions:
+           - name: set
+             flag: UseflagCheck
+             ignore: rejected observations
+           - name: reject
