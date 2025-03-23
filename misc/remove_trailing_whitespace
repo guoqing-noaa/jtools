@@ -12,7 +12,7 @@ if len(sys.argv) != 2:
 tmp=sys.argv[1].rstrip("/")
 files=[]
 if os.path.isdir(tmp): # or tmp=="." or tmp=="..":
-  for file in Path(tmp).rglob("*"): # recursively glob
+  for file in Path(tmp).glob("*"): # use rglob for recursively glob
     if file.is_file():
       files.append(file)
 else:
