@@ -4,61 +4,65 @@
 import os, sys
 # list of available observers
 dcObserver={
-  "t181": "adpsfc_airTemperature_181",
-  "t183": "adpsfc_airTemperature_183",
-  "t187": "adpsfc_airTemperature_187",
-  "q181": "adpsfc_specificHumidity_181",
-  "q183": "adpsfc_specificHumidity_183",
-  "q187": "adpsfc_specificHumidity_187",
-  "ps181": "adpsfc_stationPressure_181",
-  "ps187": "adpsfc_stationPressure_187",
-  "uv281": "adpsfc_winds_281",
-  "uv284": "adpsfc_winds_284",
-  "uv287": "adpsfc_winds_287",
-  "t120": "adpupa_airTemperature_120",
-  "t132": "adpupa_airTemperature_132",
-  "q120": "adpupa_specificHumidity_120",
-  "q132": "adpupa_specificHumidity_132",
-  "ps120": "adpupa_stationPressure_120",
-  "uv220": "adpupa_winds_220",
-  "uv232": "adpupa_winds_232",
-  "t133": "aircar_airTemperature_133",
-  "q133": "aircar_specificHumidity_133",
-  "uv233": "aircar_winds_233",
-  "t130": "aircft_airTemperature_130",
-  "t131": "aircft_airTemperature_131",
-  "t134": "aircft_airTemperature_134",
-  "t135": "aircft_airTemperature_135",
-  "q134": "aircft_specificHumidity_134",
-  "uv230": "aircft_winds_230",
-  "uv231": "aircft_winds_231",
-  "uv234": "aircft_winds_234",
-  "uv235": "aircft_winds_235",
-  "ztd": "gnss_zenithTotalDelay",
-  "t188": "msonet_airTemperature_188",
-  "q188": "msonet_specificHumidity_188",
-  "ps188": "msonet_stationPressure_188",
-  "uv288": "msonet_winds_288",
-  "uv227": "proflr_winds_227",
-  "t126": "rassda_airTemperature_126",
-  "t180": "sfcshp_airTemperature_180",
-  "t182": "sfcshp_airTemperature_182",
-  "t183": "sfcshp_airTemperature_183",
-  "q180": "sfcshp_specificHumidity_180",
-  "q182": "sfcshp_specificHumidity_182",
-  "q183": "sfcshp_specificHumidity_183",
-  "ps180": "sfcshp_stationPressure_180",
-  "ps182": "sfcshp_stationPressure_182",
-  "uv280": "sfcshp_winds_280",
-  "uv282": "sfcshp_winds_282",
-  "uv284": "sfcshp_winds_284",
-  "uv224": "vadwnd_winds_224",
+  "adpsfc_t181": "adpsfc_airTemperature_181",
+  "adpsfc_t183": "adpsfc_airTemperature_183",
+  "adpsfc_t187": "adpsfc_airTemperature_187",
+  "adpsfc_q181": "adpsfc_specificHumidity_181",
+  "adpsfc_q183": "adpsfc_specificHumidity_183",
+  "adpsfc_q187": "adpsfc_specificHumidity_187",
+  "adpsfc_ps181": "adpsfc_stationPressure_181",
+  "adpsfc_ps187": "adpsfc_stationPressure_187",
+  "adpsfc_uv281": "adpsfc_winds_281",
+  "adpsfc_uv284": "adpsfc_winds_284",
+  "adpsfc_uv287": "adpsfc_winds_287",
+# adpupa
+  "adpupa_t120": "adpupa_airTemperature_120",
+  "adpupa_t132": "adpupa_airTemperature_132",
+  "adpupa_q120": "adpupa_specificHumidity_120",
+  "adpupa_q132": "adpupa_specificHumidity_132",
+  "adpupa_ps120": "adpupa_stationPressure_120",
+  "adpupa_uv220": "adpupa_winds_220",
+  "adpupa_uv232": "adpupa_winds_232",
+# aircar, aircft
+  "aircar_t133": "aircar_airTemperature_133",
+  "aircar_q133": "aircar_specificHumidity_133",
+  "aircar_uv233": "aircar_winds_233",
+  "aircft_t130": "aircft_airTemperature_130",
+  "aircft_t131": "aircft_airTemperature_131",
+  "aircft_t134": "aircft_airTemperature_134",
+  "aircft_t135": "aircft_airTemperature_135",
+  "aircft_q134": "aircft_specificHumidity_134",
+  "aircft_uv230": "aircft_winds_230",
+  "aircft_uv231": "aircft_winds_231",
+  "aircft_uv234": "aircft_winds_234",
+  "aircft_uv235": "aircft_winds_235",
+# ztd, msonet, proflr, rassda
+  "gnss_ztd": "gnss_zenithTotalDelay",
+  "msonet_t188": "msonet_airTemperature_188",
+  "msonet_q188": "msonet_specificHumidity_188",
+  "msonet_ps188": "msonet_stationPressure_188",
+  "msonet_uv288": "msonet_winds_288",
+  "proflr_uv227": "proflr_winds_227",
+  "rassda_t126": "rassda_airTemperature_126",
+# sfcshp, vadwnd
+  "sfcshp_t180": "sfcshp_airTemperature_180",
+  "sfcshp_t182": "sfcshp_airTemperature_182",
+  "sfcshp_t183": "sfcshp_airTemperature_183",
+  "sfcshp_q180": "sfcshp_specificHumidity_180",
+  "sfcshp_q182": "sfcshp_specificHumidity_182",
+  "sfcshp_q183": "sfcshp_specificHumidity_183",
+  "sfcshp_ps180": "sfcshp_stationPressure_180",
+  "sfcshp_ps182": "sfcshp_stationPressure_182",
+  "sfcshp_uv280": "sfcshp_winds_280",
+  "sfcshp_uv282": "sfcshp_winds_282",
+  "sfcshp_uv284": "sfcshp_winds_284",
+  "vadwnd_uv224": "vadwnd_winds_224",
 # satellite obs
-  "amsua_n19": "satellite_amsua_n19",
-  "amsua_n20": "satellite_atms_n20",
-  "atmos_npp": "satellite_atms_npp",
-  "abi_g16": "satellite_abi_g16",
-  "abi_g18": "satellite_abi_g18",
+  "amsua_n19": "amsua_n19",
+  "amsua_n20": "atms_n20",
+  "atmos_npp": "atms_npp",
+  "abi_g16": "abi_g16",
+  "abi_g18": "abi_g18",
     }
 
 # list of header files
@@ -136,11 +140,9 @@ for fheader in listHeader:
       if not skip_zone:
         outfile.write(line)
     # ~~~~
-    # loop through user defined obserers
+    # loop through user defined obsevers
     for key, value in dcObserverUser.items():
       fobs=obdir+value+".yaml"
-      if "satellite" in value:
-        fobs=obdir+value.split("_",1)[1]+".yaml"
       with open(fobs,'r') as infile2:
         for line in infile2:
           if "seed_time:" in line:
@@ -151,8 +153,11 @@ for fheader in listHeader:
             else:
               line=line.replace("@DISTRIBUTION@","RoundRobin")
           elif value in line:
-            tmp=value.split("_",1)[1]
-            line=line.replace(tmp,key)
+            line=line.replace(value,key)
+            if ".nc4" in line:
+              line=line.replace(".nc4", ".nc")
+          elif "gnss_ztd_zenithTotalDelay" in line:
+            line=line.replace("gnss_ztd_zenithTotalDelay","gnss_ztd")
 
           # ~~~~~~
           outfile.write(line)
